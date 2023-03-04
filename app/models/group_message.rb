@@ -1,0 +1,2 @@
+class GroupMessage < ApplicationRecord
+end

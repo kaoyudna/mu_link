@@ -1,0 +1,2 @@
+class PostFavorite < ApplicationRecord
+end

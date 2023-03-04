@@ -1,0 +1,2 @@
+class GroupGenre < ApplicationRecord
+end
