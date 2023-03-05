@@ -10,6 +10,7 @@ class Public::ArtistsController < ApplicationController
 
   def show
     @artist = RSpotify::Artist.find(params[:id])
+    #Artistモデルが存在しないため、whereメソッドを用いてユーザー一覧を取得
     @users = User.where(id: ArtistFavorite.where(artist_id: @artist.id).pluck(:user_id))
   end
 
