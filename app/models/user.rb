@@ -7,4 +7,10 @@ class User < ApplicationRecord
   #ユーザー名の文字数
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   
+  has_many :artist_favorites, dependent: :destroy
+  
+  def favorited_artist_by?(artist)
+    artist_favorites.where(artist_id: artist.id).exists?
+  end
+  
 end
