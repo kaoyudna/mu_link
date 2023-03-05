@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  
+
   devise_for :users,skip:[:passwords],controllers:{
     registrations: "public/registrations",
     sessions: "public/sessions"
   }
-  
+
   devise_for :admins,skip:[:registrations,:passwords],controllers:{
     sessions: "admin/sessions"
   }
-  
+
   scope module: :public do
     root to: "homes#top"
     resources :users, only:[:index,:show,:edit,:update] do
@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       resource :post_favorites, only:[:create,:destroy]
     end
     resources :artists, only:[:index,:show] do
+      collection {get "search"}
       resource :artist_favorites, only:[:create,:destroy]
     end
     resources :musics, only:[:show] do
@@ -34,7 +35,7 @@ Rails.application.routes.draw do
     end
     get "searches" => "searches/search",as:"search"
   end
-  
+
   namespace :admin do
     get "/" => "homes#top"
     resources :users, only:[:index,:show,:update]

@@ -12,7 +12,7 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
           <div class="col-2 p-0 text-center">
             <a class="navbar-brand" href="/"><span>Mu_Link</span></a>
@@ -28,7 +28,9 @@
               <div class="col-1 p-0 text-center">
                 <%= link_to "Log_out", destroy_user_session_path, method: :delete %>
               </div>
-              <div class="col-4 p-0"></div>
+              <div class="col-4 p-0">
+                <%= render 'public/artists/search' %>
+              </div>
               <div class="col-1 p-0 text-center">
                 <%= link_to "Artists", artists_path %>
               </div>
