@@ -2,9 +2,9 @@
     <%= link_to artist_path(artist.id), class: 'd-flex flex-column align-items-center' do %>
       <% if artist.images.any? %>
         <% image = artist.images[1] %>
-        <%= image_tag(image["url"], size: '200x200', class: 'rounded-circle')%>
+        <%= image_tag(image["url"], size: '200x200', class: 'rounded-circle shadow')%>
       <% else %>
-        <%= image_tag("default.jpg", size: '200x200', class: 'rounded-circle') %>
+        <%= image_tag("default.jpg", size: '200x200', class: 'rounded-circle shadow') %>
       <% end %>
       <%= artist.name %>
     <% end %>
@@ -12,14 +12,14 @@
   </div>
   <ul class="list-unstyled">
   <% artist.top_tracks(:JP).first(5).each do |music| %>
-  <li class="mt-3">
-    <% if music.album.images.any? %>
-      <% image = music.album.images[1] %>
-      <%= image_tag(image["url"], size: '30x30', class: 'rounded-circle')%>
-    <% else %>
-      <%= image_tag("default.jpg", size: '30x30', class: 'rounded-circle') %>
-    <% end %>
-  <%= music.name %>
+    <li class="mt-3">
+      <% if music.album.images.any? %>
+        <% image = music.album.images[1] %>
+        <%= image_tag(image["url"], size: '30x30', class: 'rounded-circle')%>
+      <% else %>
+        <%= image_tag("default.jpg", size: '30x30', class: 'rounded-circle') %>
+      <% end %>
+    <%= music.name %>
+    </li>
   <% end %>
-  </li>
   </ul>
