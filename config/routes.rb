@@ -27,7 +27,6 @@ Rails.application.routes.draw do
       resource :post_favorites, only:[:create,:destroy]
     end
     resources :artists, only:[:index,:show] do
-      collection {get "search"}
       resource :artist_favorites, only:[:create,:destroy]
     end
     resources :musics, only:[:show] do

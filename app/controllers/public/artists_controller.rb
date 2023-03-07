@@ -6,6 +6,9 @@ class Public::ArtistsController < ApplicationController
 
   def index
     @artists = RSpotify::Artist.search('avicii', limit: 4)
+     if params[:word].present?
+       @artists = RSpotify::Artist.search(params[:word], market: 'JP', limit: 4)
+     end
   end
 
   def show
@@ -14,11 +17,4 @@ class Public::ArtistsController < ApplicationController
     @users = User.where(id: ArtistFavorite.where(artist_id: @artist.id).pluck(:user_id))
   end
 
-  def search
-    if params[:search].present?
-      @searchartists = RSpotify::Artist.search(params[:search], market: 'JP', limit: 4)
-    else
-      redirect_back(fallback_location: root_path)
-    end
-  end
 end

@@ -18,9 +18,23 @@ class Public::PostsController < ApplicationController
   end
 
   def index
+    @posts = Post.all.order(created_at: :desc)
+    @genres = Genre.all
+    if params[:genre_id]
+      @genre = Genre.find(params[:genre_id])
+      @posts = @genre.posts
+     elsif params[:word]
+       @posts = Post.search_for(params[:word])
+    end
   end
 
   def show
+  end
+
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
+    redirect_back(fallback_location: root_path)
   end
 
   private
