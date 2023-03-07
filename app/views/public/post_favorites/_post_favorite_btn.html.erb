@@ -1,0 +1,9 @@
+<% if post.favorited_post_by?(current_user) %>
+  <%= link_to post_post_favorites_path(post.id), method: :delete do %>
+    <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+  <% end %>
+<% else %>
+  <%= link_to post_post_favorites_path(post.id), method: :post do %>
+    <i class="fas fa-heart" aria-hidden="true"></i>
+  <% end %>
+<% end %>

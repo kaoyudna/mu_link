@@ -7,6 +7,7 @@ class User < ApplicationRecord
   #ユーザー名の文字数
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
 
+  has_many :post_favorites, dependent: :destroy
   has_many :artist_favorites, dependent: :destroy
   has_many :user_genres, dependent: :destroy
   has_many :genres, through: :user_genres
@@ -19,7 +20,7 @@ class User < ApplicationRecord
       file_path = Rails.root.join('app/assets/images/default.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'default.jpg', content_type: 'image/jpeg')
     end
-    profile_image.variant(resize_to_limit:[width,height]).processed
+    profile_image.variant(resize_to_fill:[width,height]).processed
   end
 
   def favorited_artist_by?(artist)
@@ -31,4 +32,7 @@ class User < ApplicationRecord
     self.genres << user_genre
   end
 
+  def self.search_for(word)
+    User.where('name LIKE?',"%#{word}%").order(created_at: :desc)
+  end
 end

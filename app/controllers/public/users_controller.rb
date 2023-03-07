@@ -6,10 +6,19 @@ class Public::UsersController < ApplicationController
   RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
 
   def index
+    @users = User.where(is_deleted: false)
+    @genres = Genre.all
+    if params[:genre_id]
+      @genre = Genre.find(params[:genre_id])
+      @users = @genre.users
+     elsif params[:word]
+       @users = User.search_for(params[:word])
+    end
   end
 
   def show
     @user = User.find(params[:id])
+    @posts = @user.posts.all.order(created_at: :desc)
     #ユーザーがいいねしているアーティストのspotify_idを取得
     artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
     #spotify_idからアーティスト情報を取得
@@ -36,6 +45,7 @@ class Public::UsersController < ApplicationController
 
   def unsubscribe
   end
+
 
   private
 

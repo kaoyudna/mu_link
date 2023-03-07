@@ -29,7 +29,13 @@
                 <%= link_to "Log_out", destroy_user_session_path, method: :delete %>
               </div>
               <div class="col-4 p-0 mx-auto">
-                <%= render 'public/artists/search' %>
+                <% if current_page?(posts_path) %>
+                  <%= render 'public/posts/search_post' %>
+                <% elsif current_page?(users_path) %>
+                  <%= render 'public/users/search_user' %>
+                <% else %>
+                  <%= render 'public/artists/search_artist' %>
+                <% end %>
               </div>
               <div class="col-1 p-0 text-center">
                 <%= link_to "Artists", artists_path %>

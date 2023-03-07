@@ -1,2 +1,39 @@
-<h1>Public::Users#index</h1>
-<p>Find me in app/views/public/users/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h1 class="font-weight-bold">Users</h1>
+    </div>
+  </div>
+  <% @genres.each do |genre| %>
+    <%= link_to genre.name, users_path(genre_id: genre.id) %>(<%= genre.users.count %>)
+    <% end %>
+  <div class="d-flex align-content-around flex-wrap">
+  <% @users.each do |user| %>
+    <div class="col-lg-3 mb-3">
+      <div class="card shadow">
+        <div class="mx-auto mt-3">
+          <%= link_to user_path(user) do %>
+            <%= image_tag user.get_profile_image(150,150), class: 'rounded-circle' %>
+          <% end %>
+        </div>
+        <h3 class="text-center border-bottom border-info pb-1 mt-1 ml-3 mr-3 mb-0">
+          <%= link_to user.name, user_path(user) %>
+        </h3>
+        <table class="table table-borderless table-sm text-center mb-0">
+          <tr>
+            <th scope="col" style="width: 50%">Follow</th>
+            <th scope="col" style="width: 50%">Follower</th>
+          </tr>
+          <tr>
+            <td>例です</td>
+            <td>例です</td>
+          </tr>
+        </table>
+        <div class="text-center">
+        <%= link_to "仮です", user_relationships_path(user), class: 'btn btn-outline-info mb-2' %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
