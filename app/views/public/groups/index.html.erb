@@ -1,2 +1,36 @@
-<h1>Public::Groups#index</h1>
-<p>Find me in app/views/public/groups/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <h1 class="font-weight-bold">Groups</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3 offset-lg-1"></div>
+    <div class="col-lg-7">
+      <% @groups.each do |group| %>
+      <div class="row g-0 shadow mb-3 rounded">
+        <div class="col-md-4 pl-0 pr-0">
+          <%= link_to group_path(group) do %>
+            <%= image_tag group.get_group_image(300,300), class: "card-img-top", style: "height: 200px;"%>
+          <% end %>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5><%= link_to group.name, group_path(group) %></h5>
+            <p class="mb-1">Owner : <%= link_to User.find(group.owner_id).name, user_path(group.owner_id) %></p>
+            <p class="mb-0">
+              <small class="text-muted">Genre :
+                <% group.genres.each do |genre| %>
+                  <%= genre.name %>
+                <% end %>
+              </small>
+            </p>
+            <p class="card-text"><small class="text-muted"><%= group.users.count %> people are participating</small></p>
+            <%= render 'group_join_btn', group: group %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

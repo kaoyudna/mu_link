@@ -4,13 +4,7 @@
       <h1 class="font-weight-bold">User info</h1>
     </div>
     <div class="col-lg-3 offset-lg-1 d-flex flex-column align-items-center">
-      <%= image_tag @user.get_profile_image(200,200), class: 'rounded-circle shadow' %>
-      <h4><%= @user.name %></h4>
-      <% if @user.id = current_user.id %>
-        <%= link_to "Edit", edit_user_path(current_user), class: 'btn btn-outline-dark pt-0 pb-0' %>
-      <% else %>
-        <%= link_to "仮です", user_relationships_path(@user), class: 'btn btn-outline-info pt-0 pb-0' %>
-      <% end %>
+      <%= render 'user_profile', user: @user %>
     </div>
     <div class="col-lg-4 d-flex flex-column align-items-center">
       <h4>Favorite genre</h4>
@@ -25,42 +19,14 @@
       <p><%= @user.introduction %></p>
     </div>
     <div class="col-lg-3 d-flex flex-column align-items-center">
-      <table class="table table-sm table-borderless text-center">
-        <tr>
-          <th scope="col" style="width: 50%">Follow</th>
-          <th scope="col" style="width: 50%">Follower</th>
-        </tr>
-        <tr>
-          <td>例 users</td>
-          <td>例 users</td>
-        </tr>
-      </table>
+      <%= render 'user_follower' %>
       <%= link_to "New post", new_post_path %>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col-lg-4 d-flex flex-column align-items-center">
       <h3 class="font-weight-bold">Favorite artists</h3>
-      <table class="table table-sm table-borderless text-center">
-        <% @artists.first(4).each do |artist| %>
-        <tr>
-          <td scope="col" style="width: 30%">
-            <% if artist.images.any? %>
-              <% image = artist.images[1] %>
-              <%= image_tag(image["url"], size: '50x50', class: 'rounded-circle')%>
-            <% else %>
-              <%= image_tag("default.jpg", size: '50x50', class: 'rounded-circle') %>
-            <% end %>
-          </td>
-          <th class="align-middle" scope="col" style="width:30%">
-            <%= link_to artist.name, artist_path(artist.id) %>
-          </th>
-          <td class="align-middle" scope="col" style="width: 30%">
-            <%= render 'public/artist_favorites/artist_favorite_btn', artist: artist %>
-          </td>
-        </tr>
-        <% end %>
-      </table>
+      <%= render 'favorite_artists', artists: @artists %>
     </div>
     <div class="col-lg-4 d-flex flex-column align-items-center">
       <h3 class="font-weight-bold">Favorite musics</h3>
