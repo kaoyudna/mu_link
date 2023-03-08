@@ -19,10 +19,12 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.all.order(created_at: :desc)
+    if @user.artist_favorites.count > 0
     #ユーザーがいいねしているアーティストのspotify_idを取得
-    artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
+      artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
     #spotify_idからアーティスト情報を取得
-    @artists = RSpotify::Artist.find(artists_id)
+      @artists = RSpotify::Artist.find(artists_id)
+    end
   end
 
   def edit

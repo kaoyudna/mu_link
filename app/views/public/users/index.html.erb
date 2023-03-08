@@ -10,28 +10,11 @@
   <div class="d-flex align-content-around flex-wrap">
   <% @users.each do |user| %>
     <div class="col-lg-3 mb-3">
-      <div class="card shadow">
-        <div class="mx-auto mt-3">
-          <%= link_to user_path(user) do %>
-            <%= image_tag user.get_profile_image(150,150), class: 'rounded-circle' %>
-          <% end %>
+      <div class="card shadow" style="height: 300px">
+        <div class="card-header bg-dark p-1 text-center">
+          <p class="font-weight-bold link-white mb-0"><%= link_to user.name, user_path(user), class: "text-light" %></p>
         </div>
-        <h3 class="text-center border-bottom border-info pb-1 mt-1 ml-3 mr-3 mb-0">
-          <%= link_to user.name, user_path(user) %>
-        </h3>
-        <table class="table table-borderless table-sm text-center mb-0">
-          <tr>
-            <th scope="col" style="width: 50%">Follow</th>
-            <th scope="col" style="width: 50%">Follower</th>
-          </tr>
-          <tr>
-            <td>例です</td>
-            <td>例です</td>
-          </tr>
-        </table>
-        <div class="text-center">
-        <%= link_to "仮です", user_relationships_path(user), class: 'btn btn-outline-info mb-2' %>
-        </div>
+          <%= render 'users_card', user: user %>
       </div>
     </div>
     <% end %>

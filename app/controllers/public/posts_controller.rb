@@ -37,8 +37,10 @@ class Public::PostsController < ApplicationController
     @users = @post.favorite_users
     @comment = PostComment.new
     @comments = @post.post_comments
-    artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
-    @artists = RSpotify::Artist.find(artists_id)
+    if @user.artist_favorites.count > 0
+      artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
+      @artists = RSpotify::Artist.find(artists_id)
+    end
   end
 
   def destroy

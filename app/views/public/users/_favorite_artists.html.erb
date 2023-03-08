@@ -1,4 +1,5 @@
 <table class="table table-sm table-borderless text-center">
+<% unless artists == nil %>
   <% artists.each do |artist| %>
   <tr>
     <td scope="col" style="width: 30%">
@@ -17,4 +18,5 @@
     </td>
   </tr>
   <% end %>
+<% end %>
 </table>
