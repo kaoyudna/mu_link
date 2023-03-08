@@ -1,0 +1,14 @@
+<table class="table table-sm table-borderless text-center">
+  <% users.each do |user| %>
+  <tr>
+    <td scope="col" style="width: 50%">
+      <%= image_tag user.get_profile_image(50,50), class: 'rounded-circle' %>
+    </td>
+    <th class="align-middle" scope="col" style="width:50%">
+      <%= link_to user.name, user_path(user), class:"text-dark" %>
+    </th>
+    <!--<td class="align-middle" scope="col" style="width: 30%">-->
+    <!--</td>-->
+  </tr>
+  <% end %>
+</table>

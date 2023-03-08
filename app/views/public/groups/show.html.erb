@@ -1,11 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6 text-center">
-      <h1 class="font-weight-bold">Group Deteail</h1>
-      <%= image_tag @group.get_group_image(200,200), class: 'rounded-circle shadow' %>
-      <h5 class="font-weight-bold mt-2"><%= @group.name %></h5>
-        <%= render 'group_join_btn', group: @group %>
-        <%= link_to 'Group Chat', group_message_path(@group), class: 'btn btn-outline-success pt-1 pb-1' %>
+      <%= render 'group_detail', group: @group %>
+      </div>
     </div>
   </div>
 </div>

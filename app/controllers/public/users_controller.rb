@@ -11,7 +11,7 @@ class Public::UsersController < ApplicationController
     if params[:genre_id]
       @genre = Genre.find(params[:genre_id])
       @users = @genre.users
-     elsif params[:word]
+    elsif params[:word]
        @users = User.search_for(params[:word])
     end
   end

@@ -1,6 +1,9 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!
 
+  require 'rspotify'
+  RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
+
   def new
     @post = Post.new
   end
@@ -23,12 +26,19 @@ class Public::PostsController < ApplicationController
     if params[:genre_id]
       @genre = Genre.find(params[:genre_id])
       @posts = @genre.posts
-     elsif params[:word]
+    elsif params[:word]
        @posts = Post.search_for(params[:word])
     end
   end
 
   def show
+    @post = Post.find(params[:id])
+    @user = @post.user
+    @users = @post.favorite_users
+    @comment = PostComment.new
+    @comments = @post.post_comments
+    artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
+    @artists = RSpotify::Artist.find(artists_id)
   end
 
   def destroy

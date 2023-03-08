@@ -48,6 +48,6 @@ class Public::GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:name,:introduction,:owner_id)
+    params.require(:group).permit(:name,:introduction,:owner_id,:group_image)
   end
 end
