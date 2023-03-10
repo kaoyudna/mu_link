@@ -1,6 +1,6 @@
-<div class="mx-auto mt-3 mb-1 pb-1 border-bottom">
+<div class="mb-1 pt-3 pb-3 border-bttom text-center" style="background-image: url(<%= url_for(user.get_background_image_url()) %>); background-repeat: no-repeat; background-size: cover; background-position: center center;">
   <%= link_to user_path(user) do %>
-    <%= image_tag user.get_profile_image(120,120), class: 'rounded-circle' %>
+    <%= image_tag user.get_profile_image(100,100), class: 'rounded-circle' %>
   <% end %>
 </div>
 <table class="table table-borderless table-sm text-center mb-0">

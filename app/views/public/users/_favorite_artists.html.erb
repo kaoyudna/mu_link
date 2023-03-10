@@ -1,7 +1,7 @@
 <table class="table table-sm table-borderless text-center">
 <% unless artists == nil %>
   <% artists.each do |artist| %>
-  <tr>
+  <tr class="border-bottom">
     <td scope="col" style="width: 30%">
       <% if artist.images.any? %>
         <% image = artist.images[1] %>

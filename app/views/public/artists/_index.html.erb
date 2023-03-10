@@ -10,16 +10,6 @@
     <% end %>
     <%= render 'public/artist_favorites/artist_favorite_btn', artist: artist %>
   </div>
-  <ul class="list-unstyled text-truncate" style="max-width:200px;">
-  <% artist.top_tracks(:JP).first(5).each do |music| %>
-    <li class="mt-3 overflow-auto">
-      <% if music.album.images.any? %>
-        <% image = music.album.images[1] %>
-        <%= image_tag(image["url"], size: '30x30', class: 'rounded-circle')%>
-      <% else %>
-        <%= image_tag("default.jpg", size: '30x30', class: 'rounded-circle') %>
-      <% end %>
-    <%= music.name %>
-    </li>
-  <% end %>
-  </ul>
+  <div class="overflow-auto", style="height: 300px;">
+    <%= render 'public/users/favorite_musics', musics: artist.top_tracks(:JP)%>
+  </div>

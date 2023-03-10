@@ -1,6 +1,6 @@
 <table class="table table-sm table-borderless text-center">
   <% users.each do |user| %>
-  <tr>
+  <tr class="border-bottom">
     <td scope="col" style="width: 33%">
       <%= image_tag user.get_profile_image(50,50), class: 'rounded-circle' %>
     </td>

@@ -1,0 +1,22 @@
+<table class="table table-sm table-borderless text-center">
+<% unless musics == nil %>
+  <% musics.each do |music| %>
+  <tr class="border-bottom">
+    <td scope="col" style="width: 10%">
+      <% if music.album.images.any? %>
+        <% image = music.album.images[1] %>
+        <%= image_tag(image["url"], size: '30x30', class: 'rounded-circle')%>
+      <% else %>
+        <%= image_tag("default.jpg", size: '30x30', class: 'rounded-circle') %>
+      <% end %>
+    </td>
+    <th class="align-middle" scope="col" style="width:80%">
+      <%= music.name %>
+    </th>
+    <td class="align-middle" scope="col" style="width: 10%">
+      <%= render 'public/music_favorites/music_favorite_btn', music: music %>
+    </td>
+  </tr>
+  <% end %>
+<% end %>
+</table>

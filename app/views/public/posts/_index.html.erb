@@ -1,0 +1,39 @@
+<% posts.each do |post| %>
+<div class="row g-0 shadow mb-3 rounded ml-4 mr-4">
+  <div class="col-md-4 pl-0 pr-0">
+    <% if current_page?(posts_path) %>
+      <%= link_to post_path(post) do %>
+        <%= image_tag post.get_post_image(300,300), class: "card-img-top", style: "height: 200px;"%>
+      <% end %>
+    <% else %>
+      <%= link_to post_path(post) do %>
+        <%= image_tag post.get_post_image(300,300), class: "card-img-top", style: "height: 150px;"%>
+      <% end %>
+    <% end %>
+    <div class="card-img-overlay">
+      <%= image_tag post.user.get_profile_image(30,30), class: "rounded-circle border border-secondary" %>
+      <%= link_to post.user.name, user_path(post.user), class: "text-secondary" %>
+    </div>
+  </div>
+<% if current_page?(posts_path) %>
+  <div class="col-md-8 overflow-auto" style="height: 200px;">
+<% else %>
+  <div class="col-md-8 overflow-auto" style="height: 150px;">
+<% end %>
+    <div class="card-body">
+      <h4><%= link_to post.title, post_path(post), class: "text-dark" %></h4>
+      <p class="mb-0 text-break"><%= post.body %></p>
+      <p class="mb-0">
+        <small class="text-muted">Genre :
+          <% post.genres.each do |genre| %>
+            <%= link_to genre.name, posts_path(genre_id: genre.id), class: "text-muted" %>
+          <% end %>
+        </small>
+      </p>
+      <p class="mb-0"><small class="text-muted"><%= post.post_favorites.count %> favorites, <%= post.post_comments.count %> comments</small></p>
+      <p class="mb-0"><small class="text-muted"><%= post.created_at %></small></p>
+      <%= render 'public/post_favorites/post_favorite_btn', post: post %>
+    </div>
+  </div>
+</div>
+<% end %>

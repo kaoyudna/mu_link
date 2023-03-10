@@ -24,13 +24,15 @@ class Public::GroupsController < ApplicationController
     if params[:genre_id]
       @genre = Genre.find(params[:genre_id])
       @groups = @genre.groups
-      elsif params[:word]
-        @groups = Group.search_for(params[:word])
+    elsif params[:word]
+      @groups = Group.search_for(params[:word])
     end
   end
 
   def show
     @group = Group.find(params[:id])
+    @users = @group.users
+    @posts = Post.where(user_id: @users)
   end
 
   def join

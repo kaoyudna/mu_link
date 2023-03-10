@@ -1,7 +1,29 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-6 text-center">
+    <div class="col-sm-4 text-center">
       <%= render 'group_detail', group: @group %>
+    </div>
+    <div class="col-sm-5">
+      <h3 class="font-weight-bold mx-auto">Group Users Posts</h3>
+      <div class="col-sm-12 overflow-auto border-top  pt-3 pb-3 pl-0 pr-0" style="height: 550px;">
+        <%= render 'public/posts/index', posts: @posts %>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <h3 class="font-weight-bold">Group Users</h3>
+      <div class="col-sm-12 overflow-auto border-top pt-3 pb-3 pl-0 pr-0" style="height: 550px;">
+        <div class="d-flex align-content-around flex-wrap">
+        <% @users.each do |user| %>
+          <div class="col-lg-12 mb-3">
+            <div class="card shadow" style="height: 300px">
+              <div class="card-header bg-dark p-1 text-center">
+                <p class="font-weight-bold link-white mb-0"><%= link_to user.name, user_path(user), class: "text-light" %></p>
+              </div>
+                <%= render 'public/users/users_card', user: user %>
+            </div>
+          </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

@@ -1,2 +1,20 @@
-<h1>Public::Relationships#followers</h1>
-<p>Find me in app/views/public/relationships/followers.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h1 class="font-weight-bold"><%= @user.name %> Followers</h1>
+    </div>
+  </div>
+  <div class="d-flex align-content-around flex-wrap">
+  <%= render 'message', user: @user %>
+  <% @users.each do |user| %>
+    <div class="col-lg-3 mb-3">
+      <div class="card shadow" style="height: 300px">
+        <div class="card-header bg-dark p-1 text-center">
+          <p class="font-weight-bold link-white mb-0"><%= link_to user.name, user_path(user), class: "text-light" %></p>
+        </div>
+          <%= render 'public/users/users_card', user: user %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>

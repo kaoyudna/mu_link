@@ -25,6 +25,10 @@ class Public::UsersController < ApplicationController
     #spotify_idからアーティスト情報を取得
       @artists = RSpotify::Artist.find(artists_id)
     end
+    if @user.music_favorites.count > 0
+      music_id = MusicFavorite.where(user_id: @user.id).pluck(:music_id)
+      @musics = RSpotify::Track.find(music_id)
+    end
   end
 
   def edit
@@ -52,7 +56,7 @@ class Public::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name,:introduction,:profile_image)
+    params.require(:user).permit(:name,:introduction,:profile_image, :background_image)
   end
 
   def ensure_correct_user
