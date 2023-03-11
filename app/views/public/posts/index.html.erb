@@ -6,25 +6,24 @@
   </div>
   <div class="row">
     <div class="col-lg-3 offset-lg-1">
-      <div class="card" style="width: 18rem;">
-        <div class="card-header font-weight-bold">
-          Genres
+      <%= render 'public/genres/genre_search', genres: @genres %>
+      <div class="card shadow">
+        <div class="card-header font-weight-bold bg-dark text-white">
+          Others
         </div>
-        <% @genres.each do |genre| %>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            <%= link_to genre.name, posts_path(genre_id: genre.id), class: "text-dark" %>
-            (<%= genre.posts.count %>)
+            <%= link_to 'Your posts', posts_path(user_id: current_user.id), remote: true, class: "text-dark" %>
+            (<%= current_user.posts.count %>)
           </li>
-        <% end %>
           <li class="list-group-item">
-            <%= link_to "All", posts_path, class: "text-dark" %>
-            (<%= Post.all.count %>)
+            <%= link_to 'Liked posts', posts_path(liked_post_id: current_user.id), remote: true, class: "text-dark" %>
+            (<%= current_user.liked_post.count %>)
           </li>
         </ul>
       </div>
     </div>
-    <div class="col-sm-7 pr-2 pl-2">
+    <div class="col-sm-7 pr-2 pl-2" id="post_index">
       <%= render 'index', posts: @posts %>
     </div>
   </div>

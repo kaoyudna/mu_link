@@ -26,6 +26,10 @@ class Public::PostsController < ApplicationController
     if params[:genre_id]
       @genre = Genre.find(params[:genre_id])
       @posts = @genre.posts
+    elsif params[:user_id]
+      @posts = current_user.posts
+    elsif params[:liked_post_id]
+      @posts = current_user.liked_post
     elsif params[:word]
        @posts = Post.search_for(params[:word])
     end

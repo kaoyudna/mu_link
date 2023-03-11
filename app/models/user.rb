@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :reverce_of_relationships, class_name: 'Relationship', foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :reverce_of_relationships, source: :follower
   has_many :post_favorites, dependent: :destroy
+  has_many :liked_post, through: :post_favorites, source: :post
   has_many :artist_favorites, dependent: :destroy
   has_many :music_favorites, dependent: :destroy
   has_many :user_genres, dependent: :destroy

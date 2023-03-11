@@ -1,2 +1,35 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+// カードにカーソルを合わせると浮き出るようなモーション
+.card_wrap{
+  transition-duration: 0.5s;
+}
+.card_wrap img{
+  cursor: pointer;
+}
+.card_wrap:hover{
+  box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+  transform: translateY(-10px);
+  transition-duration: 0.5s;
+}
+
+
+// カードにカーソルを合わせるとグレーアウト
+.gray_out{
+  overflow: hidden;
+  background: #000;
+}
+.gray_out img{
+  width: 100%;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.gray_out:hover img{
+  opacity: 0.6;
+  transition-duration: 0.3s;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
