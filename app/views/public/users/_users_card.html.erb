@@ -1,0 +1,18 @@
+<div class="mb-1 pt-3 pb-3 border-bttom text-center" style="background-image: url(<%= url_for(user.get_background_image_url()) %>); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+  <%= link_to user_path(user) do %>
+    <%= image_tag user.get_profile_image(100,100), class: 'rounded-circle' %>
+  <% end %>
+</div>
+<table class="table table-borderless table-sm text-center mb-0">
+  <tr>
+    <th scope="col" style="width: 50%">Follow</th>
+    <th scope="col" style="width: 50%">Follower</th>
+  </tr>
+  <tr>
+    <td><%= link_to user.followings.count, user_user_following_path(user), class: "text-secondary"%></td>
+    <td><%= link_to user.followers.count, user_user_follower_path(user), class: "text-secondary" %></td>
+  </tr>
+</table>
+<div class="text-center">
+  <%= render 'public/relationships/follow_btn', user: user %>
+</div>

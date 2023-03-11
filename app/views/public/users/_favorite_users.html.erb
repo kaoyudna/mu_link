@@ -1,14 +1,15 @@
 <table class="table table-sm table-borderless text-center">
   <% users.each do |user| %>
-  <tr>
-    <td scope="col" style="width: 50%">
+  <tr class="border-bottom">
+    <td scope="col" style="width: 33%">
       <%= image_tag user.get_profile_image(50,50), class: 'rounded-circle' %>
     </td>
-    <th class="align-middle" scope="col" style="width:50%">
+    <th class="align-middle" scope="col" style="width:33%">
       <%= link_to user.name, user_path(user), class:"text-dark" %>
     </th>
-    <!--<td class="align-middle" scope="col" style="width: 30%">-->
-    <!--</td>-->
+    <td class="align-middle" scope="col" style="width: 34%">
+      <%= render 'public/relationships/follow_btn', user: @user %>
+    </td>
   </tr>
   <% end %>
 </table>

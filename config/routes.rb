@@ -29,9 +29,7 @@ Rails.application.routes.draw do
     resources :artists, only:[:index,:show] do
       resource :artist_favorites, only:[:create,:destroy]
     end
-    resources :musics, only:[:show] do
-      resource :music_favorites, only:[:create,:destroy]
-    end
+    resources :music_favorites, only:[:create,:destroy]
     get "searches" => "searches/search",as:"search"
   end
 

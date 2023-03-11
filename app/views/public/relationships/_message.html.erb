@@ -1,0 +1,5 @@
+<% if current_page?(user_user_following_path) && user.followings.count == 0 %>
+  <h2 class="mx-auto pt-5 pb-5">No followings found.</h2>
+<% elsif current_page?(user_user_follower_path) && user.followers.count == 0 %>
+  <h2 class="mx-auto pt-5 pb-5">No followings found.</h2>
+<% end %>

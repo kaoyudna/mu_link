@@ -6,10 +6,7 @@
           <div class="card-header bg-dark p-1 text-center">
             <p class="font-weight-bold link-white mb-0"><%= link_to @user.name, user_path(@user), class: "text-light" %></p>
           </div>
-          <div class="text-center pt-4">
-            <%= render 'public/users/user_profile', user: @user %>
-            <%= render 'public/users/user_follower' %>
-          </div>
+          <%= render 'public/users/users_card', user: @user %>
         </div>
       </div>
       <div class="col-lg-12  pb-2 pl-0 pr-0">
@@ -31,10 +28,10 @@
                 Genre <%= genre.name %>
               <% end %>
             </small>
-            <small class="text-muted"><%= @post.post_favorites.count %> favorites</small>
+            <p id="liked_count_<%= @post.id %>" class="mb-0"><%= render 'liked_post_count', post: @post %></p>
             <small class="text-muted"><%= @post.created_at %></small>
           </div>
-          <div>
+          <div id="post_favorite_<%= @post.id %>">
             <%= render 'public/post_favorites/post_favorite_btn', post: @post %>
           </div>
         </div>
@@ -42,7 +39,7 @@
     </div>
     <div class="col-lg-4">
       <div class="col-lg-12 pb-2 pl-0 pr-0">
-        <div class="card overflow-auto" style="height: 250px">
+        <div class="card overflow-auto pl-4 pr-4" style="height: 250px">
           <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorited User</h5>
           <%= render "public/users/favorite_users", users: @users %>
         </div>
@@ -75,7 +72,7 @@
             <% end %>
           <% end %>
           </div>
-          <div class="form-grou mb-0">
+          <div class="form-group mb-0">
           <%= form_with model: [@post,@comment] do |f| %>
             <%= f.text_field :comment, class: "form-control bg-white", placeholder: "Enter a comment" %>
           <% end %>

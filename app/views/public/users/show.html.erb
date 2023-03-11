@@ -4,7 +4,7 @@
       <h1 class="font-weight-bold">User info</h1>
     </div>
     <div class="col-lg-3 offset-lg-1 d-flex flex-column align-items-center">
-      <%= render 'user_profile', user: @user %>
+      <%= render 'users_card', user: @user %>
     </div>
     <div class="col-lg-4 d-flex flex-column align-items-center">
       <h4>Favorite genre</h4>
@@ -28,8 +28,9 @@
       <h3 class="font-weight-bold">Favorite artists</h3>
       <%= render 'favorite_artists', artists: @artists %>
     </div>
-    <div class="col-lg-4 d-flex flex-column align-items-center">
+    <div class="col-lg-4 d-flex flex-column align-items-center overflow-auto" style="height: 300px">
       <h3 class="font-weight-bold">Favorite musics</h3>
+      <%= render 'favorite_musics', musics: @musics %>
     </div>
     <div class="col-lg-4 d-flex flex-column align-items-center">
       <h3 class="font-weight-bold">Post lists</h3>

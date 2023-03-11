@@ -1,7 +1,7 @@
 <h1 class="font-weight-bold">Group Deteail</h1>
 <%= image_tag group.get_group_image(200,200), class: 'rounded-circle shadow' %>
 <h3 class="font-weight-bold mt-2"><%= group.name %></h3>
-<%= render 'group_join_btn', group: group %>
+<%= render 'public/groups/group_join_btn', group: group %>
 <div class="col-sm-8 border-top p-2 mt-2 mx-auto">
   <h5 class="mb-0">Introduction</h5>
   <p class="mb-0"><%= group.introduction %></p>
@@ -13,3 +13,4 @@
 <div class="col-sm-8 border-top p-2 mt-2 mx-auto">
   <h5 class="mb-0">Members</h5>
   <p class="mb-0"><%= group.users.count %> people</p>
+ </div>

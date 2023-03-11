@@ -19,10 +19,16 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.all.order(created_at: :desc)
+    if @user.artist_favorites.count > 0
     #ユーザーがいいねしているアーティストのspotify_idを取得
-    artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
+      artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
     #spotify_idからアーティスト情報を取得
-    @artists = RSpotify::Artist.find(artists_id)
+      @artists = RSpotify::Artist.find(artists_id)
+    end
+    if @user.music_favorites.count > 0
+      music_id = MusicFavorite.where(user_id: @user.id).pluck(:music_id)
+      @musics = RSpotify::Track.find(music_id)
+    end
   end
 
   def edit
@@ -50,7 +56,7 @@ class Public::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name,:introduction,:profile_image)
+    params.require(:user).permit(:name,:introduction,:profile_image, :background_image)
   end
 
   def ensure_correct_user

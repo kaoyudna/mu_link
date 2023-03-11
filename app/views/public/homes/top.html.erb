@@ -1,10 +1,69 @@
 <div class="container">
-  <div class="card-column">
-    <div class="card">
-      <%= image_tag 'default.jpg',class: "bd-placeholder-img", style: "height: 200px; width: 50px;"%>
+  <div class="row mb-5 mt-4">
+    <div class="col-lg-8">
+      <div class="row">
+        <div class="col-lg-12 card rounded shadow p-0 mb-1 mt-3">
+          <div class="gray_out rounded">
+            <%= image_tag 'top_image.jpg',class: "card-image-top rounded", style: "height: 300px"%>
+            <div class="card-img-overlay">
+              <h3 class="text-white font-weight-bold">Welcome to Mu_link!</h3>
+              <p class="text-white">
+                <small>
+                  このサイトは同じ音楽が好きなユーザー同士で繋がることのできるSNSサイトです<br>
+                  ユーザーを見つけて友達を増やしましょう
+                </small>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 card shadow p-0 mb-1">
+          <div class="gray_out rounded">
+            <%= link_to artists_path do %>
+              <%= image_tag 'top-2.jpg',class: "card-img-top", style: "height: 200px;"%>
+              <div class="card-img-overlay">
+                <h4 class="text-light font-weight-bold">Artists</h4>
+                <p class="text-white" style="font-size: 10px">
+                  アーティストをお気に入りに登録して<br>
+                  同じアーティストを好きな人と繋がろう
+                </p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-lg-4 card shadow p-0 mb-1">
+          <div class="gray_out rounded">
+            <%= link_to users_path do %>
+              <%= image_tag 'top-4.jpeg',class: "card-img-top", style: "height: 200px;"%>
+              <div class="card-img-overlay">
+                <h4 class="text-light font-weight-bold">Users</h4>
+                <p class="text-white" style="font-size: 10px">
+                  ユーザーをフォローして仲良くなろう
+                </p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-lg-4 card shadow p-0 mb-1">
+          <div class="gray_out rounded">
+            <%= link_to groups_path do %>
+              <%= image_tag 'top-3.jpeg',class: "card-img-top", style: "height: 200px;"%>
+              <div class="card-img-overlay">
+                <h4 class="text-light font-weight-bold">Groups</h4>
+                <p class="text-white" style="font-size: 10px">
+                  好きな音楽について<br>
+                  グループチャットで語り合おう
+                </p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <%= image_tag 'default.jpg',class: "card-img-top", style: "height: 200px;"%>
+    <div class="col-lg-4 mb-1 mt-3">
+      <div class="border-bottom bg-dark text-center rounded"><h4 class="text-white mb-0">Recent posts</h4></div>
+      <div class="col-lg-12 overflow-auto" style="height: 480px;">
+        <%= render 'public/posts/index', posts: @posts %>
+      </div>
     </div>
   </div>
 </div>

@@ -25,4 +25,8 @@ class Group < ApplicationRecord
     group_users.where(user_id: user.id).exists?
   end
 
+  def self.search_for(word)
+    Group.where('name LIKE?',"%#{word}%").order(created_at: :desc)
+  end
+
 end
