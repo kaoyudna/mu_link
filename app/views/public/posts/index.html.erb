@@ -17,6 +17,10 @@
             (<%= current_user.posts.count %>)
           </li>
           <li class="list-group-item">
+            <%= link_to 'Followings posts', posts_path(followings_id: current_user.id), class: "text-dark" %>
+            (<%= current_user.followings_post.count %>)
+          </li>
+          <li class="list-group-item">
             <%= link_to 'Liked posts', posts_path(liked_post_id: current_user.id), remote: true, class: "text-dark" %>
             (<%= current_user.liked_post.count %>)
           </li>

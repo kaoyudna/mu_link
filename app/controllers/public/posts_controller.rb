@@ -28,6 +28,8 @@ class Public::PostsController < ApplicationController
       @posts = @genre.posts
     elsif params[:user_id]
       @posts = current_user.posts
+    elsif params[:followings_id]
+      @posts = current_user.followings_post
     elsif params[:liked_post_id]
       @posts = current_user.liked_post
     elsif params[:word]
