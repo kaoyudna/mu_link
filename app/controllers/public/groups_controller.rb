@@ -12,7 +12,7 @@ class Public::GroupsController < ApplicationController
     if @group.save
       @group.users << current_user
       @group.save_genre(@genre)
-      redirect_to group_path(@group)
+      redirect_to group_path(@group), notice: "グループを作成しました"
     else
       render 'new'
     end

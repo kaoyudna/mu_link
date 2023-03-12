@@ -36,9 +36,9 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/" => "homes#top"
     resources :users, only:[:index,:show,:update]
-    resources :posts, only:[:index,:show,:destroy] do
-      resources :post_comments, only:[:destroy]
-    end
+    resources :posts, only:[:index,:destroy]
+    resources :post_comments, only:[:index, :destroy]
+    resources :genres, only:[:index,:create,:edit,:update,:destroy]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

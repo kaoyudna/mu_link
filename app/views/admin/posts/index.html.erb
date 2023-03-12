@@ -1,2 +1,31 @@
-<h1>Admin::Posts#index</h1>
-<p>Find me in app/views/admin/posts/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+        <%= flash[:alert] %>
+      <table class="table table-sm text-center table-bordered table-striped">
+        <thead class="bg-secondary">
+          <tr>
+            <th scope="col" style="width: auto"></th>
+            <th scope="col" style="width: 40%">Title</th>
+            <th scope="col" style="width: auto">User</th>
+            <th scope="col" style="width: auto">Comments</th>
+            <th scope="col" style="width: auto">Registered Date</th>
+            <th scope="col" style="width: auto">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @posts.each do |post| %>
+          <tr class="text-secondary">
+            <td class="align-middle"><%= image_tag post.get_post_image(30,30), class: "rounded-circle" %></td>
+            <td class="align-middle"><%= post.title %></td>
+            <td class="align-middle"><%= link_to post.user.name, admin_user_path(post.user), class: "text-secondary" %></td>
+            <td class="align-middle"><%= link_to post.post_comments.count, admin_post_comments_path(post_id: post.id), class: "text-secondary" %></td>
+            <td class="align-middle"><%= post.created_at %></td>
+            <td class="align-middle"><%= link_to "Delete", admin_post_path(post), method: :delete, class: "btn btn-outline-danger p-0 pr-1 pl-1" %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

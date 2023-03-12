@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <table class="table table-sm text-center table-bordered table-striped">
+        <thead class="bg-secondary">
+          <tr>
+            <th scope="col" style="width: auto">Post title</th>
+            <th scope="col" style="width: auto">Comments</th>
+            <th scope="col" style="width: auto">User name</th>
+            <th scope="col" style="width: auto">Registered Date</th>
+            <th scope="col" style="width: auto">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @post_comments.each do |post_comment| %>
+          <tr class="text-secondary">
+            <td class="align-middle"><%= post_comment.post.title %></td>
+            <td class="align-middle"><%= post_comment.comment %></td>
+            <td class="align-middle"><%= link_to post_comment.user.name, user_path(post_comment.user), class: "text-secondary" %></td>
+            <td class="align-middle"><%= post_comment.created_at %></td>
+            <td class="align-middle"><%= link_to "Delete", admin_post_comment_path(post_comment), method: :delete, class: "btn btn-outline-danger p-0 pr-1 pl-1" %></td>
+          </tr>
+      <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

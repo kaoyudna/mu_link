@@ -15,56 +15,28 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
         <div class="container">
           <div class="col-2 p-0 text-center">
-            <a class="navbar-brand" href="/"><%= image_tag 'mu_link.png', style: "width: 50px" %></a>
+            <% if user_signed_in? %>
+              <a class="navbar-brand" href="/"><%= image_tag 'mu_link.png', style: "width: 50px" %></a>
+            <% elsif admin_signed_in? %>
+              <a class="navbar-brand" href="/admin"><%= image_tag 'mu_link.png', style: "width: 50px" %></a>
+            <% end %>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <% if user_signed_in? %>
-              <div class="col-1 p-0 text-center">
-                <%= link_to user_path(current_user) do %>
-                  <%= image_tag current_user.get_profile_image(30,30), class: "rounded-circle" %>
-                <% end %>
-              </div>
-              <div class="col-1 p-0 text-center">
-                <%= link_to "Log_out", destroy_user_session_path, method: :delete %>
-              </div>
-              <div class="col-4 p-0 mx-auto">
-                <% if current_page?(posts_path) %>
-                  <%= render 'public/posts/search_post' %>
-                <% elsif current_page?(users_path) %>
-                  <%= render 'public/users/search_user' %>
-                <% elsif current_page?(groups_path) %>
-                  <%= render 'public/groups/search_group' %>
-                <% else %>
-                  <%= render 'public/artists/search_artist' %>
-                <% end %>
-              </div>
-              <div class="col-1 p-0 text-center">
-                <%= link_to "Artists", artists_path %>
-              </div>
-              <div class="col-1 p-0 text-center">
-                <%= link_to "Posts", posts_path %>
-              </div>
-              <div class="col-1 p-0 text-center">
-                <%= link_to "Users", users_path %>
-              </div>
-              <div class="col-1 p-0 text-center">
-                <%= link_to "Groups", groups_path %>
-              </div>
+              <%= render 'layouts/users_header' %>
+            <% elsif admin_signed_in? %>
+              <%= render 'layouts/admins_header' %>
             <% else %>
-              <div class="col-1 p-0 text-center">
-                <%= link_to "Sign_up", new_user_registration_path %>
-              </div>
-              <div class="col-1 p-0 text-center">
-                <%= link_to "Log_in", new_user_session_path %>
-              </div>
+              <%= render 'layouts/logout_header' %>
             <% end %>
         </div>
       </nav>
     </header>
     <main>
+      <%= render 'shared/flash_message' %>
       <%= yield %>
     </main>
    <footer class="py-3 bg-dark mt-3" style="height: 100px;">

@@ -14,7 +14,7 @@ class Public::PostsController < ApplicationController
     @post.user_id = current_user.id
     if @post.save
       @post.save_genre(@genre)
-      redirect_to posts_path
+      redirect_to posts_path, notice: "投稿に成功しました"
     else
       render 'new'
     end
