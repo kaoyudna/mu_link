@@ -1,23 +1,23 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-10 mx-auto">
-      <table class="table table-sm text-center table-bordered table-striped">
-          <tr>
-            <th scope="col" style="width: auto">Name</th>
-            <th scope="col" style="width: auto">Registered Date</th>
-            <th scope="col" style="width: auto">Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @genres.each do |genre| %>
-          <tr class="text-secondary">
-            <td class="align-middle"><%= genre.name %></td>
-            <td class="align-middle"><%= genre.created_at %></td>
-            <td class="align-middle"><%= link_to "Edit", admin_edit_genre_path(genre), class: "btn btn-outline-info p-0 pr-1 pl-1" %></td>
-          </tr>
-      <% end %>
-        </tbody>
-      </table>
+    <div class="col-lg-3 offset-lg-1">
+      <div class="card">
+        <div class="card-header bg-secondary text-white text-center font-weight-bold">
+          New genre
+        </div>
+        <%= form_with model: @genre, url: admin_genres_path, method: :post do |f| %>
+        <div class="form-group mt-5 mr-4 ml-4">
+            <%= f.label :genre %>
+            <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class="form-group text-center mb-5 mt-5">
+          <%= f.submit "追加", class: "btn btn-outline-success pl-5 pr-5" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <%= render 'index', genres: @genres %>
     </div>
   </div>
 </div>

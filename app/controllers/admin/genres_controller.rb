@@ -1,9 +1,6 @@
 class Admin::GenresController < ApplicationController
   before_action :authenticate_admin!
 
-  def new
-  end
-
   def index
     @genre = Genre.new
     @genres = Genre.all.order(created_at: :desc)
@@ -17,6 +14,7 @@ class Admin::GenresController < ApplicationController
 
   def edit
     @genre = Genre.find(params[:id])
+    @genres = Genre.all.order(created_at: :desc)
   end
 
   def update
@@ -28,7 +26,7 @@ class Admin::GenresController < ApplicationController
   def destroy
     genre = Genre.find(params[:id])
     genre.destroy
-    redirect_to request.referer, notice: "ジャンルを削除しました"
+    redirect_to admin_genres_path, notice: "ジャンルを削除しました"
   end
 
   private
