@@ -1,6 +1,22 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-10 mx-auto">
+    <div class="col-lg-3">
+      <div class="card">
+        <div class="card-header font-weight-bold bg-secondary text-white text-center p-0">
+          不適切なコメント
+        </div>
+        <table class="table table-sm text-center table-bordered table-striped mb-0">
+          <% @inappropriate_comments.each do |comment| %>
+          <tr>
+            <td class="align-middle" scope="col" style="width: 70%"><%= comment.comment %></td>
+            <td><%= link_to "Delete", admin_inappropriate_comments_path(comment), method: :delete , class: "btn btn-outline-danger pl-1 pr-1 pt-0 pb-0" %></td>
+          </tr>
+          <% end %>
+        </table>
+        <%= link_to "あ", admin_post_comments_path(comment_id: 1) %>
+      </div>
+    </div>
+    <div class="col-lg-9">
       <table class="table table-sm text-center table-bordered table-striped">
         <thead class="bg-secondary text-white">
           <tr>
