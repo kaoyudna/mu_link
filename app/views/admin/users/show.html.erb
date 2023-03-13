@@ -1,2 +1,68 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 offset-sm-1">
+      <div class="card mb-2">
+        <div class="card-header bg-secondary text-white font-weight-bold">Profile image</div>
+        <%= image_tag @user.get_profile_image(300,200), class: "card-img" %>
+      </div>
+      <div class="card">
+        <div class="card-header bg-secondary text-white font-weight-bold">Background image</div>
+        <%= image_tag url_for(@user.get_background_image_url), class: "card-img" %>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <table class="table table-bordered">
+        <tr>
+          <th  scope="col" class="bg-secondary text-white" style="width: 30%">name</th>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">Email</th>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">Introduction</th>
+          <td><%= @user.introduction %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">Genre</th>
+          <td>
+            <% @user.genres.each do |genre| %>
+              <%= genre.name %>.
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">Follow:Follower</th>
+          <td><%= @user.followings.count %>:<%= @user.followers.count %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">Posts</th>
+          <td><%= @user.posts.count %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">Comments</th>
+          <td><%= @user.post_comments.count %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">Registered Date</th>
+          <td><%= @user.created_at %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">Status</th>
+          <td>
+            <%= form_with model: @user, url: admin_user_path(@user), method: :patch, local: true do |f| %>
+              <%= f.select :is_deleted, options_for_select({"有効" => false, "退会" => true}, :selected => @user.is_deleted) %>
+              <%= f.submit "Update", class: "btn btn-outline-info p-0" %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3 mx-auto">
+      <%= link_to "ユーザー一覧", admin_users_path, class: "btn btn-info btn-block" %>
+    </div>
+  </div>
+</div>

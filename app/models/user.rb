@@ -28,6 +28,10 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_one_attached :background_image
 
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
+
   def get_profile_image(width,height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/default.jpg')
@@ -72,4 +76,6 @@ class User < ApplicationRecord
   def self.search_for(word)
     User.where('name LIKE?',"%#{word}%").order(created_at: :desc)
   end
+
+  
 end

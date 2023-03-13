@@ -43,7 +43,7 @@ class Public::UsersController < ApplicationController
       unless @user.genres.find_by(id: @genre)
         @user.save_genre(@genre)
       end
-      redirect_to user_path(@user)
+      redirect_to user_path(@user), notice: "プロフィールを編集しました"
     else
       render "edit"
     end

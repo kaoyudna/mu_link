@@ -1,0 +1,2 @@
+class InappropriateComment < ApplicationRecord
+end
