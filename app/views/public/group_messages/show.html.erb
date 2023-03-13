@@ -1,4 +1,5 @@
 <div class="container">
+  <%= render 'public/shared/error_messages', resource: @chat %>
   <div class="row">
     <div class="col-lg-6 text-center">
       <%= render 'public/groups/group_detail', group: @group %>
@@ -12,8 +13,9 @@
           <% @chats.each do |chat| %>
             <% if chat.user_id == current_user.id %>
             <div class="text-right pr-3">
-              <div class="d-flex  pt-1">
-                <p class="border pl-2 pr-2 ml-auto rounded bg-white border border-secondary"><%= chat.message %></p>
+              <div class="d-flex flex-column pt-1">
+                <p class="border pl-2 pr-2 mb-0 ml-auto rounded bg-white border border-secondary"><%= chat.message %></p>
+                <small class="text-muted mb-2 mt-1"><%= chat.created_at.to_s(:datetime_jp) %></small>
               </div>
             </div>
             <% else %>
@@ -23,14 +25,17 @@
                 <%= chat.user.name %>
               </div>
               <div class="d-flex pt-1">
-                <p class="border ml-3 pl-2 pr-2 rounded border border-secondary" style="background-color: #bbe2f1;"><%= chat.message %></p>
+                <p class="border ml-3 pl-2 pr-2 mb-0 rounded border border-secondary" style="background-color: #bbe2f1;"><%= chat.message %></p>
+              </div>
+              <div>
+                <small class="text-muted mb-2 ml-3"><%= chat.created_at.to_s(:datetime_jp) %></small>
               </div>
             </div>
             <% end %>
           <% end %>
         </div>
       </div>
-      <%= form_with model: @chat do |f| %>
+      <%= form_with model: @chat, url: group_messages_path, method: :post do |f| %>
       <div class="form-group" style="height: 40%">
         <%= f.text_area :message, class: "form-control form-control-lg", placeholder: "コメント" %>
           <%= f.hidden_field :group_id %>

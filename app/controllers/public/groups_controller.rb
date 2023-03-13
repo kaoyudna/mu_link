@@ -38,13 +38,13 @@ class Public::GroupsController < ApplicationController
   def join
     @group = Group.find(params[:id])
     current_user.group_users.create(group_id: @group.id)
-    redirect_back(fallback_location: root_path)
+    redirect_to group_path(@group), notice: 'グループへ参加しました'
   end
 
   def leave
     @group = Group.find(params[:id])
     current_user.group_users.find_by(group_id: @group.id).destroy
-    redirect_back(fallback_location: root_path)
+    redirect_to groups_path, notice: 'グループを退会しました'
   end
 
   private

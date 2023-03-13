@@ -12,8 +12,25 @@
 
   <body>
     <header class="sticky-top">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 pt-0 pb-0">
         <div class="container">
+        <% if user_signed_in? %>
+        <div id="sp-menu">
+          <h2 class="font-weight-bold">MENU</h2>
+          <ul>
+            <li><%= link_to "New post", new_post_path, class: "text-white" %></li>
+            <li><%= link_to "Your group", groups_path, class: "text-white" %></li>
+            <li><%= link_to "Your favorite posts", posts_path(liked_post_id: current_user.id), class: "text-white" %></li>
+          </ul>
+        </div>
+        <div id="hm-icon">
+          <a class="menu-trigger" href="#">
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
+        </div>
+        <% end %>
           <div class="col-2 p-0 text-center">
             <% if admin_signed_in? %>
               <a class="navbar-brand pt-0 pb-0" href="/admin"><%= image_tag 'mu_link.png', style: "width: 100px" %></a>
@@ -35,6 +52,8 @@
         </div>
       </nav>
     </header>
+
+
     <main>
       <%= render 'shared/flash_message' %>
       <%= yield %>
