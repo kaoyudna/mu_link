@@ -2,18 +2,34 @@
   <div class="row">
     <div class="col-lg-3">
       <div class="card">
-        <div class="card-header font-weight-bold bg-secondary text-white text-center p-0">
-          不適切なコメント
+        <div class="card-header font-weight-bold bg-secondary text-white text-center pt-1 pb-1">
+          不適切なワード
         </div>
         <table class="table table-sm text-center table-bordered table-striped mb-0">
           <% @inappropriate_comments.each do |comment| %>
           <tr>
             <td class="align-middle" scope="col" style="width: 70%"><%= comment.comment %></td>
-            <td><%= link_to "Delete", admin_inappropriate_comments_path(comment), method: :delete , class: "btn btn-outline-danger pl-1 pr-1 pt-0 pb-0" %></td>
+            <td><%= link_to "Delete", admin_inappropriate_comment_path(comment), method: :delete , class: "btn btn-outline-danger pl-1 pr-1 pt-0 pb-0" %></td>
           </tr>
           <% end %>
         </table>
-        <%= link_to "あ", admin_post_comments_path(comment_id: 1) %>
+        <div class="card-footer text-center">
+        <%= link_to "不適切なコメントを検索", admin_post_comments_path(comment_id: 1), class: "btn btn-info" %>
+        </div>
+      </div>
+      <div class="card mt-3">
+        <div class="card-header bg-secondary text-white text-center font-weight-bold">
+          不適切なワードを追加
+        </div>
+        <%= form_with model: @inappropriate_comment, url: admin_inappropriate_comments_path, method: :post do |f| %>
+        <div class="form-group mt-5 mr-4 ml-4">
+            <%= f.label :comment %>
+            <%= f.text_field :comment, class: "form-control" %>
+        </div>
+        <div class="form-group text-center mb-5 mt-5">
+          <%= f.submit "追加", class: "btn btn-outline-success pl-5 pr-5" %>
+        </div>
+        <% end %>
       </div>
     </div>
     <div class="col-lg-9">
@@ -30,10 +46,10 @@
         <tbody>
         <% @post_comments.each do |post_comment| %>
           <tr class="text-secondary">
-            <td class="align-middle"><%= post_comment.post.title %></td>
+            <td class="align-middle"><%= post_comment.post.title %><%= post_comment.id %></td>
             <td class="align-middle"><%= post_comment.comment %></td>
             <td class="align-middle"><%= link_to post_comment.user.name, user_path(post_comment.user), class: "text-secondary" %></td>
-            <td class="align-middle"><%= post_comment.created_at %></td>
+            <td class="align-middle"><%= post_comment.created_at.to_s(:datetime_jp) %></td>
             <td class="align-middle"><%= link_to "Delete", admin_post_comment_path(post_comment), method: :delete, class: "btn btn-outline-danger p-0 pr-1 pl-1" %></td>
           </tr>
       <% end %>

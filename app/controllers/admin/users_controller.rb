@@ -3,6 +3,9 @@ class Admin::UsersController < ApplicationController
 
   def index
     @users = User.all.order(created_at: :desc)
+    if params[:word]
+      @users = User.search_for(params[:word])
+    end
   end
 
   def show

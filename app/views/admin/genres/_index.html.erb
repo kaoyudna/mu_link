@@ -11,7 +11,7 @@
   <% genres.each do |genre| %>
     <tr class="text-secondary">
       <td class="align-middle"><%= genre.name %></td>
-      <td class="align-middle"><%= genre.created_at %></td>
+      <td class="align-middle"><%= genre.created_at.to_s(:datetime_jp) %></td>
       <td class="align-middle"><%= link_to "Edit", edit_admin_genre_path(genre), class: "btn btn-outline-info p-0 pr-2 pl-2" %></td>
       <td class="align-middle"><%= link_to "Delete", admin_genre_path(genre), method: :delete, class: "btn btn-outline-danger p-0 pr-1 pl-1" %></td>
     </tr>

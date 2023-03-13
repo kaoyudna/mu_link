@@ -5,6 +5,8 @@ class Admin::PostsController < ApplicationController
     @posts = Post.all.order(created_at: :desc)
     if params[:user_id]
       @posts = Post.where(user_id: params[:user_id]).order(created_at: :desc)
+    elsif params[:word]
+      @posts = Post.search_for(params[:word])
     end
   end
 

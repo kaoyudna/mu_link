@@ -20,7 +20,7 @@
             <td class="align-middle"><%= post.title %></td>
             <td class="align-middle"><%= link_to post.user.name, admin_user_path(post.user), class: "text-secondary" %></td>
             <td class="align-middle"><%= link_to post.post_comments.count, admin_post_comments_path(post_id: post.id), class: "text-secondary" %></td>
-            <td class="align-middle"><%= post.created_at %></td>
+            <td class="align-middle"><%= post.created_at.to_s(:datetime_jp) %></td>
             <td class="align-middle"><%= link_to "Delete", admin_post_path(post), method: :delete, class: "btn btn-outline-danger p-0 pr-1 pl-1" %></td>
           </tr>
         <% end %>

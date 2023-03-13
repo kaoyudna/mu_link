@@ -7,7 +7,7 @@
         </div>
         <%= form_with model: @genre, url: admin_genres_path, method: :post do |f| %>
         <div class="form-group mt-5 mr-4 ml-4">
-            <%= f.label :genre %>
+            <%= f.label :name %>
             <%= f.text_field :name, class: "form-control" %>
         </div>
         <div class="form-group text-center mb-5 mt-5">
