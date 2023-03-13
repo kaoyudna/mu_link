@@ -8,17 +8,23 @@
             <th scope="col" style="width: auto">Name</th>
             <th scope="col" style="width: auto">Posts</th>
             <th scope="col" style="width: auto">Comments</th>
+            <th scope="col" style="width: auto">Inappropriate comments</th>
             <th scope="col" style="width: auto">Status</th>
             <th scope="col" style="width: auto">Registered Date</th>
           </tr>
         </thead>
         <tbody>
         <% @users.each do |user| %>
+        <% if user.post_comments.where(is_deleted: true).count > 2 %>
+          <tr class="text-secondary" style="background-color: #ffbebe">
+        <% else %>
           <tr class="text-secondary">
+        <% end %>
             <td class="align-middle"><%= image_tag user.get_profile_image(30,30), class: "rounded-circle" %></td>
             <td class="align-middle"><%= link_to user.name, admin_user_path(user), class: "text-secondary" %></td>
             <td class="align-middle"><%= link_to user.posts.count, admin_posts_path(user_id: user.id), class: "text-secondary" %></td>
             <td class="align-middle"><%= user.group_messages.count %></td>
+            <td class="align-middle"><%= user.post_comments.where(is_deleted: true).count %></td>
             <td class="align-middle">
               <% if user.is_deleted == false %>
                 <p class="text-info mb-0">有効</p>

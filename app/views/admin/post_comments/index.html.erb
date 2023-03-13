@@ -40,6 +40,7 @@
             <th scope="col" style="width: auto">Comments</th>
             <th scope="col" style="width: auto">User name</th>
             <th scope="col" style="width: auto">Registered Date</th>
+            <th scope="col" style="width: auto">Status</th>
             <th scope="col" style="width: auto">Delete</th>
           </tr>
         </thead>
@@ -50,7 +51,14 @@
             <td class="align-middle"><%= post_comment.comment %></td>
             <td class="align-middle"><%= link_to post_comment.user.name, user_path(post_comment.user), class: "text-secondary" %></td>
             <td class="align-middle"><%= post_comment.created_at.to_s(:datetime_jp) %></td>
-            <td class="align-middle"><%= link_to "Delete", admin_post_comment_path(post_comment), method: :delete, class: "btn btn-outline-danger p-0 pr-1 pl-1" %></td>
+            <td class="align-middle">
+              <% if post_comment.is_deleted == false %>
+                <p class="m-0 text-info">有効</p>
+              <% else %>
+                <p class="m-0 text-danger">削除済み</p>
+              <% end %>
+            </td>
+            <td class="align-middle"><%= link_to "Delete", admin_post_comment_path(post_comment), method: :patch, class: "btn btn-outline-danger p-0 pr-1 pl-1" %></td>
           </tr>
       <% end %>
         </tbody>

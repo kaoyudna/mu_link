@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @users = User.all.order(created_at: :desc)
+    @users = User.all.order(is_deleted: :asc).order(created_at: :desc)
     if params[:word]
       @users = User.search_for(params[:word])
     end

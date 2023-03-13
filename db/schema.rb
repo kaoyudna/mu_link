@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 2023_03_12_115956) do
     t.integer "user_id", null: false
     t.integer "post_id", null: false
     t.text "comment", null: false
+    t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     get "/" => "homes#top"
     resources :users, only:[:index,:show,:update]
     resources :posts, only:[:index,:destroy]
-    resources :post_comments, only:[:index, :destroy]
+    resources :post_comments, only:[:index, :update]
     resources :genres, only:[:new, :index,:create,:edit,:update,:destroy]
     resources :inappropriate_comments, only:[:new, :create, :destroy]
   end
