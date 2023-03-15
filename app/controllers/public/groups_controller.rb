@@ -31,7 +31,7 @@ class Public::GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    @users = @group.users
+    @users = @group.users.where(is_deleted: false)
     @posts = Post.where(user_id: @users)
   end
 

@@ -46,7 +46,7 @@
         </tr>
         <tr>
           <th class="bg-secondary text-white">Registered Date</th>
-          <td><%= @user.created_at %></td>
+          <td><%= @user.created_at.to_s(:datetime_jp) %></td>
         </tr>
         <tr>
           <th class="bg-secondary text-white">Status</th>

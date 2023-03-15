@@ -20,6 +20,11 @@ class Post < ApplicationRecord
     post_image.variant(resize_to_fill:[width,height]).processed
   end
 
+  #ユーザーステータスが有効の投稿のみ表示
+  def self.get_active_posts
+    self.joins(:user).where(users: { is_deleted: false }).order(created_at: :desc)
+  end
+
   def save_genre(genre_id)
     post_genre = Genre.find_by(id: genre_id)
     self.genres << post_genre

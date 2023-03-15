@@ -6,28 +6,12 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       <% if current_page?(posts_path) %>
-        <%= link_to genre.name, posts_path(genre_id: genre.id), remote: true,  class: "text-dark" %>
-        (<%= genre.posts.count %>)
+        <%= link_to genre.name, posts_path(genre_id: genre.id),  class: "text-dark" %>
       <% elsif current_page?(groups_path) %>
         <%= link_to genre.name, groups_path(genre_id: genre.id), class: "text-dark" %>
-        (<%= genre.groups.count %>)
       <% elsif current_page?(users_path) %>
         <%= link_to genre.name, groups_path(genre_id: genre.id), class: "text-dark" %>
-        (<%= genre.users.count %>)
       <% end %>
     </li>
   <% end %>
-    <li class="list-group-item">
-      <% if current_page?(posts_path) %>
-        <%= link_to "All", posts_path, remote: true, class: "text-dark" %>
-        (<%= Post.all.count %>)
-      <% elsif current_page?(groups_path) %>
-        <%= link_to "All", groups_path, class: "text-dark" %>
-        (<%= Group.all.count %>)
-      <% elsif current_page?(users_path) %>
-        <%= link_to "All", users_path, class: "text-dark" %>
-        (<%= User.all.count %>)
-      <% end %>
-    </li>
-  </ul>
 </div>

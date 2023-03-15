@@ -80,5 +80,4 @@ class User < ApplicationRecord
     User.where('name LIKE?',"%#{word}%").order(created_at: :desc)
   end
 
-
 end

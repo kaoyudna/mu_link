@@ -14,8 +14,6 @@
   transition-duration: 0.5s;
 }
 
-
-
 // カードにカーソルを合わせるとグレーアウト
 .gray_out{
   overflow: hidden;
@@ -31,11 +29,13 @@
   transition-duration: 0.3s;
 }
 
+
+// スクロールバーの非表示
 ::-webkit-scrollbar {
     display: none;
 }
 
-
+// ハンバーガーメニュー
 #hm-icon {
   z-index: 10;
 }
@@ -80,9 +80,7 @@
   transform: translateY(-20px) rotate(45deg);
   background-color: #fff;
 }
-/* ------------------------ */
-/* ------ spメニュー ------ */
-/* ------------------------ */
+
 #sp-menu {
   position: fixed;
   top: 0;
@@ -117,3 +115,189 @@
   text-decoration: none;
   font-weight: bold;
 }
+
+
+//投稿タブメニュー
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#tab-menu {
+  display: flex;
+  margin-bottom: 0;
+}
+
+#tab-menu li {
+  list-style-type: none;
+  width: 20%;
+}
+
+#tab-menu li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 20px;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+#tab-menu li form{
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 14pt;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+
+@media screen and  (max-width: 1024px) {
+  #tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 19px 0 18px 0;;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+@media screen and  (max-width: 425px) {
+  #tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 5pt;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+#tab-menu .active {
+  background: #fff;
+  color: #000;
+}
+
+#tab-contents {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#tab-contents .tab {
+  width: 100%;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #000;
+  border-top: none;
+}
+
+#tab-contents p {
+  color: #000;
+  line-height: 2.5;
+}
+
+// ユーザータブメニュー
+#users_tab-menu {
+  display: flex;
+  margin-bottom: 0;
+}
+
+#users_tab-menu li {
+  list-style-type: none;
+  width: 50%;
+}
+
+#users_tab-menu li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 20px;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+#users_tab-menu li form{
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 14pt;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+
+@media screen and  (max-width: 1024px) {
+  #users_tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 19px 0 18px 0;;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+@media screen and  (max-width: 425px) {
+  #users_tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 5pt;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+#users_tab-menu .active {
+  background: #fff;
+  color: #000;
+}
+
+#users_tab-contents {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#users_tab-contents .tab {
+  width: 100%;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #000;
+  border-top: none;
+}
+
+#users_tab-contents p {
+  color: #000;
+  line-height: 2.5;
+}
+
+
+
+
+.information {
+  position: absolute;
+  bottom: 10px;
+}
+
+.text-shadow {
+  text-shadow: #fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px;
+}
+

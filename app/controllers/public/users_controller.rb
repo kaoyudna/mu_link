@@ -12,22 +12,38 @@ class Public::UsersController < ApplicationController
       @genre = Genre.find(params[:genre_id])
       @users = @genre.users
     elsif params[:word]
-       @users = User.search_for(params[:word])
+      @users = User.search_for(params[:word])
+    elsif params[:recommendation_id]
+      @user = User.find(params[:recommendation_id])
+      @users = User.joins(:artist_favorites)
+            # 退会していないユーザーを取得
+             .where(users: { is_deleted: false })
+            # 同じアーティストにいいねをしているユーザーを取得
+             .where(artist_favorites: { artist_id: @user.artist_favorites.pluck(:artist_id) })
+            # ログインしているユーザーを除外
+             .where.not(id: @user.id)
+            # 重複を
+             .distinct
+             .order(created_at: :desc)
     end
   end
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts.all.order(created_at: :desc)
-    if @user.artist_favorites.count > 0
-    #ユーザーがいいねしているアーティストのspotify_idを取得
-      artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
-    #spotify_idからアーティスト情報を取得
-      @artists = RSpotify::Artist.find(artists_id)
-    end
-    if @user.music_favorites.count > 0
-      music_id = MusicFavorite.where(user_id: @user.id).pluck(:music_id)
-      @musics = RSpotify::Track.find(music_id)
+    if @user.is_deleted == false
+      @posts = @user.posts.all.order(created_at: :desc)
+      if @user.artist_favorites.count > 0
+      #ユーザーがいいねしているアーティストのspotify_idを取得
+        artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
+      #spotify_idからアーティスト情報を取得
+        @artists = RSpotify::Artist.find(artists_id)
+      end
+      if @user.music_favorites.count > 0
+        music_id = MusicFavorite.where(user_id: @user.id).pluck(:music_id)
+        @musics = RSpotify::Track.find(music_id)
+      end
+    else
+      redirect_to users_path, alert: '退会済みのユーザーです'
     end
   end
 
