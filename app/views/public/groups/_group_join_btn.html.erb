@@ -1,5 +1,9 @@
 <% if group.user_join?(current_user) %>
-  <%= link_to "Leave", group_leave_path(group), method: :delete, class: "btn btn-outline-danger pt-1 pb-1" %>
+  <% if group.owner_id == current_user.id %>
+    <%= link_to "Delete", group_path(group), method: :delete, class: "btn btn-danger pt-1 pb-1" %>
+  <% else %>
+    <%= link_to "Leave", group_leave_path(group), method: :delete, class: "btn btn-outline-danger pt-1 pb-1" %>
+  <% end %>
 <% else %>
   <%= link_to "Join", group_join_path(group), class: "btn btn-outline-info pt-1 pb-1" %>
 <% end %>

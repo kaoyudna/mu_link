@@ -24,3 +24,12 @@ $(document).on('turbolinks:load', function () {
     event.preventDefault();
   });
 });
+
+$(document).on('turbolinks:load', function () {
+  $('#groups_tab-menu a').on('click', function(event) {
+    $("#groups_tab-menu .active").removeClass("active");
+    $(this).addClass("active");
+    $($(this).attr("href")).show();
+    event.preventDefault();
+  });
+});

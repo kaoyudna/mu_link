@@ -289,6 +289,89 @@
   line-height: 2.5;
 }
 
+// グループタブメニュー
+#groups_tab-menu {
+  display: flex;
+  margin-bottom: 0;
+}
+
+#groups_tab-menu li {
+  list-style-type: none;
+  width: 50%;
+}
+
+#groups_tab-menu li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 20px;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+#groups_tab-menu li form{
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 14pt;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+
+@media screen and  (max-width: 1024px) {
+  #groups_tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 19px 0 18px 0;;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+@media screen and  (max-width: 425px) {
+  #groups_tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 18px 0 19px 0;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+#groups_tab-menu .active {
+  background: #fff;
+  color: #000;
+}
+
+#groups_tab-contents {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#groups_tab-contents .tab {
+  width: 100%;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #000;
+  border-top: none;
+}
+
+#groups_tab-contents p {
+  color: #000;
+  line-height: 2.5;
+}
+
 
 
 

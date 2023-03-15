@@ -1,38 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-12 text-center">
-      <h1 class="font-weight-bold">Groups</h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-3 offset-lg-1">
-      <%= render 'public/genres/genre_search', genres: @genres %>
-    </div>
-    <div class="col-sm-7">
-      <% @groups.each do |group| %>
-      <div class="row g-0 shadow mb-3 rounded card_wrap">
-        <div class="col-md-4 pl-0 pr-0">
-          <%= link_to group_path(group) do %>
-            <%= image_tag group.get_group_image(300,300), class: "card-img-top", style: "height: 200px;"%>
+    <div class="col-lg-12 wrap">
+      <ul id="groups_tab-menu">
+        <li><%= link_to "All", groups_path, remote: true, class: "active" %></li>
+        <li><%= link_to "Your groups", groups_path(user_id: current_user.id), remote: true, class: "" %></li>
+        <li>
+          <%= form_tag(groups_path, method: :get, remote: true) do%>
+            <%= select_tag(:genre_id, options_from_collection_for_select(@genres, :id, :name), include_blank: false) %>
+            <%= submit_tag("Filter", class: "btn btn-outline-light p-0")%>
           <% end %>
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5><%= link_to group.name, group_path(group) %></h5>
-            <p class="mb-1">Owner : <%= link_to User.find(group.owner_id).name, user_path(group.owner_id) %></p>
-            <p class="mb-0">
-              <small class="text-muted">Genre :
-                <% group.genres.each do |genre| %>
-                  <%= genre.name %>
-                <% end %>
-              </small>
-            </p>
-            <p class="card-text"><small class="text-muted"><%= group.users.count %> people are participating</small></p>
-            <%= render 'group_join_btn', group: group %>
-          </div>
+        </li>
+      </ul>
+      <div class="overflow-auto" id="tab-contents" style="height: 600px">
+        <div class="tab d-flex flex-wrap" id="groups_index">
+          <%= render 'index', groups: @groups %>
         </div>
       </div>
-      <% end %>
     </div>
   </div>
 </div>

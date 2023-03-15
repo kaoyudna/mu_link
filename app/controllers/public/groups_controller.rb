@@ -24,6 +24,9 @@ class Public::GroupsController < ApplicationController
     if params[:genre_id]
       @genre = Genre.find(params[:genre_id])
       @groups = @genre.groups
+    elsif params[:user_id]
+      user = User.find(params[:user_id])
+      @groups = user.groups
     elsif params[:word]
       @groups = Group.search_for(params[:word])
     end
@@ -33,6 +36,12 @@ class Public::GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @users = @group.users.where(is_deleted: false)
     @posts = Post.where(user_id: @users)
+  end
+
+  def destroy
+    group = Group.find(params[:id])
+    group.destroy
+    redirect_to groups_path, notice: 'グループを削除しました'
   end
 
   def join
