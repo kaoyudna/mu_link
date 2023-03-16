@@ -7,8 +7,8 @@
     <th class="align-middle" scope="col" style="width:33%">
       <%= link_to user.name, user_path(user), class:"text-dark" %>
     </th>
-    <td class="align-middle" scope="col" style="width: 34%">
-      <%= render 'public/relationships/follow_btn', user: @user %>
+    <td class="align-middle" scope="col" style="width: 34%" id="follow_<%= user.id %>">
+      <%= render 'public/relationships/follow_btn', user: user %>
     </td>
   </tr>
   <% end %>

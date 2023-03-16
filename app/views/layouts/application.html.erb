@@ -16,11 +16,12 @@
         <div class="container">
         <% if user_signed_in? %>
         <div id="sp-menu">
-          <h2 class="font-weight-bold">MENU</h2>
+          <h2 class="font-weight-bold text-muted text-shadow">MENU</h2>
           <ul>
-            <li><%= link_to "New post", new_post_path, class: "text-white" %></li>
-            <li><%= link_to "Your group", groups_path, class: "text-white" %></li>
-            <li><%= link_to "Your favorite posts", posts_path(liked_post_id: current_user.id), class: "text-white" %></li>
+            <li><%= link_to "New post", new_post_path, class: "text-muted text-shadow" %></li>
+            <li><%= link_to "New group", new_group_path, class: "text-muted text-shadow" %></li>
+            <li><%= link_to "Your group", groups_path(user_id: current_user.id), class: "text-muted text-shadow" %></li>
+            <li><%= link_to "Your favorite posts", posts_path(liked_post_id: current_user.id), class: "text-muted text-shadow" %></li>
           </ul>
         </div>
         <div id="hm-icon">

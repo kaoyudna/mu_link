@@ -4,13 +4,13 @@
       <%= render 'group_detail', group: @group %>
     </div>
     <div class="col-sm-5">
-      <h3 class="font-weight-bold mx-auto">Group Users Posts</h3>
+      <h3 class="font-weight-bold d-flex text-center", style="margin-left: 5rem">Group Users Posts</h3>
       <div class="col-sm-12 overflow-auto border-top  pt-3 pb-3 pl-3 pr-3" style="height: 550px;">
         <%= render 'public/posts/index', posts: @posts %>
       </div>
     </div>
-    <div class="col-sm-3">
-      <h3 class="font-weight-bold">Group Users</h3>
+    <div class="col-sm-3 text-center">
+      <h3 class="font-weight-bold ">Group Users</h3>
       <div class="col-sm-12 overflow-auto border-top pt-3 pb-3 pl-0 pr-0" style="height: 550px;">
         <div class="d-flex align-content-around flex-wrap">
         <% @users.each do |user| %>

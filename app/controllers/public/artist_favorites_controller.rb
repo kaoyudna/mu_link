@@ -1,15 +1,19 @@
 class Public::ArtistFavoritesController < ApplicationController
   before_action :authenticate_user!
 
+  require 'rspotify'
+  RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
+
   def create
     favorite = current_user.artist_favorites.new(artist_id: params[:artist_id])
     favorite.save
-    redirect_back(fallback_location: root_path)
+    @artist = RSpotify::Artist.find(favorite.artist_id)
+    @users = User.all
   end
 
   def destroy
     favorite = current_user.artist_favorites.find_by(artist_id: params[:artist_id])
     favorite.destroy
-    redirect_back(fallback_location: root_path)
+    @artist = RSpotify::Artist.find(favorite.artist_id)
   end
 end

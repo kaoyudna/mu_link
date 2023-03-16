@@ -1,7 +1,7 @@
 <% if current_user.following?(user) %>
-  <%= link_to "UnFollow", user_relationships_path(user), method: :delete, class: "btn btn-outline-danger p-1" %>
+  <%= link_to "UnFollow", user_relationships_path(user), method: :delete, remote: true, class: "btn btn-outline-danger p-1" %>
 <% elsif user != current_user %>
-  <%= link_to "Follow", user_relationships_path(user), method: :destroy, class: "btn btn-outline-info" %>
+  <%= link_to "Follow", user_relationships_path(user), method: :post, remote: true, class: "btn btn-outline-info" %>
 <% else %>
   <%= link_to "Edit", edit_user_path(user), class: "btn btn-outline-dark" %>
 <% end %>

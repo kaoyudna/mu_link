@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :groups, only:[:new,:create,:index,:show,:destroy]
     get "groups/:id/join" => "groups#join",as:"group_join"
     delete "groups/:id/leave" => "groups#leave",as:"group_leave"
-    resources :group_messages, only:[:show,:create]
+    resources :group_messages, only:[:show,:create,:destroy]
     resources :posts, only:[:new,:create,:index,:show,:destroy] do
       resources :post_comments, only:[:create,:destroy]
       resource :post_favorites, only:[:create,:destroy]

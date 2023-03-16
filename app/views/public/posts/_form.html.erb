@@ -1,0 +1,28 @@
+<%= form_with model: obj, local:true do |f| %>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, placeholder: "20文字以下で入力してください", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body %>
+    <%= f.text_area :body, placeholder: "40文字以下で入力してください", class: "form-control", rows: "10" %>
+  </div>
+
+  <div class="form-group d-flex">
+    <div>
+    <%= f.label :genre_id, "ジャンル" %><br>
+    <%= f.collection_select :genre_id, Genre.all, :id, :name, class: "dd",style: "width: 100px; height: 30px" %>
+    </div>
+    <div class="ml-auto">
+      <%= f.label :post_imate, "投稿画像" %>
+      <%= f.file_field :post_image, accept: "image/*", class: "form-control-file" %>
+    </div>
+  </div>
+
+  <div class="col-lg-6 text-center mx-auto mt-4">
+    <%= f.submit "Post", class: "btn btn-outline-success btn-block" %>
+  </div>
+
+<% end %>

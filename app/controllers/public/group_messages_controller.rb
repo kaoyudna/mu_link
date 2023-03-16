@@ -9,13 +9,16 @@ class Public::GroupMessagesController < ApplicationController
 
   def create
     @chat = current_user.group_messages.new(chat_params)
-    if @chat.save
-      redirect_to group_message_path(@chat.group_id)
-    else
-      @group = @chat.group
-      @chats = @group.group_messages
-      render 'show'
+    @chats = @chat.group.group_messages
+    unless @chat.save
+      render 'error'
     end
+  end
+
+  def destroy
+    @chat = GroupMessage.find(params[:id])
+    @chat.destroy
+    @chats = @chat.group.group_messages
   end
 
   private

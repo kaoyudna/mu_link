@@ -9,10 +9,10 @@
     <th scope="col" style="width: 50%">Follower</th>
   </tr>
   <tr>
-    <td><%= link_to user.followings.count, user_user_following_path(user), class: "text-secondary"%></td>
-    <td><%= link_to user.followers.count, user_user_follower_path(user), class: "text-secondary" %></td>
+    <td id="follow_count_<%= user.id %>"><%= render "public/relationships/follow_count", user: user %></td>
+    <td id="follower_count_<%= user.id %>"><%= render "public/relationships/follower_count", user: user %></td>
   </tr>
 </table>
-<div class="text-center">
+<div class="text-center" id="follow_<%= user.id %>">
   <%= render 'public/relationships/follow_btn', user: user %>
 </div>

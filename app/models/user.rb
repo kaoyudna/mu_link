@@ -28,7 +28,6 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_one_attached :background_image
 
-  validates :name, presence: true, length: { minimum: 2, maximum: 10 }
   validates :introduction, length: {maximum: 20}
 
   def active_for_authentication?
