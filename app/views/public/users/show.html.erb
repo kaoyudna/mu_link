@@ -12,20 +12,19 @@
         <%= image_tag @user.get_profile_image(200,200), class: "rounded-circle" %>
       </div>
       <div class="card-body">
+        <div class="d-flex">
         <h3>
           <%= @user.name %>
         </h3>
-        <div id="follow_<%= @user.id %>">
+        <div class="ml-3" id="follow_<%= @user.id %>">
           <%= render 'public/relationships/follow_btn', user: @user %>
         </div>
-        <p><%= @user.introduction %></p>
+      </div>
+        <p class="mt-4"><%= @user.introduction %></p>
         <div class="information">
           <small class="text-muted align-middle">Favorite Genre:
             <% @user.genres.each do |genre| %>
-              <%= genre.name %>
-              <% if @user == current_user %>
-                <%= link_to "Delete",users_path, class: "btn btn-outline-danger p-0" %>
-              <% end %>
+              <%= genre.name %>.
             <% end %>
           </small><br>
           <small class="text-muted">
@@ -50,15 +49,13 @@
       </div>
     </div>
     <div class="col-lg-12 mb-1 mt-2">
-      <div class="overflow-auto" style="height: 600px">
-        <div class="border-bottom bg-dark text-center rounded">
-          <h4 class="text-white mb-0">
-            Recent posts
-          </h4>
-        </div>
-        <div class="tab d-flex flex-wrap">
-          <%= render 'public/posts/index', posts: @posts %>
-        </div>
+      <div class="border-bottom bg-dark text-center rounded">
+        <h4 class="text-white mb-0">
+          Recent posts
+        </h4>
+      </div>
+      <div class="tab d-flex flex-wrap">
+        <%= render 'public/posts/index', posts: @posts %>
       </div>
     </div>
   </div>

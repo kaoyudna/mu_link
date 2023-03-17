@@ -1,4 +1,4 @@
-  <div class="border-bottom border-info">
+  <div class="border-bottom border-info" style: "position: relative">
     <%= link_to artist_path(artist.id), class: 'd-flex flex-column align-items-center text-dark' do %>
       <% if artist.images.any? %>
         <% image = artist.images[1] %>
@@ -7,13 +7,13 @@
         <%= image_tag("default.jpg", size: '200x200', class: 'rounded-circle shadow') %>
       <% end %>
     <% end %>
-    <div class="d-flex mt-2">
-      <h4 class="font-weight-bold mx-auto text-break text-nowrap"><%= artist.name %></h4>
-      <div id="artist_favorite_<%= artist.id %>">
+      <div style="position: absolute; left: 213px; top: 180px;" id="artist_favorite_<%= artist.id %>">
         <%= render 'public/artist_favorites/artist_favorite_btn', artist: artist %>
       </div>
+    <div class="d-flex mt-2">
+      <h4 class="font-weight-bold mx-auto text-break text-nowrap"><%= artist.name %></h4>
     </div>
-  </div> 
+  </div>
   <div class="overflow-auto mt-2", style="height: 300px;">
     <%= render 'public/users/favorite_musics', musics: artist.top_tracks(:JP)%>
   </div>

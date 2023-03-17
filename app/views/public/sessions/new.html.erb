@@ -35,6 +35,11 @@
         <div class="col-6 mx-auto text-center mt-4">
           <%= render "public/shared/links" %>
         </div>
+
+        <div class="col-6 mx-auto text-center">
+          <%= link_to 'ゲストログイン',users_guest_sign_in_path, class: "btn btn-outline-info btn-block", method: :post%>
+        </div>
+
       </div>
     </div>
   </div>

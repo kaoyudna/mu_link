@@ -22,7 +22,7 @@ class Public::UsersController < ApplicationController
              .where(artist_favorites: { artist_id: @user.artist_favorites.pluck(:artist_id) })
             # ログインしているユーザーを除外
              .where.not(id: @user.id)
-            # 重複を
+            # 重複を禁止
              .distinct
              .order(created_at: :desc)
     end
@@ -52,18 +52,16 @@ class Public::UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    @genre = params[:user][:genre_id]
+  @user = User.find(params[:id])
+  @genre_ids = params[:user][:genre_ids].reject(&:blank?).map(&:to_i)
     if @user.update(user_params)
-      #UserGenre内にパラメーターで受け取った値が見つからなかった場合ジャンルを保存
-      unless @user.genres.find_by(id: @genre)
-        @user.save_genre(@genre)
-      end
+      @user.save_genres(@genre_ids)
       redirect_to user_path(@user), notice: "プロフィールを編集しました"
     else
       render "edit"
     end
   end
+
 
   def unsubscribe
   end
