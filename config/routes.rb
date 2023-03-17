@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     sessions: "public/sessions"
   }
 
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  end
+
   devise_for :admins,skip:[:registrations,:passwords],controllers:{
     sessions: "admin/sessions"
   }
@@ -21,7 +25,7 @@ Rails.application.routes.draw do
     resources :groups, only:[:new,:create,:index,:show,:destroy]
     get "groups/:id/join" => "groups#join",as:"group_join"
     delete "groups/:id/leave" => "groups#leave",as:"group_leave"
-    resources :group_messages, only:[:show,:create]
+    resources :group_messages, only:[:show,:create,:destroy]
     resources :posts, only:[:new,:create,:index,:show,:destroy] do
       resources :post_comments, only:[:create,:destroy]
       resource :post_favorites, only:[:create,:destroy]

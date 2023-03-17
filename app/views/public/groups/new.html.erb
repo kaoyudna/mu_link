@@ -1,10 +1,37 @@
-<div class="containre">
+<%= render "public/shared/error_messages", resource: @group %>
+<div class="container">
   <div class="row">
-    <div class="col-sm-12 text-center">
-      <h1 class="font-weight-bold">New Group</h1>
+    <div class="col-lg-12 text-center">
+      <h1 class="font-weight-bold">New group</h1>
     </div>
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-      <%= render 'public/users/form', obj: @group %>
+      <%= form_with model: @group, local:true do |f| %>
+
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, placeholder: "20文字以下で入力してください", class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :introduction %>
+        <%= f.text_area :introduction, placeholder: "20文字以下で入力してください", class: "form-control", rows: "10" %>
+      </div>
+
+      <div class="form-group d-flex">
+        <div>
+        <%= f.label :genre_id, "ジャンル" %><br>
+        <%= f.collection_select :genre_id, Genre.all, :id, :name, class: "dd",style: "width: 100px; height: 30px" %>
+        </div>
+        <div class="ml-auto">
+          <%= f.label :group_image, "グループ画像" %>
+          <%= f.file_field :group_image, accept: "image/*", class: "form-control-file" %>
+        </div>
+      </div>
+
+      <div class="col-lg-6 text-center mx-auto mt-4">
+        <%= f.submit "Create", class: "btn btn-outline-success btn-block" %>
+      </div>
     </div>
   </div>
 </div>
+<% end %>

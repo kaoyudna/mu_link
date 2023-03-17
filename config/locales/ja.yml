@@ -1,5 +1,21 @@
 ja:
   activerecord:
+    attributes:
+      post:
+        title: タイトル
+        body: 本文
+      group:
+        name: グループ名
+        introduction: 紹介文
+      group_message:
+        message: コメント
+      post_comment:
+        comment: 文章
+    models:
+      post: 投稿
+      group: グループ
+      group_message: メッセージ
+      post_comment: コメント
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

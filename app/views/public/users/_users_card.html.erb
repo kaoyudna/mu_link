@@ -3,16 +3,23 @@
     <%= image_tag user.get_profile_image(100,100), class: 'rounded-circle' %>
   <% end %>
 </div>
+<div class="mr-4 ml-4">
+  <small class="text-muted">Genre:
+    <% user.genres.each do |genre| %>
+      <%= genre.name %>.
+    <% end %>
+  </small>
+</div>
 <table class="table table-borderless table-sm text-center mb-0">
   <tr>
-    <th scope="col" style="width: 50%">Follow</th>
-    <th scope="col" style="width: 50%">Follower</th>
+    <th scope="col">Follow</th>
+    <th scope="col">Follower</th>
   </tr>
   <tr>
-    <td><%= link_to user.followings.count, user_user_following_path(user), class: "text-secondary"%></td>
-    <td><%= link_to user.followers.count, user_user_follower_path(user), class: "text-secondary" %></td>
+    <td id="follow_count_<%= user.id %>"><%= render "public/relationships/follow_count", user: user %></td>
+    <td id="follower_count_<%= user.id %>"><%= render "public/relationships/follower_count", user: user %></td>
   </tr>
 </table>
-<div class="text-center">
+<div class="text-center mb-3" id="follow_<%= user.id %>">
   <%= render 'public/relationships/follow_btn', user: user %>
 </div>

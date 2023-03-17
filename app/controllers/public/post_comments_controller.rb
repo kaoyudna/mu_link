@@ -3,17 +3,19 @@ class Public::PostCommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    comment = current_user.post_comments.new(post_comment_params)
-    comment.post_id = @post.id
-    comment.save
-    redirect_back(fallback_location: root_path)
+    @comment = current_user.post_comments.new(post_comment_params)
+    @comment.post_id = @post.id
+    @comments = @post.post_comments
+    unless @comment.save
+      render 'error'
+    end
   end
 
   def destroy
-    post = Post.find(params[:post_id])
-    comment = current_user.post_comments.find_by(post_id: post.id)
+    @post = Post.find(params[:post_id])
+    comment = current_user.post_comments.find_by(post_id: @post.id, id: params[:id])
     comment.destroy
-    redirect_back(fallback_location: root_path)
+    @comments = @post.post_comments
   end
 
   private

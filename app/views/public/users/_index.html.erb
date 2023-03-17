@@ -1,0 +1,12 @@
+<% @users.each do |user| %>
+<div class="col-md-3 mb-3">
+  <div class="card_wrap">
+    <div class="card shadow">
+      <div class="card-header bg-dark p-1 text-center">
+        <p class="font-weight-bold link-white mb-0"><%= link_to user.name, user_path(user), class: "text-light" %></p>
+      </div>
+        <%= render 'public/users/users_card', user: user %>
+    </div>
+  </div>
+</div>
+<% end %>

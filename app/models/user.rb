@@ -28,8 +28,17 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_one_attached :background_image
 
+  validates :introduction, length: {maximum: 20}
+
   def active_for_authentication?
     super && (is_deleted == false)
+  end
+
+  def self.guest
+    find_or_create_by!(name: 'guestuser' ,email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end
   end
 
   def get_profile_image(width,height)
@@ -68,14 +77,18 @@ class User < ApplicationRecord
     music_favorites.where(music_id: music.id).exists?
   end
 
-  def save_genre(genre_id)
-    user_genre = Genre.find_by(id: genre_id)
-    self.genres << user_genre
+  def save_genres(genre_ids)
+    #重複を防ぐために前回のジャンルを削除
+    self.user_genres.destroy_all
+    #受け取ったジャンルidを配列から取り出す 
+    genre_ids.each do |genre_id|
+      # ユーザージャンルテーブルに受け取った値を保存していく
+      self.user_genres.create(genre_id: genre_id)
+    end
   end
 
   def self.search_for(word)
     User.where('name LIKE?',"%#{word}%").order(created_at: :desc)
   end
 
-  
 end

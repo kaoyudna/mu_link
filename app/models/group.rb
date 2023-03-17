@@ -8,6 +8,9 @@ class Group < ApplicationRecord
 
   has_one_attached :group_image
 
+  validates :name, presence: true, length:{maximum: 20}
+  validates :introduction, length:{maximum:  20}
+
   def get_group_image(width,height)
     unless group_image.attached?
       file_path = Rails.root.join('app/assets/images/default.jpg')

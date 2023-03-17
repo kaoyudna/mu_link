@@ -1,5 +1,4 @@
 <%= form_with model: obj, local:true do |f| %>
-  <%= render 'public/shared/error_messages', resource: obj %>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>

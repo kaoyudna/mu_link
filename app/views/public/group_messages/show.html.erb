@@ -1,3 +1,6 @@
+<div id="error">
+  <%= render 'public/shared/error_messages', resource: @chat %>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-lg-6 text-center">
@@ -8,35 +11,20 @@
         <div class="card-header bg-secondary text-center text-light font-weight-bold">
           <%= @group.name %>のチャット
         </div>
-        <div class="card-body bg-light overflow-auto" style="height: 400px;">
-          <% @chats.each do |chat| %>
-            <% if chat.user_id == current_user.id %>
-            <div class="text-right pr-3">
-              <div class="d-flex  pt-1">
-                <p class="border pl-2 pr-2 ml-auto rounded bg-white border border-secondary"><%= chat.message %></p>
-              </div>
-            </div>
-            <% else %>
-            <div class="text-left pl-3">
-              <div class="align-middle">
-                <%= image_tag chat.user.get_profile_image(20,20), class: 'rounded-circle' %>
-                <%= chat.user.name %>
-              </div>
-              <div class="d-flex pt-1">
-                <p class="border ml-3 pl-2 pr-2 rounded border border-secondary" style="background-color: #bbe2f1;"><%= chat.message %></p>
-              </div>
-            </div>
-            <% end %>
-          <% end %>
+        <div class="card-body bg-light overflow-auto" style="height: 400px;" id="group_messages">
+          <%= render 'message', chats: @chats %>
         </div>
       </div>
-      <%= form_with model: @chat do |f| %>
+      <%= form_with model: @chat, url: group_messages_path, method: :post, local: false do |f| %>
       <div class="form-group" style="height: 40%">
         <%= f.text_area :message, class: "form-control form-control-lg", placeholder: "コメント" %>
           <%= f.hidden_field :group_id %>
           <%= f.submit "Send", class: "btn btn-outline-success btn-block"%>
         <% end %>
       </div>
+    </div>
+    <div class="col-lg-4 mx-auto text-center">
+      <%= link_to "Back", group_path(@chat.group), class: "btn btn-primary btn-block" %>
     </div>
   </div>
 </div>

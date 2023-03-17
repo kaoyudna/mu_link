@@ -1,24 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-12 text-center">
-      <h1 class="font-weight-bold">Users</h1>
-    </div>
-  </div>
-  <% @genres.each do |genre| %>
-    <%= link_to genre.name, users_path(genre_id: genre.id) %>(<%= genre.users.count %>)
-    <% end %>
-  <div class="d-flex align-content-around flex-wrap">
-  <% @users.each do |user| %>
-    <div class="col-lg-3 mb-3">
-      <div class="card_wrap">
-        <div class="card shadow" style="height: 300px">
-          <div class="card-header bg-dark p-1 text-center">
-            <p class="font-weight-bold link-white mb-0"><%= link_to user.name, user_path(user), class: "text-light" %></p>
-          </div>
-            <%= render 'users_card', user: user %>
+    <div class="col-lg-12 wrap">
+      <ul id="users_tab-menu">
+        <li><%= link_to "All", users_path, remote: true, class: "active" %></li>
+        <li><%= link_to "Recommendation", users_path(recommendation_id: current_user.id), remote: true, class: "" %></li>
+        <li>
+          <%= form_tag(users_path, method: :get, remote: true) do%>
+            <%= select_tag(:genre_id, options_from_collection_for_select(@genres, :id, :name), include_blank: false) %>
+            <%= submit_tag("Filter", class: "btn btn-outline-light p-0")%>
+          <% end %>
+        </li>
+      </ul>
+      <div class="overflow-auto" id="tab-contents" style="height: 600px">
+        <div class="tab d-flex flex-wrap" id="users_index">
+          <%= render 'index', users: @users %>
         </div>
       </div>
     </div>
-    <% end %>
   </div>
 </div>

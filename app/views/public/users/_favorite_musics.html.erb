@@ -5,7 +5,7 @@
     <td scope="col" style="width: 10%">
       <% if music.album.images.any? %>
         <% image = music.album.images[1] %>
-        <%= image_tag(image["url"], size: '30x30', class: 'rounded-circle')%>
+        <%= image_tag(image["url"], size: '30x30', class: 'rounded-circle') %>
       <% else %>
         <%= image_tag("default.jpg", size: '30x30', class: 'rounded-circle') %>
       <% end %>
@@ -13,7 +13,7 @@
     <th class="align-middle" scope="col" style="width:80%">
       <%= music.name %>
     </th>
-    <td class="align-middle" scope="col" style="width: 10%">
+    <td class="align-middle" scope="col" style="width: 10%" id="music_favorite_<%= music.id %>">
       <%= render 'public/music_favorites/music_favorite_btn', music: music %>
     </td>
   </tr>

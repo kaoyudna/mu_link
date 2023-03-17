@@ -1,57 +1,62 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-12 text-center">
-      <h1 class="font-weight-bold">User info</h1>
+    <div class="col-lg-3  pb-2 pl-0 pr-0">
+      <div class="card overflow-auto" style="height: 600px">
+        <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Artists</h5>
+        <%= render 'public/users/favorite_artists', artists: @artists %>
+      </div>
     </div>
-    <div class="col-lg-3 offset-lg-1 d-flex flex-column align-items-center">
-      <%= render 'users_card', user: @user %>
+    <div class="col-lg-6 mb-2 card pt-3">
+      <%= image_tag @user.get_background_image_url, class: "card-img", style: "height: 300px" %>
+      <div class="card-img-overlay text-center mt-5", style="height: 0px">
+        <%= image_tag @user.get_profile_image(200,200), class: "rounded-circle" %>
+      </div>
+      <div class="card-body">
+        <div class="d-flex">
+        <h3>
+          <%= @user.name %>
+        </h3>
+        <div class="ml-3" id="follow_<%= @user.id %>">
+          <%= render 'public/relationships/follow_btn', user: @user %>
+        </div>
+      </div>
+        <p class="mt-4"><%= @user.introduction %></p>
+        <div class="information">
+          <small class="text-muted align-middle">Favorite Genre:
+            <% @user.genres.each do |genre| %>
+              <%= genre.name %>.
+            <% end %>
+          </small><br>
+          <small class="text-muted">
+            Follow :
+          </small>
+          <small class="text-muted" id="follow_count_<%= @user.id %>">
+            <%= render "public/relationships/follow_count", user: @user %>
+          </small><br>
+          <small class="text-muted">
+            Follower :
+          </small>
+          <small class="text-muted" id="follower_count_<%= @user.id %>">
+            <%= render "public/relationships/follower_count", user: @user %>
+          </small>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-4 d-flex flex-column align-items-center">
-      <h4>Favorite genre</h4>
-      <ul class="list-unstyled">
-      <% @user.genres.each do |genre| %>
-        <li>
-          <%= genre.name %>
-        </li>
-      <% end %>
-      </ul>
-      <h4>Introduction</h4>
-      <p><%= @user.introduction %></p>
+    <div class="col-lg-3  pb-2 pl-0 pr-0">
+      <div class="card overflow-auto" style="height: 600px">
+        <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Musics</h5>
+        <%= render 'favorite_musics', musics: @musics %>
+      </div>
     </div>
-    <div class="col-lg-3 d-flex flex-column align-items-center">
-      <%= render 'user_follower' %>
-      <%= link_to "New post", new_post_path %>
-    </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-lg-4 d-flex flex-column align-items-center">
-      <h3 class="font-weight-bold">Favorite artists</h3>
-      <%= render 'favorite_artists', artists: @artists %>
-    </div>
-    <div class="col-lg-4 d-flex flex-column align-items-center overflow-auto" style="height: 300px">
-      <h3 class="font-weight-bold">Favorite musics</h3>
-      <%= render 'favorite_musics', musics: @musics %>
-    </div>
-    <div class="col-lg-4 d-flex flex-column align-items-center">
-      <h3 class="font-weight-bold">Post lists</h3>
-      <table class="table table-sm table-borderless text-center">
-        <% @posts.first(4).each do |post| %>
-        <tr>
-          <td scope="col" style="width: 30%">
-            <%= image_tag post.get_post_image(50,50), class: 'rounded-circle' %>
-          </td>
-          <th class="align-middle" scope="col" style="width:30%">
-            <%= link_to post.title, post_path(post) %>
-          </th>
-          <td class="align-middle" scope="col" style="width: 20%">
-            <%= render 'public/post_favorites/post_favorite_btn', post: post %>
-          </td>
-          <td class="align-middle" scope="col" style="width: 20%">
-              <%= link_to 'Delete', post_path(post), method: :delete, class: "btn btn-outline-danger pt-0 pb-0" %>
-          </td>
-        </tr>
-        <% end %>
-      </table>
+    <div class="col-lg-12 mb-1 mt-2">
+      <div class="border-bottom bg-dark text-center rounded">
+        <h4 class="text-white mb-0">
+          Recent posts
+        </h4>
+      </div>
+      <div class="tab d-flex flex-wrap">
+        <%= render 'public/posts/index', posts: @posts %>
+      </div>
     </div>
   </div>
 </div>

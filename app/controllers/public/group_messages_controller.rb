@@ -9,8 +9,16 @@ class Public::GroupMessagesController < ApplicationController
 
   def create
     @chat = current_user.group_messages.new(chat_params)
-    @chat.save
-    redirect_back(fallback_location: root_path)
+    @chats = @chat.group.group_messages
+    unless @chat.save
+      render 'error'
+    end
+  end
+
+  def destroy
+    @chat = GroupMessage.find(params[:id])
+    @chat.destroy
+    @chats = @chat.group.group_messages
   end
 
   private
@@ -22,7 +30,7 @@ class Public::GroupMessagesController < ApplicationController
   def not_join
     group = Group.find(params[:id])
     unless current_user.group_users.find_by(group_id: group.id)
-      redirect_to groups_path
+      redirect_to groups_path, alert: 'グループへ参加してください'
     end
   end
 end

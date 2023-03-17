@@ -21,38 +21,44 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all.order(created_at: :desc)
+    #投稿テーブルとユーザーテーブルを結合して、会員ステータスが有効のな投稿だけを表示
+    @posts = Post.get_active_posts
+    @user_posts =  current_user.posts
     @genres = Genre.all
     if params[:genre_id]
       @genre = Genre.find(params[:genre_id])
-      @posts = @genre.posts
+      @posts = @genre.posts.get_active_posts
     elsif params[:user_id]
       @posts = current_user.posts
     elsif params[:followings_id]
-      @posts = current_user.followings_post
+      @posts = current_user.followings_post.get_active_posts
     elsif params[:liked_post_id]
-      @posts = current_user.liked_post
+      @posts = current_user.liked_post.get_active_posts
     elsif params[:word]
-       @posts = Post.search_for(params[:word])
+       @posts = Post.search_for(params[:word]).get_active_posts
     end
   end
 
   def show
     @post = Post.find(params[:id])
-    @user = @post.user
-    @users = @post.favorite_users
-    @comment = PostComment.new
-    @comments = @post.post_comments
-    if @user.artist_favorites.count > 0
-      artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
-      @artists = RSpotify::Artist.find(artists_id)
+    if @post.user.is_deleted == false
+      @user = @post.user
+      @users = @post.favorite_users
+      @comment = PostComment.new
+      @comments = @post.post_comments
+      if @user.artist_favorites.count > 0
+        artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
+        @artists = RSpotify::Artist.find(artists_id)
+      end
+    else
+      redirect_to posts_path, alert: '退会しているユーザーの投稿です'
     end
   end
 
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_back(fallback_location: root_path)
+    redirect_to posts_path, notice: '投稿を削除しました'
   end
 
   private
