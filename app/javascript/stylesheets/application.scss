@@ -1,12 +1,19 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
-@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300');
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Kaushan+Script');
 
 body {
-    font-family: 'Alegreya Sans SC', 'M PLUS Rounded 1c', sans-serif;
+    font-family: 'Quicksand', 'M PLUS Rounded 1c', sans-serif;
 }
+
+.kaushan {
+    font-family: 'Kaushan Script', cursive;
+}
+
+
 // カードにカーソルを合わせると浮き出るようなモーション
 .card_wrap{
   transition-duration: 0.5s;
@@ -411,7 +418,7 @@ body {
 }
 
 .text-shadow {
-  text-shadow: #fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px;
+  text-shadow: #000 0 0 10px;
 }
 
 .pagination {
