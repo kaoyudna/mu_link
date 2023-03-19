@@ -3,10 +3,7 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-lg-6 text-center">
-      <%= render 'public/groups/group_detail', group: @group %>
-    </div>
-    <div class="col-lg-6">
+    <div class="col-lg-7 mx-auto">
       <div class="card">
         <div class="card-header bg-secondary text-center text-light font-weight-bold">
           <%= @group.name %>のチャット
@@ -23,7 +20,7 @@
         <% end %>
       </div>
     </div>
-    <div class="col-lg-4 mx-auto text-center">
+    <div class="col-lg-6 mx-auto text-center">
       <%= link_to "Back", group_path(@chat.group), class: "btn btn-primary btn-block" %>
     </div>
   </div>

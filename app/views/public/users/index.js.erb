@@ -1,1 +1,2 @@
 $("#users_index").html("<%= j(render 'public/users/index', users: @users) %>");
+$("#users_paginate").html("<%= j(paginate @users, class: "mx-auto") %>");

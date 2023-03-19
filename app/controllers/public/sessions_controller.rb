@@ -7,6 +7,10 @@ class Public::SessionsController < Devise::SessionsController
     redirect_to user_path(user), notice: 'ゲストユーザでログインしました。'
   end
 
+  def after_sign_in_path_for(resource)
+    user_path(resource)
+  end
+
   protected
 
   def reject_user

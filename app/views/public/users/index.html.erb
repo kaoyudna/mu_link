@@ -11,10 +11,13 @@
           <% end %>
         </li>
       </ul>
-      <div class="overflow-auto" id="tab-contents" style="height: 600px">
+      <div id="tab-contents">
         <div class="tab d-flex flex-wrap" id="users_index">
           <%= render 'index', users: @users %>
         </div>
+      </div>
+      <div id="users_paginate">
+        <%= paginate @users, class: "mx-auto" %>
       </div>
     </div>
   </div>

@@ -10,7 +10,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <header class="sticky-top">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 pt-0 pb-0">
         <div class="container">
@@ -55,11 +55,11 @@
     </header>
 
 
-    <main>
+    <main class="mb-3">
       <%= render 'shared/flash_message' %>
       <%= yield %>
     </main>
-   <footer class="py-3 bg-dark mt-3" style="height: 100px;">
+   <footer class="footer py-3 bg-dark mt-auto" style="height: 100px;">
     <div class="container h-100 align-middle">
       <div class="text-center">
         <div class="mt-3">

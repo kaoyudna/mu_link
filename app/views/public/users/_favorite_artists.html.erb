@@ -11,12 +11,14 @@
       <% end %>
     </td>
     <th class="align-middle" scope="col" style="width:30%">
-      <%= link_to artist.name, artist_path(artist.id) %>
+      <%= link_to artist.name, artist_path(artist.id), class: "text-dark" %>
     </th>
     <td class="align-middle" scope="col" style="width: 30%" id="artist_favorite_<%= artist.id %>">
       <%= render 'public/artist_favorites/artist_favorite_btn', artist: artist %>
     </td>
   </tr>
   <% end %>
+<% else %>
+  <p class="text-muted text-center mt-5">アーティストが存在しません</p>
 <% end %>
 </table>

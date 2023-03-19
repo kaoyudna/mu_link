@@ -1,7 +1,10 @@
-<div class="col-1 p-0 text-center" style="border-left: 1px solid #a9a9a9">
+<div class="col-1 p-0 text-center position-relative" style="border-left: 1px solid #a9a9a9">
   <%= link_to user_path(current_user) do %>
     <%= image_tag current_user.get_profile_image(30,30), class: "rounded-circle" %>
   <% end %>
+  <div id="checked">
+    <%= render "layouts/check_icon" %>
+  </div>
 </div>
 <div class="col-1 p-0 text-center" style="border-left: 1px solid #a9a9a9; border-right: 1px solid #a9a9a9">
   <%= link_to "Log_out", destroy_user_session_path, method: :delete, class: "text-light font-weight-bold" %>

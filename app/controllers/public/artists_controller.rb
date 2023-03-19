@@ -5,9 +5,9 @@ class Public::ArtistsController < ApplicationController
   RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
 
   def index
-    @artists = RSpotify::Artist.search('a', market: 'JP', limit: 4)
+    @artists = Kaminari.paginate_array(RSpotify::Artist.search('a', market: 'JP')).page(params[:page]).per(4)
      if params[:word].present?
-       @artists = RSpotify::Artist.search(params[:word], market: 'JP', limit: 4)
+       @artists = Kaminari.paginate_array(RSpotify::Artist.search(params[:word], market: 'JP')).page(params[:page]).per(4)
      end
   end
 

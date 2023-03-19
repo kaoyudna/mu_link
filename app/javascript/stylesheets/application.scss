@@ -14,6 +14,26 @@
   transition-duration: 0.5s;
 }
 
+// カーソルを乗せるとイメージを拡大
+.card_zoom_wrap .card-img{
+  width: 100%;
+  transition-duration: 0.5s;
+}
+.card_zoom_wrap:hover .card-img{
+  transform: scale(1.05);
+  transition-duration: 0.5s;
+}
+
+.card_zoom_wrap .card-img-overlay{
+  width: 100%;
+  transition-duration: 0.5s;
+}
+
+.card_zoom_wrap:hover .card-img-overlay{
+  transform: scale(1.05);
+  transition-duration: 0.5s;
+}
+
 // カードにカーソルを合わせるとグレーアウト
 .gray_out{
   overflow: hidden;
@@ -384,3 +404,7 @@
   text-shadow: #fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px;
 }
 
+.pagination {
+  justify-content: center;
+  margin-top: 15px;
+}

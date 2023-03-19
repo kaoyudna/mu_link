@@ -1,38 +1,44 @@
-<% @posts.each do |post| %>
-  <% if current_page?(posts_path) || current_page?(user_path(post.user)) %>
-  <div class="col-lg-3 card p-0 border border-secondary">
+<% unless posts == [] %>
+  <% posts.each do |post| %>
+  <% if current_page?(root_path) || current_page?(posts_path) %>
+    <div class="col-lg-4 p-0 card_zoom_wrap">
   <% else %>
-  <div class="col-lg-12 card p-0 border border-secondary">
+    <div class="col-lg-8 p-0 mx-auto">
   <% end %>
-    <%= image_tag post.get_post_image(300,300), class: "card-img" %>
-    <div class="card-img-overlay text-shadow">
-      <div class="d-flex">
-        <h4>
-          <%= link_to user_path(post.user), class: "text-muted" do %>
-          <%= image_tag post.user.get_profile_image(30,30), class: "rounded-circle border border-light" %>
-          <%= post.user.name %>
+      <div class="card m-3">
+        <%= image_tag post.get_post_image(300,300), class: "card-img" %>
+      <div class="card-img-overlay text-shadow">
+        <div class="d-flex">
+          <h4>
+            <%= link_to user_path(post.user), class: "text-muted" do %>
+            <%= image_tag post.user.get_profile_image(30,30), class: "rounded-circle border border-light" %>
+            <%= post.user.name %>
+            <% end %>
+          </h4>
+          <div class="ml-auto mt-1" id="post_favorite_<%= post.id %>">
+          <% if user_signed_in? %>
+          <%= render 'public/post_favorites/post_favorite_btn', post: post %>
           <% end %>
-        </h4>
-        <div class="ml-auto mt-1" id="post_favorite_<%= post.id %>">
-        <% if user_signed_in? %>
-        <%= render 'public/post_favorites/post_favorite_btn', post: post %>
-        <% end %>
+          </div>
+        </div>
+        <div>
+          <h5 class="font-weight-bold"><%= link_to post.title, post_path(post), class: "text-muted" %></h5>
+        </div>
+        <div class="information">
+          <small class="text-muted">Genre:
+            <% post.genres.each do |genre| %>
+              <%= genre.name %>
+            <% end %>
+          </small><br>
+          <small class="text-muted" id="liked_count_<%= post.id %>"><%= render 'public/posts/liked_post_count', post: post %></small><br>
+          <% if post.user == current_user %>
+            <%= link_to "Delete", post_path(post), method: :delete, class: "btn btn-outline-danger pt-0 pb-0 pr-1 pl-1" %>
+          <% end %>
         </div>
       </div>
-      <div>
-        <h5 class="font-weight-bold"><%= link_to post.title, post_path(post), class: "text-muted" %></h5>
-      </div>
-      <div class="information">
-        <small class="text-muted">Genre:
-          <% post.genres.each do |genre| %>
-            <%= genre.name %>
-          <% end %>
-        </small><br>
-        <small class="text-muted" id="liked_count_<%= post.id %>"><%= render 'public/posts/liked_post_count', post: post %></small><br>
-        <% if post.user == current_user %>
-          <%= link_to "Delete", post_path(post), method: :delete, class: "btn btn-outline-danger pt-0 pb-0 pr-1 pl-1" %>
-        <% end %>
       </div>
     </div>
-  </div>
+  <% end %>
+<% else %>
+  <p class="text-muted mx-auto mt-5">投稿が存在しません</p>
 <% end %>

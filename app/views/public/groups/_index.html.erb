@@ -1,26 +1,30 @@
-<div class="col-sm-10 mx-auto">
-  <% groups.each do |group| %>
-  <div class="row g-0 shadow mb-3 rounded card_wrap">
-    <div class="col-md-4 pl-0 pr-0">
-      <%= link_to group_path(group) do %>
-        <%= image_tag group.get_group_image(300,300), class: "card-img-top", style: "height: 250px;"%>
-      <% end %>
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5><%= link_to group.name, group_path(group), class: "text-dark" %></h5>
-        <p class="mb-1">Owner : <%= link_to User.find(group.owner_id).name, user_path(group.owner_id), class: "text-dark" %></p>
-        <p class="mb-0">
-          <small class="text-muted">Genre :
-            <% group.genres.each do |genre| %>
-              <%= genre.name %>
-            <% end %>
-          </small>
-        </p>
-        <p class="card-text"><small class="text-muted"><%= group.users.count %> people are participating</small></p>
-        <%= render 'group_join_btn', group: group %>
+<% unless groups == [] %>
+  <div class="col-sm-10 mx-auto">
+    <% groups.each do |group| %>
+    <div class="row g-0 shadow mb-3 rounded card_wrap">
+      <div class="col-md-4 pl-0 pr-0">
+        <%= link_to group_path(group) do %>
+          <%= image_tag group.get_group_image(300,300), class: "card-img-top", style: "height: 250px;"%>
+        <% end %>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5><%= link_to group.name, group_path(group), class: "text-dark" %></h5>
+          <p class="mb-1">Owner : <%= link_to User.find(group.owner_id).name, user_path(group.owner_id), class: "text-dark" %></p>
+          <p class="mb-0">
+            <small class="text-muted">Genre :
+              <% group.genres.each do |genre| %>
+                <%= genre.name %>
+              <% end %>
+            </small>
+          </p>
+          <p class="card-text"><small class="text-muted"><%= group.users.count %> people are participating</small></p>
+          <%= render 'group_join_btn', group: group %>
+        </div>
       </div>
     </div>
+    <% end %>
   </div>
-  <% end %>
-</div>
+<% else %>
+  <p class="text-muted mx-auto mt-5">グループが存在しません</p>
+<% end %>

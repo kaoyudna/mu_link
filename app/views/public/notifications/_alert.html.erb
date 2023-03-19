@@ -1,0 +1,33 @@
+<% if follow_unchecked_notifications.any? %>
+  <span class="fa-stack fa-2x" style="font-size: 20px;">
+    <i class="fas fa-square fa-stack-2x" style="font-size: 15px; color: #009eff;"></i>
+    <i class="fas fa-user fa-stack-1x fa-inverse"></i>
+  </span>
+<% else %>
+ <span class="fa-stack fa-2x" style="font-size: 20px;">
+    <i class="fas fa-square fa-stack-2x" style="font-size: 15px; color: black"></i>
+    <i class="fas fa-user fa-stack-1x fa-inverse"></i>
+  </span>
+<% end %>
+<% if like_unchecked_notifications.any? %>
+  <span class="fa-stack fa-2x" style="font-size: 20px;">
+    <i class="fas fa-square fa-stack-2x" style="font-size: 15px; color: #009eff;"></i>
+    <i class="fas fa-heart fa-stack-1x fa-inverse"></i>
+  </span>
+<% else %>
+  <span class="fa-stack fa-2x" style="font-size: 20px;">
+    <i class="fas fa-square fa-stack-2x" style="font-size: 15px; color: black"></i>
+    <i class="fas fa-heart fa-stack-1x fa-inverse"></i>
+  </span>
+<% end %>
+<% if comment_unchecked_notifications.any? %>
+  <span class="fa-stack fa-2x" style="font-size: 20px;">
+    <i class="fas fa-square fa-stack-2x" style="font-size: 15px; color: #009eff;"></i>
+    <i class="fas fa-comment fa-stack-1x fa-inverse"></i>
+  </span>
+<% else %>
+  <span class="fa-stack fa-2x" style="font-size: 20px;">
+    <i class="fas fa-square fa-stack-2x" style="font-size: 15px; color: black"></i>
+    <i class="fas fa-comment fa-stack-1x fa-inverse"></i>
+  </span>
+<% end %>
