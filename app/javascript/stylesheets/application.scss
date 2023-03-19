@@ -1,6 +1,12 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap');
+
+body {
+    font-family: 'Alegreya Sans SC', 'M PLUS Rounded 1c', sans-serif;
+}
 // カードにカーソルを合わせると浮き出るようなモーション
 .card_wrap{
   transition-duration: 0.5s;
@@ -13,6 +19,28 @@
   transform: translateY(-10px);
   transition-duration: 0.5s;
 }
+
+
+// カーソルを乗せるとイメージを拡大
+.card_zoom_wrap .card-img{
+  width: 100%;
+  transition-duration: 0.5s;
+}
+.card_zoom_wrap:hover .card-img{
+  transform: scale(1.05);
+  transition-duration: 0.5s;
+}
+
+.card_zoom_wrap .card-img-overlay{
+  width: 100%;
+  transition-duration: 0.5s;
+}
+
+.card_zoom_wrap:hover .card-img-overlay{
+  transform: scale(1.05);
+  transition-duration: 0.5s;
+}
+
 
 // カードにカーソルを合わせるとグレーアウト
 .gray_out{
@@ -34,6 +62,7 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
 
 // ハンバーガーメニュー
 #hm-icon {
@@ -206,6 +235,7 @@
   line-height: 2.5;
 }
 
+
 // ユーザータブメニュー
 #users_tab-menu {
   display: flex;
@@ -288,6 +318,7 @@
   color: #000;
   line-height: 2.5;
 }
+
 
 // グループタブメニュー
 #groups_tab-menu {
@@ -374,7 +405,6 @@
 
 
 
-
 .information {
   position: absolute;
   bottom: 10px;
@@ -384,3 +414,7 @@
   text-shadow: #fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px,#fff 0 0 10px;
 }
 
+.pagination {
+  justify-content: center;
+  margin-top: 15px;
+}

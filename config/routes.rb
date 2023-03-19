@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     end
     resources :music_favorites, only:[:create,:destroy]
     get "searches" => "searches/search",as:"search"
+    resources :notifications, only:[:index,:update]
   end
 
   namespace :admin do

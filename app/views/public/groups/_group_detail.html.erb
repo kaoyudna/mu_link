@@ -8,9 +8,9 @@
 </div>
 <div class="col-sm-8 border-top p-2 mt-2 mx-auto">
   <h5 class="mb-0">Owner</h5>
-  <p class="mb-0"><%= link_to User.find(group.owner_id).name, user_path(group.owner_id) %></p>
+  <p class="mb-0"><%= link_to User.find(group.owner_id).name, user_path(group.owner_id), class: "text-dark" %></p>
 </div>
 <div class="col-sm-8 border-top p-2 mt-2 mx-auto">
   <h5 class="mb-0">Members</h5>
   <p class="mb-0"><%= group.users.count %> people</p>
- </div>
+</div>

@@ -1,0 +1,3 @@
+$("#notification_<%= @notification.id %>").html("<%= j(render 'public/notifications/index', notification: @notification) %>");
+$("#notifications_alert").html("<%= j(render 'public/notifications/alert') %>");
+$("#checked").html("<%= j(render "layouts/check_icon") %>");

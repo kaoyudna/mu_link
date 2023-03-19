@@ -1,0 +1,58 @@
+<% visitor = notification.visitor %>
+  <% visited = notification.visited %>
+
+  <% if notification.checked == false %>
+  <div class="col-md-12 card mx-auto border-bottom" style="background-color: #bffffc">
+  <% else %>
+  <div class="col-md-12 card mx-auto border-bottom">
+  <% end %>
+    <div class="form-inline">
+      <span>
+        <% case notification.action %>
+          <% when 'follow' %>
+            <i class="fas fa-user" style="color: #0097ff"></i><br>
+          <% when 'like' %>
+            <i class="fas fa-heart" style="color: #ff0089"></i><br>
+          <% when 'comment' %>
+            <i class="fas fa-comment" style="color: #00d72c"></i><br>
+          <% when 'group_chat' %>
+            <i class="fas fa-users" style="color: #ff9908"></i><br>
+        <% end %>
+
+        <%= link_to user_path(visitor) do %>
+          <%= image_tag visitor.get_profile_image(20,20), class: "rounded-circle" %>
+          <strong class="text-info"><%= visitor.name %></strong>
+        <% end %>
+        さんが
+        <% case notification.action %>
+          <% when 'follow' then %>
+            あなたをフォローしました
+          <% when 'like' then %>
+            <strong><%= link_to 'あなたの投稿', post_path(notification.post), class: "text-info" %></strong>
+            にいいねしました
+          <% when 'comment' then %>
+            <strong><%= link_to 'あなたの投稿', post_path(notification.post), class: "text-info" %></strong>
+            にコメントしました
+            <p class="text-muted mb-0">
+              <%= PostComment.find_by(id: notification.post_comment_id).comment %>
+            </p>
+          <% when 'group_chat' then %>
+            <strong><%= link_to notification.group.name, group_message_path(notification.group.id), class: "text-info" %></strong>
+            のグループにコメントしました。
+            <p class="text-muted mb-0">
+              <%= notification.group_message.message %>
+            </p>
+        <% end %>
+      </span>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-3 mb-1">
+      <div class="small">
+        <% if notification.checked == false %>
+        <%= link_to "既読にする", notification_path(notification), method: :patch, remote: true, class: "btn btn-primary p-0" %>
+        <% end %>
+      </div>
+      <div class="small text-muted text-right">
+        <%= time_ago_in_words(notification.created_at).upcase %>前
+      </div>
+    </div>
+  </div>

@@ -6,16 +6,16 @@ class Public::UsersController < ApplicationController
   RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
 
   def index
-    @users = User.where(is_deleted: false)
+    @users = User.where(is_deleted: false).page(params[:page]).per(12)
     @genres = Genre.all
     if params[:genre_id]
       @genre = Genre.find(params[:genre_id])
-      @users = @genre.users
+      @users = @genre.users.page(params[:page]).per(12)
     elsif params[:word]
-      @users = User.search_for(params[:word])
+      @users = User.search_for(params[:word]).page(params[:page]).per(12)
     elsif params[:recommendation_id]
       @user = User.find(params[:recommendation_id])
-      @users = User.joins(:artist_favorites)
+      @users = User.joins(:artist_favorites).page(params[:page]).per(12)
             # 退会していないユーザーを取得
              .where(users: { is_deleted: false })
             # 同じアーティストにいいねをしているユーザーを取得
@@ -31,6 +31,7 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if @user.is_deleted == false
+      @notifications = current_user.passive_notifications.page(params[:page]).per(20)
       @posts = @user.posts.all.order(created_at: :desc)
       if @user.artist_favorites.count > 0
       #ユーザーがいいねしているアーティストのspotify_idを取得

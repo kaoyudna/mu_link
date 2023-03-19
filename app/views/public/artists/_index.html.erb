@@ -11,7 +11,7 @@
         <%= render 'public/artist_favorites/artist_favorite_btn', artist: artist %>
       </div>
     <div class="d-flex mt-2">
-      <h4 class="font-weight-bold mx-auto text-break text-nowrap"><%= artist.name %></h4>
+      <h4 class="font-weight-bold mx-auto text-break text-nowrap"><%= link_to artist.name, artist_path(artist.id), class: "text-dark" %></h4>
     </div>
   </div>
   <div class="overflow-auto mt-2", style="height: 300px;">

@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   has_many :post_favorites, dependent: :destroy
   has_many :favorite_users, through: :post_favorites, source: :user
   has_many :post_comments, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   has_one_attached :post_image
 
@@ -37,4 +38,40 @@ class Post < ApplicationRecord
   def self.search_for(word)
     Post.where('title LIKE?',"%#{word}%").order(created_at: :desc)
   end
+
+  def create_notification_like!(current_user)
+    # すでにいいねされているかを検索
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and post_id = ? and action = ?", current_user.id, user_id, id, 'like'])
+    #　いいねされていない場合に通知レコードを作成
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        post_id: id,
+        visited_id: user_id,
+        action: 'like'
+        )
+        # 自分の投稿に対するいいねは通知済みとする
+        if notification.visitor_id == notification.visited_id
+          notification.checked = true
+        end
+        notification.save if notification.valid?
+    end
+  end
+
+
+  def create_notification_comment!(current_user, post_comment_id, visited_id)
+    # コメントは複数回することが考えられるため、１つの投稿に複数回通知する
+    notification = current_user.active_notifications.new(
+      post_id: id,
+      post_comment_id: post_comment_id,
+      visited_id: visited_id,
+      action: 'comment'
+    )
+    # 自分の投稿に対するコメントの場合は、通知済みとする
+    if notification.visitor_id == notification.visited_id
+      notification.checked = true
+    end
+    notification.save if notification.valid?
+  end
+
+
 end

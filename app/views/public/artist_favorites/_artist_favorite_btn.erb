@@ -1,9 +1,11 @@
 <% if current_user.favorited_artist_by?(artist) %>
-  <%= link_to artist_artist_favorites_path(artist.id), method: :delete, remote: true do %>
+  <%= link_to artist_artist_favorites_path(artist.id), method: :delete, remote: true, class: "text-muted text-decoration-none" do %>
     <i class="fas fa-heart" aria-hidden="true" style="color: red; font-size: 25px"></i>
+    <%= ArtistFavorite.where(artist_id: artist.id).count %>
   <% end %>
 <% else %>
-  <%= link_to artist_artist_favorites_path(artist.id), method: :post, remote: true do %>
+  <%= link_to artist_artist_favorites_path(artist.id), method: :post, remote: true, class: "text-muted text-decoration-none" do %>
     <i class="fas fa-heart" aria-hidden="true" style="color: gray; font-size: 25px"></i>
+    <%= ArtistFavorite.where(artist_id: artist.id).count %>
   <% end %>
 <% end %>

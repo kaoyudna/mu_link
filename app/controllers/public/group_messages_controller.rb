@@ -10,7 +10,9 @@ class Public::GroupMessagesController < ApplicationController
   def create
     @chat = current_user.group_messages.new(chat_params)
     @chats = @chat.group.group_messages
-    unless @chat.save
+    if @chat.save
+      @chat.create_notification_group_chat!(current_user, @chat.group_id)
+    else
       render 'error'
     end
   end

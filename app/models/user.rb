@@ -24,6 +24,10 @@ class User < ApplicationRecord
   has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users
   has_many :group_messages, dependent: :destroy
+  # 自分からの通知
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  # 相手からの通知
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
   has_one_attached :profile_image
   has_one_attached :background_image
@@ -80,7 +84,7 @@ class User < ApplicationRecord
   def save_genres(genre_ids)
     #重複を防ぐために前回のジャンルを削除
     self.user_genres.destroy_all
-    #受け取ったジャンルidを配列から取り出す 
+    #受け取ったジャンルidを配列から取り出す
     genre_ids.each do |genre_id|
       # ユーザージャンルテーブルに受け取った値を保存していく
       self.user_genres.create(genre_id: genre_id)
@@ -89,6 +93,17 @@ class User < ApplicationRecord
 
   def self.search_for(word)
     User.where('name LIKE?',"%#{word}%").order(created_at: :desc)
+  end
+  
+  def create_notification_follow!(current_user)
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ?",current_user.id, id ,'follow'])
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        visited_id: id,
+        action: 'follow'
+        )
+        notification.save if notification.valid?
+    end
   end
 
 end
