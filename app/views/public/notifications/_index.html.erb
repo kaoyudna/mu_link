@@ -15,6 +15,8 @@
             <i class="fas fa-heart" style="color: #ff0089"></i><br>
           <% when 'comment' %>
             <i class="fas fa-comment" style="color: #00d72c"></i><br>
+          <% when 'group_chat' %>
+            <i class="fas fa-users" style="color: #ff9908"></i><br>
         <% end %>
 
         <%= link_to user_path(visitor) do %>
@@ -33,6 +35,12 @@
             にコメントしました
             <p class="text-muted mb-0">
               <%= PostComment.find_by(id: notification.post_comment_id).comment %>
+            </p>
+          <% when 'group_chat' then %>
+            <strong><%= link_to notification.group.name, group_message_path(notification.group.id), class: "text-info" %></strong>
+            のグループにコメントしました。
+            <p class="text-muted mb-0">
+              <%= notification.group_message.message %>
             </p>
         <% end %>
       </span>

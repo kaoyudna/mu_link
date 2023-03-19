@@ -1,6 +1,6 @@
 <% unless posts == [] %>
   <% posts.each do |post| %>
-  <% if current_page?(root_path) || current_page?(posts_path) %>
+  <% if current_page?(root_path) || current_page?(posts_path) || current_page?(user_path) %>
     <div class="col-lg-4 p-0 card_zoom_wrap">
   <% else %>
     <div class="col-lg-8 p-0 mx-auto">
