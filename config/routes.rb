@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
     get "users/unsubscribe" => "users#unsubscribe",as:"users_unsubscribe"
     patch "users/withdraw" => "users#withdraw",as:"users_withdraw"
-    resources :groups, only:[:new,:create,:index,:show,:destroy]
+    resources :groups, only:[:new,:create,:index,:show,:destroy, :edit, :update]
     get "groups/:id/join" => "groups#join",as:"group_join"
     delete "groups/:id/leave" => "groups#leave",as:"group_leave"
     resources :group_messages, only:[:show,:create,:destroy]

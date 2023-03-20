@@ -5,8 +5,12 @@
 </div>
 <div class="mr-4 ml-4">
   <small class="text-muted">Genre:
-    <% user.genres.each do |genre| %>
-      <%= genre.name %>.
+    <% unless user.genres == [] %>
+      <% user.genres.each do |genre| %>
+        <%= link_to genre.name, users_path(genre_id: genre.id), class: "text-muted" %>
+      <% end %>
+    <% else %>
+      None
     <% end %>
   </small>
 </div>

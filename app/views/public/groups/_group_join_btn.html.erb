@@ -1,5 +1,6 @@
 <% if group.user_join?(current_user) %>
   <% if group.owner_id == current_user.id %>
+    <%= link_to "Edit", edit_group_path(group), class: "btn btn-secondary pt-1 pb-1" %>
     <%= link_to "Delete", group_path(group), method: :delete, class: "btn btn-danger pt-1 pb-1" %>
   <% else %>
     <%= link_to "Leave", group_leave_path(group), method: :delete, class: "btn btn-outline-danger pt-1 pb-1" %>

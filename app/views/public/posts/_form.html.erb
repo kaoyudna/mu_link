@@ -10,11 +10,13 @@
     <%= f.text_area :body, placeholder: "40文字以下で入力してください", class: "form-control", rows: "10" %>
   </div>
 
-  <div class="form-group d-flex">
+  <div class="form-group">
     <div>
     <%= f.label :genre_id, "ジャンル" %><br>
-    <%= f.collection_select :genre_id, Genre.all, :id, :name, class: "dd",style: "width: 100px; height: 30px" %>
+    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, class: "dd",style: "width: 100px; height: 30px" %>
     </div>
+  </div>
+  <div class="form-group">
     <div class="ml-auto">
       <%= f.label :post_imate, "投稿画像" %>
       <%= f.file_field :post_image, accept: "image/*", class: "form-control-file" %>

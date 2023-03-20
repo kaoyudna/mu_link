@@ -1,4 +1,4 @@
-  <div class="border-bottom border-info" style: "position: relative">
+  <div class="border-bottom border-info mb-3" style: "position: relative">
     <%= link_to artist_path(artist.id), class: 'd-flex flex-column align-items-center text-dark' do %>
       <% if artist.images.any? %>
         <% image = artist.images[1] %>
@@ -14,6 +14,6 @@
       <h4 class="font-weight-bold mx-auto text-break text-nowrap"><%= link_to artist.name, artist_path(artist.id), class: "text-dark" %></h4>
     </div>
   </div>
-  <div class="overflow-auto mt-2", style="height: 300px;">
+  <div class="overflow-auto mt-2 mb-3", style="height: 300px;">
     <%= render 'public/users/favorite_musics', musics: artist.top_tracks(:JP)%>
   </div>

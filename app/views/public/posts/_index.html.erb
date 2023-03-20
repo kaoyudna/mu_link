@@ -9,12 +9,12 @@
         <%= image_tag post.get_post_image(300,300), class: "card-img" %>
       <div class="card-img-overlay">
         <div class="d-flex">
-          <h4>
+          <p class="mb-0">
             <%= link_to user_path(post.user), class: "text-white text-shadow" do %>
-            <%= image_tag post.user.get_profile_image(30,30), class: "rounded-circle border border-light" %>
+            <%= image_tag post.user.get_profile_image(20,20), class: "rounded-circle border border-light" %>
             <%= post.user.name %>
             <% end %>
-          </h4>
+          </p>
           <div class="ml-auto mt-1" id="post_favorite_<%= post.id %>">
           <% if user_signed_in? %>
           <%= render 'public/post_favorites/post_favorite_btn', post: post %>
@@ -22,12 +22,16 @@
           </div>
         </div>
         <div>
-          <h5 class="font-weight-bold"><%= link_to post.title, post_path(post), class: "text-white text-shadow" %></h5>
+          <h4 class="font-weight-bold"><%= link_to post.title, post_path(post), class: "text-white text-shadow" %></h5>
         </div>
         <div class="information">
-          <small class="text-white text-shadow">Genre:
-            <% post.genres.each do |genre| %>
-              <%= genre.name %>
+          <small class="text-white text-shadow">Tag :
+            <% unless post.genres == [] %>
+              <% post.genres.each do |genre| %>
+                <%= link_to genre.name, posts_path(genre_id: genre.id), class: "text-white" %>
+              <% end %>
+            <% else %>
+              None
             <% end %>
           </small><br>
           <small class="text-white text-shadow" id="liked_count_<%= post.id %>"><%= render 'public/posts/liked_post_count', post: post %></small><br>
@@ -40,5 +44,5 @@
     </div>
   <% end %>
 <% else %>
-  <p class="text-white text-shadow mx-auto mt-5">投稿が存在しません</p>
+  <p class="text-secondary mx-auto mt-5">投稿が存在しません</p>
 <% end %>

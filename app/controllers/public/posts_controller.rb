@@ -10,10 +10,10 @@ class Public::PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @genre = params[:post][:genre_id]
+    @genre_ids = params[:post][:genre_ids].reject(&:blank?).map(&:to_i)
     @post.user_id = current_user.id
     if @post.save
-      @post.save_genre(@genre)
+      @post.save_genre(@genre_ids)
       redirect_to posts_path, notice: "投稿に成功しました"
     else
       render 'new'

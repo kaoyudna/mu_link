@@ -26,9 +26,11 @@ class Post < ApplicationRecord
     self.joins(:user).where(users: { is_deleted: false }).order(created_at: :desc)
   end
 
-  def save_genre(genre_id)
-    post_genre = Genre.find_by(id: genre_id)
-    self.genres << post_genre
+  def save_genre(genre_ids)
+    self.post_genres.destroy_all
+    genre_ids.each do |genre_id|
+      self.post_genres.create(genre_id: genre_id)
+    end
   end
 
   def favorited_post_by?(user)

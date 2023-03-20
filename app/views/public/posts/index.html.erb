@@ -7,9 +7,9 @@
         <li><%= link_to "Follow", posts_path(followings_id: current_user.id), remote: true, class: "" %></li>
         <li><%= link_to "Like", posts_path(liked_post_id: current_user.id), remote: true, class: "" %></li>
         <li>
-          <%= form_tag(posts_path, method: :get, class: "s") do%>
-            <%= select_tag(:genre_id, options_from_collection_for_select(@genres, :id, :name), include_blank: false) %>
-            <%= submit_tag("Filter", class: "btn btn-outline-light p-0")%>
+          <%= form_tag(posts_path, method: :get, remote: true, id: "genre-form",class: "d-flex justify-content-center align-items-center") do %>
+            <%= select_tag(:genre_id, options_from_collection_for_select(@genres, :id, :name, selected: params[:genre_id]), include_blank: false) %>
+            <%= submit_tag("Filter", class: "btn btn-outline-info p-0")%>
           <% end %>
         </li>
       </ul>

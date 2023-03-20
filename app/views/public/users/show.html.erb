@@ -2,7 +2,7 @@
 
   <div class="row">
 
-    <div class="col-lg-6 mb-2">
+    <div class="col-lg-6 mb-3">
       <div class="card" style="height: 600px">
         <%= image_tag @user.get_background_image_url, class: "card-img", style: "height: 300px" %>
         <div class="card-img-overlay text-center mt-4", style="height: 0px">
@@ -25,8 +25,12 @@
         <p class="mt-4"><%= @user.introduction %></p>
           <div class="information">
             <small class="text-muted align-middle">Favorite Genre:
-              <% @user.genres.each do |genre| %>
-                <%= genre.name %>.
+              <% unless @user.genres == [] %>
+                <% @user.genres.each do |genre| %> 
+                  <%= link_to genre.name, users_path(genre_id: genre.id), class: "text-muted" %>
+                <% end %>
+              <% else %>
+                None
               <% end %>
             </small><br>
             <small class="text-muted">
@@ -47,7 +51,7 @@
     </div>
 
     <% if @user == current_user %>
-    <div class="col-lg-6 mb-2">
+    <div class="col-lg-6 mb-3">
       <div class="col-lg-12 text-center bg-dark rounded">
         <span class="text-center font-weight-bold text-light">Notifications</span>
       </div>
@@ -62,13 +66,13 @@
       </div>
     </div>
     <% else %>
-    <div class="col-lg-3  pb-2">
+    <div class="col-lg-3 mb-3">
       <div class="card overflow-auto" style="height: 600px">
         <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Artists</h5>
         <%= render 'public/users/favorite_artists', artists: @artists %>
       </div>
     </div>
-    <div class="col-lg-3  pb-2">
+    <div class="col-lg-3  mb-3">
       <div class="card overflow-auto" style="height: 600px">
         <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Musics</h5>
         <%= render 'favorite_musics', musics: @musics %>
@@ -76,7 +80,7 @@
     </div>
     <% end %>
     <% if @user == current_user %>
-    <div class="col-lg-6  pb-2">
+    <div class="col-lg-6 mb-3">
       <div class="card">
         <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Artists</h5>
         <div class="overflow-auto" style="height: 500px">
@@ -84,7 +88,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-6  pb-2">
+    <div class="col-lg-6  mb-3">
       <div class="card">
         <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Musics</h5>
         <div class="overflow-auto" style="height: 500px">
@@ -93,7 +97,7 @@
       </div>
     </div>
     <% end %>
-    <div class="col-lg-12 mb-1 mt-2">
+    <div class="col-lg-12">
       <div class="border-bottom bg-dark text-center rounded">
         <h4 class="text-white mb-0">
           Recent posts

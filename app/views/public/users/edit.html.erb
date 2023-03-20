@@ -17,15 +17,15 @@
         <%= f.text_area :introduction, placeholder: "20文字以下で入力してください", class: "form-control", rows: "10" %>
       </div>
 
-        <div>
+        <div class="form-group">
         <%= f.label :genre_id, "ジャンルを追加" %><br>
         <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, checked: @user.genres.map(&:id), class: "dd",style: "width: 100px; height: 30px" %>
         </div>
-        <div class="ml-auto">
+        <div class="form-group">
           <%= f.label :profile_image, "プロフィール画像" %>
           <%= f.file_field :profile_image, accept: "image/*", class: "form-control-file" %>
         </div>
-        <div class="ml-auto">
+        <div class="gorm-group">
           <%= f.label :background_image, "背景画像" %>
           <%= f.file_field :background_image, accept: "image/*", class: "form-control-file" %>
         </div>

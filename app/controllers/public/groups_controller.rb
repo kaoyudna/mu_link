@@ -8,10 +8,10 @@ class Public::GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     @group.owner_id = current_user.id
-    @genre = params[:group][:genre_id]
+    @genre_ids = params[:group][:genre_ids].reject(&:blank?).map(&:to_i)
     if @group.save
       @group.users << current_user
-      @group.save_genre(@genre)
+      @group.save_genre(@genre_ids)
       redirect_to group_path(@group), notice: "グループを作成しました"
     else
       render 'new'
@@ -36,6 +36,21 @@ class Public::GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @users = @group.users.where(is_deleted: false)
     @posts = Post.where(user_id: @users)
+  end
+
+  def edit
+    @group = Group.find(params[:id])
+  end
+
+  def update
+    @group = Group.find(params[:id])
+    @genre_ids = params[:group][:genre_ids].reject(&:blank?).map(&:to_i)
+    if @group.update(group_params)
+      @group.save_genre(@genre_ids)
+      redirect_to group_path(@group), notice: "グループ情報を変更しました"
+    else
+      render 'edit'
+    end
   end
 
   def destroy

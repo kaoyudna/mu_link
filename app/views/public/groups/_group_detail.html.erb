@@ -1,7 +1,15 @@
 <h3 class="font-weight-bold border-bottom pb-2 mb-3">Group Detail</h3>
-<%= image_tag group.get_group_image(200,200), class: 'rounded-circle shadow' %>
+<%= image_tag group.get_group_image(170,170), class: 'rounded-circle shadow' %>
 <h3 class="font-weight-bold mt-2"><%= group.name %></h3>
 <%= render 'public/groups/group_join_btn', group: group %>
+<div class="col-sm-8 border-top p-2 mt-2 mx-auto">
+  <h5 class="mb-0">Genre</h5>
+  <p class="mb-0">
+    <% group.genres.each do |genre| %>
+      <%= genre.name %>
+    <% end %>
+  </p>
+</div>
 <div class="col-sm-8 border-top p-2 mt-2 mx-auto">
   <h5 class="mb-0">Introduction</h5>
   <p class="mb-0"><%= group.introduction %></p>

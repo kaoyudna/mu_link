@@ -13,8 +13,12 @@
           <p class="mb-1">Owner : <%= link_to User.find(group.owner_id).name, user_path(group.owner_id), class: "text-dark" %></p>
           <p class="mb-0">
             <small class="text-muted">Genre :
-              <% group.genres.each do |genre| %>
-                <%= genre.name %>
+              <% unless group.genres == [] %>
+                <% group.genres.each do |genre| %>
+                  <%= link_to genre.name, groups_path(genre_id: genre.id), class: "text-muted" %>
+                <% end %>
+              <% else %>
+                None
               <% end %>
             </small>
           </p>

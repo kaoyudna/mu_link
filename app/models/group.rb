@@ -20,9 +20,11 @@ class Group < ApplicationRecord
     group_image.variant(resize_to_fill:[width,height]).processed
   end
 
-  def save_genre(genre_id)
-    group_genre = Genre.find_by(id: genre_id)
-    self.genres << group_genre
+  def save_genre(genre_ids)
+    self.group_genres.destroy_all
+    genre_ids.each do |genre_id|
+      self.group_genres.create(genre_id: genre_id)
+    end
   end
 
   def user_join?(user)
