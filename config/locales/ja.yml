@@ -4,9 +4,11 @@ ja:
       post:
         title: タイトル
         body: 本文
+        post_image: 投稿画像
       group:
         name: グループ名
         introduction: 紹介文
+        group_image: グループ画像
       group_message:
         message: コメント
       post_comment:

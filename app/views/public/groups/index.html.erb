@@ -16,6 +16,9 @@
           <%= render 'index', groups: @groups %>
         </div>
       </div>
+      <div id="users_paginate">
+        <%= paginate @groups, class: "mx-auto" %>
+      </div>
     </div>
   </div>
 </div>

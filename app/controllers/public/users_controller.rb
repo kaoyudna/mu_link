@@ -32,7 +32,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.is_deleted == false
       @notifications = current_user.passive_notifications.page(params[:page]).per(20)
-      @posts = @user.posts.all.order(created_at: :desc)
+      @posts = @user.posts.all.order(created_at: :desc).page(params[:page]).per(12)
       if @user.artist_favorites.count > 0
       #ユーザーがいいねしているアーティストのspotify_idを取得
         artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)

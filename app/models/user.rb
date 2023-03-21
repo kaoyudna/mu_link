@@ -4,8 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  #ユーザー名の文字数
-  validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
 
   has_many :relationships, class_name: 'Relationship', foreign_key: "follower_id", dependent: :destroy
   has_many :followings, through: :relationships, source: :followed
@@ -32,7 +30,28 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_one_attached :background_image
 
+  validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: {maximum: 20}
+  validate :image_profile_content_type, if: :was_profile_attached?
+  validate :image_background_content_type, if: :was_background_attached?
+
+  def image_profile_content_type
+    extension = ['image/png', 'image/jpg', 'image/jpeg']
+    errors.add(:profile_image, 'の拡張子が対応していません') unless profile_image.content_type.in?(extension)
+  end
+
+  def image_background_content_type
+    extension = ['image/png', 'image/jpg', 'image/jpeg']
+    errors.add(:background_image, 'の拡張子が対応していません') unless background_image.content_type.in?(extension)
+  end
+
+  def was_profile_attached?
+    self.profile_image.attached?
+  end
+
+  def was_background_attached?
+    self.background_image.attached?
+  end
 
   def active_for_authentication?
     super && (is_deleted == false)
@@ -50,7 +69,7 @@ class User < ApplicationRecord
       file_path = Rails.root.join('app/assets/images/default.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'default.jpg', content_type: 'image/jpeg')
     end
-    profile_image.variant(resize_to_fill:[width,height]).processed
+    profile_image.variant(resize_to_fill:[width,height])
   end
 
   def get_background_image_url()
@@ -94,7 +113,7 @@ class User < ApplicationRecord
   def self.search_for(word)
     User.where('name LIKE?',"%#{word}%").order(created_at: :desc)
   end
-  
+
   def create_notification_follow!(current_user)
     temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ?",current_user.id, id ,'follow'])
     if temp.blank?

@@ -12,13 +12,23 @@ class Post < ApplicationRecord
 
   validates :title, presence: true, length: {maximum: 20}
   validates :body, presence: true, length: {maximum: 40}
+  validate :image_post_content_type, if: :was_post_image_attached?
+
+  def image_post_content_type
+    extension = ['image/png', 'image/jpg', 'image/jpeg']
+    errors.add(:post_image, 'の拡張子が対応していません') unless post_image.content_type.in?(extension)
+  end
+
+  def was_post_image_attached?
+    self.post_image.attached?
+  end
 
   def get_post_image(width,height)
     unless post_image.attached?
       file_path = Rails.root.join('app/assets/images/default.jpg')
       post_image.attach(io: File.open(file_path), filename: 'default.jpg', content_type: 'image/jpeg')
     end
-    post_image.variant(resize_to_fill:[width,height]).processed
+    post_image.variant(resize_to_fill:[width,height])
   end
 
   #ユーザーステータスが有効の投稿のみ表示

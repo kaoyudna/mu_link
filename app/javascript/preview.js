@@ -1,4 +1,3 @@
-$(document).on('turbolinks:load', function () {
 
   $(function() {
     function readURL(input) {
@@ -20,44 +19,42 @@ $(document).on('turbolinks:load', function () {
       if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
-    $('.background_img_prev').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(input.files[0]);
-        }
-    }
-    $(document).on('change', '.background_img_field', function(){
-      readURL(this);
-    });
+  $('.background_img_prev').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $(document).on('change', '.background_img_field', function(){
+    readURL(this);
   });
+});
 
-  $(function() {
+$(function() {
   function readURL(input) {
       if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
-    $('.post_img_prev').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(input.files[0]);
-        }
-    }
-    $(document).on('change', '.post_img_field', function(){
-      readURL(this);
-    });
+  $('.post_img_prev').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $(document).on('change', '.post_img_field', function(){
+    readURL(this);
   });
+});
 
-  $(function() {
+$(function() {
   function readURL(input) {
       if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
-    $('.group_img_prev').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(input.files[0]);
-        }
-    }
-    $(document).on('change', '.group_img_field', function(){
-      readURL(this);
-    });
+  $('.group_img_prev').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $(document).on('change', '.group_img_field', function(){
+    readURL(this);
   });
-
 });

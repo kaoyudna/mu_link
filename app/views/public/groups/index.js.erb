@@ -1,1 +1,2 @@
 $("#groups_index").html("<%= j(render 'public/groups/index', groups: @groups) %>");
+$("#groups_paginate").html("<%= j(paginate @groups, class: "mx-auto") %>");

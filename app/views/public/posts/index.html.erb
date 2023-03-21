@@ -18,6 +18,9 @@
           <%= render 'index', posts: @posts %>
         </div>
       </div>
+      <div id="posts_paginate">
+        <%= paginate @posts, class: "mx-auto" %>
+      </div>
     </div>
   </div>
 </div>

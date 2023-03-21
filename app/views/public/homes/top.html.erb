@@ -70,6 +70,7 @@
       <div id="post_index" class="tab d-flex flex-wrap">
         <%= render 'public/posts/index', posts: @posts %>
       </div>
+      <%= paginate @posts, class: "mx-auto" %>
     </div>
   </div>
 </div>

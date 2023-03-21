@@ -11,13 +11,23 @@ class Group < ApplicationRecord
 
   validates :name, presence: true, length:{maximum: 20}
   validates :introduction, length:{maximum:  20}
+  validate :image_group_content_type, if: :was_group_image_attached?
+
+  def image_group_content_type
+    extension = ['image/png', 'image/jpg', 'image/jpeg']
+    errors.add(:group_image, 'の拡張子が対応していません') unless group_image.content_type.in?(extension)
+  end
+
+  def was_group_image_attached?
+    self.group_image.attached?
+  end
 
   def get_group_image(width,height)
     unless group_image.attached?
       file_path = Rails.root.join('app/assets/images/default.jpg')
       group_image.attach(io: File.open(file_path), filename: 'default.jpg', content_type: 'image/jpeg')
     end
-    group_image.variant(resize_to_fill:[width,height]).processed
+    group_image.variant(resize_to_fill:[width,height])
   end
 
   def save_genre(genre_ids)

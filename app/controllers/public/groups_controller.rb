@@ -19,16 +19,16 @@ class Public::GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.all.order(created_at: :desc)
+    @groups = Group.all.order(created_at: :desc).page(params[:page]).per(10)
     @genres = Genre.all
     if params[:genre_id]
       @genre = Genre.find(params[:genre_id])
-      @groups = @genre.groups
+      @groups = @genre.groups.page(params[:page]).per(10)
     elsif params[:user_id]
       user = User.find(params[:user_id])
-      @groups = user.groups
+      @groups = user.groups.page(params[:page]).per(10)
     elsif params[:word]
-      @groups = Group.search_for(params[:word])
+      @groups = Group.search_for(params[:word]).page(params[:page]).per(10)
     end
   end
 
