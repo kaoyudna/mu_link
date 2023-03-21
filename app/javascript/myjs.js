@@ -53,5 +53,7 @@ $(document).on('turbolinks:load', function () {
   $('#search-form').on('ajax:success', function(event) {
     $('#users_index').html(event.detail[2].responseText);
   });
+
 });
+
 

@@ -10,16 +10,23 @@
     <%= f.text_area :body, placeholder: "40文字以下で入力してください", class: "form-control", rows: "10" %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group text-center">
     <div>
     <%= f.label :genre_id, "ジャンル" %><br>
-    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, class: "dd",style: "width: 100px; height: 30px" %>
+    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name %>
     </div>
   </div>
-  <div class="form-group">
-    <div class="ml-auto">
-      <%= f.label :post_imate, "投稿画像" %>
-      <%= f.file_field :post_image, accept: "image/*", class: "form-control-file" %>
+  <div class="form-group d-flex flex-column align-items-center">
+    <div>
+      <% if obj.post_image.nil? %>
+        <%= image_tag obj.get_post_image(300,300), onClick: "$('.post_img_field').click()", class: "post_img_prev rounded shadow" %>
+      <% else %>
+        <%= image_tag 'default.jpg', onClick: "$('.post_img_field').click()", class: "post_img_prev rounded shadow" %>
+      <% end %>
+    </div>
+    <div>
+      <%= f.label :post_image, "投稿画像", class: "text-info" %>
+      <%= f.file_field :post_image, accept: "image/*", class: "post_img_field", style: 'display:none;' %>
     </div>
   </div>
 
