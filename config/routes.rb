@@ -20,11 +20,11 @@ Rails.application.routes.draw do
       get "relationships/followings" => "relationships#followings",as:"user_following"
       get "relationships/followers" => "relationships#followers",as:"user_follower"
     end
-    get "users/unsubscribe" => "users#unsubscribe",as:"users_unsubscribe"
-    patch "users/withdraw" => "users#withdraw",as:"users_withdraw"
+      get "users/unsubscribe" => "users#unsubscribe",as:"users_unsubscribe"
+      patch "users/withdraw" => "users#withdraw",as:"users_withdraw"
     resources :groups, only:[:new,:create,:index,:show,:destroy, :edit, :update]
-    get "groups/:id/join" => "groups#join",as:"group_join"
-    delete "groups/:id/leave" => "groups#leave",as:"group_leave"
+      get "groups/:id/join" => "groups#join",as:"group_join"
+      delete "groups/:id/leave" => "groups#leave",as:"group_leave"
     resources :group_messages, only:[:show,:create,:destroy]
     resources :posts, only:[:new,:create,:index,:show,:destroy] do
       resources :post_comments, only:[:create,:destroy]
@@ -34,8 +34,8 @@ Rails.application.routes.draw do
       resource :artist_favorites, only:[:create,:destroy]
     end
     resources :music_favorites, only:[:create,:destroy]
-    get "searches" => "searches/search",as:"search"
     resources :notifications, only:[:index,:update]
+      patch 'notifications/:id/mark_as_checked' => "notifications#mark_as_checked"
   end
 
   namespace :admin do

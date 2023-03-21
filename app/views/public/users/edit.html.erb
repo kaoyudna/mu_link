@@ -1,6 +1,6 @@
 <%= render "public/shared/error_messages", resource: @user %>
 <div class="container">
-      <%= form_with model: @user, url: user_path(@user), method: :patch, local: true do |f| %>
+<%= form_with model: @user, url: user_path(@user), method: :patch, local: true do |f| %>
   <div class="row">
     <div class="col-lg-12 text-center">
       <h1 class="font-weight-bold">Edit</h1>
@@ -17,7 +17,7 @@
         <%= f.text_area :introduction, placeholder: "20文字以下で入力してください", class: "form-control", rows: "10" %>
       </div>
 
-      <div class="form-group text-center">
+      <div class="form-group">
       <%= f.label :genre_id, "ジャンルを追加" %><br>
       <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, checked: @user.genres.map(&:id), class: "dd",style: "width: 100px; height: 30px" %>
       </div>

@@ -15,6 +15,7 @@
           <div class="d-flex align-items-center mt-2">
             <div id="follow_<%= @user.id %>">
               <%= render 'public/relationships/follow_btn', user: @user %>
+              <%= link_to "Users group", groups_path(user_id: @user.id), class: "btn btn-outline-success p-1" %>
             </div>
             <div class="ml-auto d-flex align-items-center" id="notifications_alert">
               <% if @user == current_user %>
@@ -26,7 +27,7 @@
           <div class="information">
             <small class="text-muted align-middle">Favorite Genre:
               <% unless @user.genres == [] %>
-                <% @user.genres.each do |genre| %> 
+                <% @user.genres.each do |genre| %>
                   <%= link_to genre.name, users_path(genre_id: genre.id), class: "text-muted" %>
                 <% end %>
               <% else %>

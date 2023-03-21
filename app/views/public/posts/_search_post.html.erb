@@ -1,5 +1,5 @@
 <%= form_with url: posts_path, method: :get, local: true, id: 'search-form' do |f| %>
-<div class="d-flex">
-  <%= f.text_field :word, class: 'form-control', placeholder: "Search Post" %>
-</div>
+  <div class="d-flex">
+    <%= f.text_field :word, class: 'form-control', placeholder: "Search Post" %>
+  </div>
 <% end %>

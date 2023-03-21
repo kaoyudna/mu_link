@@ -13,8 +13,11 @@ import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"
 import '@fortawesome/fontawesome-free/js/all'
-import 'myjs.js'
+import 'hamburger_menu.js'
+import 'tab_menu.js'
 import 'preview.js'
+import 'notifications.js'
+import 'search.js'
 
 Rails.start()
 Turbolinks.start()

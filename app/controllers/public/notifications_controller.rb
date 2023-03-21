@@ -11,4 +11,10 @@ class Public::NotificationsController < ApplicationController
     @notification = Notification.find(params[:id])
     @notification.update(checked: true)
   end
+
+  def mark_as_checked
+    @notification = Notification.find(params[:id])
+    @notification.update(checked: true)
+    head :ok
+  end
 end
