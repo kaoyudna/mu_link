@@ -46,7 +46,7 @@ class Public::GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @genre_ids = params[:group][:genre_ids].reject(&:blank?).map(&:to_i)
     if @group.update(group_params)
-      @group.save_genre(@genre_ids)
+      @group.save_genres(@genre_ids)
       redirect_to group_path(@group), notice: "グループ情報を変更しました"
     else
       render 'edit'

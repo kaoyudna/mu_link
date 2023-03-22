@@ -30,7 +30,7 @@ class Group < ApplicationRecord
     group_image.variant(resize_to_fill:[width,height])
   end
 
-  def save_genre(genre_ids)
+  def save_genres(genre_ids)
     self.group_genres.destroy_all
     genre_ids.each do |genre_id|
       self.group_genres.create(genre_id: genre_id)

@@ -31,7 +31,7 @@ class User < ApplicationRecord
   has_one_attached :background_image
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
-  validates :introduction, length: {maximum: 20}
+  validates :introduction, length: {maximum: 30}
   validate :image_profile_content_type, if: :was_profile_attached?
   validate :image_background_content_type, if: :was_background_attached?
 
@@ -101,12 +101,16 @@ class User < ApplicationRecord
   end
 
   def save_genres(genre_ids)
-    #重複を防ぐために前回のジャンルを削除
-    self.user_genres.destroy_all
-    #受け取ったジャンルidを配列から取り出す
-    genre_ids.each do |genre_id|
-      # ユーザージャンルテーブルに受け取った値を保存していく
-      self.user_genres.create(genre_id: genre_id)
+    if genre_ids.present?
+      #重複を防ぐために前回のジャンルを削除
+      self.user_genres.destroy_all
+      #受け取ったジャンルidを配列から取り出す
+      genre_ids.each do |genre_id|
+        # ユーザージャンルテーブルに受け取った値を保存していく
+        self.user_genres.create(genre_id: genre_id)
+      end
+    else
+      self.user_genres.destroy_all
     end
   end
 
