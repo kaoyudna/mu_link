@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-lg-3">
       <div class="col-lg-12 pb-2 pl-0 pr-0">
-        <div class="card  shadow" style="height: 300px">
+        <div class="card  shadow" style="height: 350px">
           <div class="card-header bg-dark p-1 text-center">
             <p class="font-weight-bold link-white mb-0"><%= link_to @user.name, user_path(@user), class: "text-light" %></p>
           </div>
@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="col-lg-12  pb-2 pl-0 pr-0">
-        <div class="card overflow-auto" style="height: 284px">
+        <div class="card overflow-auto" style="height: 235px">
           <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Artists</h5>
           <%= render 'public/users/favorite_artists', artists: @artists %>
         </div>
@@ -31,11 +31,15 @@
             <%= render 'public/post_favorites/post_favorite_btn', post: @post %>
             </div>
           </div>
-          <p><%= @post.body %></p>
+          <p><%= simple_format @post.body %></p>
           <div class="d-flex flex-column information">
-            <small class="text-muted">
-              <% @post.genres.each do |genre| %>
-                Genre <%= genre.name %>
+            <small class="text-muted">Genre :
+              <% unless @post.genres == [] %>
+                <% @post.genres.each do |genre| %>
+                  <%= link_to genre.name, posts_path(genre_id: genre.id), class: "btn btn-outline-info btn-tag" %>
+                <% end %>
+              <% else %>
+                None
               <% end %>
             </small>
             <small class="text-muted" id="liked_count_<%= @post.id %>" class="mb-0"><%= render 'public/posts/liked_post_count', post: @post %></small>

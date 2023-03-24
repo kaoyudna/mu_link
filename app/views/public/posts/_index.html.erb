@@ -25,18 +25,18 @@
           <h4 class="font-weight-bold"><%= link_to post.title, post_path(post), class: "text-white text-shadow" %></h5>
         </div>
         <div class="information">
+          <small class="text-white text-shadow" id="liked_count_<%= post.id %>"><%= render 'public/posts/liked_post_count', post: post %></small><br>
           <small class="text-white text-shadow">Tag :
             <% unless post.genres == [] %>
               <% post.genres.each do |genre| %>
-                <%= link_to genre.name, posts_path(genre_id: genre.id), class: "text-white" %>
+                <%= link_to genre.name, posts_path(genre_id: genre.id), class: "btn btn-info btn-tag" %>
               <% end %>
             <% else %>
               None
             <% end %>
           </small><br>
-          <small class="text-white text-shadow" id="liked_count_<%= post.id %>"><%= render 'public/posts/liked_post_count', post: post %></small><br>
           <% if post.user == current_user %>
-            <%= link_to "Delete", post_path(post), method: :delete, class: "btn btn-outline-danger pt-0 pb-0 pr-1 pl-1" %>
+            <%= link_to "Delete", post_path(post), method: :delete, class: "btn btn-danger pt-0 pb-0 pr-1 pl-1" %>
           <% end %>
         </div>
       </div>

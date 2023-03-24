@@ -20,8 +20,6 @@ Rails.application.routes.draw do
       get "relationships/followings" => "relationships#followings",as:"user_following"
       get "relationships/followers" => "relationships#followers",as:"user_follower"
     end
-      get "users/unsubscribe" => "users#unsubscribe",as:"users_unsubscribe"
-      patch "users/withdraw" => "users#withdraw",as:"users_withdraw"
     resources :groups, only:[:new,:create,:index,:show,:destroy, :edit, :update]
       get "groups/:id/join" => "groups#join",as:"group_join"
       delete "groups/:id/leave" => "groups#leave",as:"group_leave"
@@ -34,8 +32,7 @@ Rails.application.routes.draw do
       resource :artist_favorites, only:[:create,:destroy]
     end
     resources :music_favorites, only:[:create,:destroy]
-    resources :notifications, only:[:index,:update]
-      patch 'notifications/:id/mark_as_checked' => "notifications#mark_as_checked"
+    resources :notifications, only:[:update]
   end
 
   namespace :admin do

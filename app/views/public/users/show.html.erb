@@ -12,6 +12,9 @@
           <h3 class="mb-0">
             <%= @user.name %>
           </h3>
+          <% if @user.following?(current_user) %>
+            <small class="text-info">あなたをフォローしています</small>
+          <% end %>
           <div class="d-flex align-items-center mt-2">
             <div id="follow_<%= @user.id %>">
               <%= render 'public/relationships/follow_btn', user: @user %>
@@ -23,12 +26,12 @@
               <% end %>
             </div>
           </div>
-        <p class="mt-4"><%= @user.introduction %></p>
+        <p class="mt-4"><%= simple_format @user.introduction %></p>
           <div class="information">
-            <small class="text-muted align-middle">Favorite Genre:
+            <small class="text-muted align-middle">Favorite Genre :
               <% unless @user.genres == [] %>
                 <% @user.genres.each do |genre| %>
-                  <%= link_to genre.name, users_path(genre_id: genre.id), class: "text-muted" %>
+                  <%= link_to genre.name, users_path(genre_id: genre.id), class: "btn btn-outline-info btn-tag" %>
                 <% end %>
               <% else %>
                 None

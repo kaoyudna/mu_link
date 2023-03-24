@@ -3,16 +3,21 @@
     <%= image_tag user.get_profile_image(100,100), class: 'rounded-circle' %>
   <% end %>
 </div>
+<div class="overflow-auto" style="height: 200px">
 <div class="mr-4 ml-4">
-  <small class="text-muted">Genre:
+  <% if user.following?(current_user) %>
+    <small class="text-info">あなたをフォローしています</small>
+  <% end %>
+  <%= tag :br %>
+  <small class="text-muted">Genre<br>
     <% unless user.genres == [] %>
       <% user.genres.each do |genre| %>
-        <%= link_to genre.name, users_path(genre_id: genre.id), class: "text-muted" %>
+        <%= link_to genre.name, users_path(genre_id: genre.id), class: "btn btn-outline-info btn-tag", style: "padding: 0; font-size: 11px" %>
       <% end %>
     <% else %>
       None
     <% end %>
-  </small>
+  </small><br>
 </div>
 <table class="table table-borderless table-sm text-center mb-0">
   <tr>
@@ -26,4 +31,5 @@
 </table>
 <div class="text-center mb-3" id="follow_<%= user.id %>">
   <%= render 'public/relationships/follow_btn', user: user %>
+</div>
 </div>

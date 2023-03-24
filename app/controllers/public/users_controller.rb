@@ -64,10 +64,6 @@ class Public::UsersController < ApplicationController
   end
 
 
-  def unsubscribe
-  end
-
-
   private
 
   def user_params

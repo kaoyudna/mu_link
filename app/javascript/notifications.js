@@ -1,10 +1,10 @@
 $(document).on('turbolinks:load', function () {
 
-  $('a.text-info').on('click', function(e) {
+  $('.notification').on('click', function(e) {
     e.preventDefault();
     var notificationId = $(this).data('notification-id');
     $.ajax({
-      url: '/notifications/' + notificationId + '/mark_as_checked',
+      url: '/notifications/' + notificationId,
       type: 'PATCH',
       success: function(response) {
         window.location.href = e.target.href;

@@ -2,7 +2,7 @@
 
   <div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title, placeholder: "20文字以下で入力してください", class: "form-control" %>
+    <%= f.text_field :title, placeholder: "30文字以下で入力してください", class: "form-control" %>
   </div>
 
   <div class="form-group">
@@ -12,7 +12,7 @@
 
   <div class="form-group text-center">
     <div>
-    <%= f.label :genre_id, "ジャンル" %><br>
+    <%= f.label :genre_id, "タグ" %><br>
     <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name %>
     </div>
   </div>

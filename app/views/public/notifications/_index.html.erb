@@ -1,6 +1,5 @@
 <% visitor = notification.visitor %>
   <% visited = notification.visited %>
-
   <% if notification.checked == false %>
   <div class="col-md-12 card mx-auto border-bottom" style="background-color: #bffffc">
   <% else %>
@@ -20,10 +19,24 @@
         <% end %>
         <% case notification.action %>
           <% when 'follow' %>
-            <%= link_to user_path(notification.visitor), class: "text-info", data: { notification_id: notification.id } do %>
+            <%= link_to user_path(notification.visitor), class: "text-info", id: "follow_notification#{notification.id}", data: { notification_id: notification.id } do %>
               <%= image_tag visitor.get_profile_image(20,20), class: "rounded-circle" %>
               <strong class="text-info"><%= visitor.name %></strong>
             <% end %>
+            <script>
+              $(document).on('turbolinks:load', function () {
+                $('#follow_notification<%= notification.id %>').on('click', function(e) {
+                  e.preventDefault();
+                    $.ajax({
+                    url: '/notifications/' + <%= notification.id %>,
+                    type: 'PATCH',
+                    success: function(response) {
+                      window.location.href = '<%= notification.visitor.id %>'
+                    }
+                  });
+                });
+              });
+            </script>
           <% else %>
             <%= link_to user_path(visitor) do %>
               <%= image_tag visitor.get_profile_image(20,20), class: "rounded-circle" %>
@@ -35,16 +48,16 @@
           <% when 'follow' then %>
             あなたをフォローしました
           <% when 'like' then %>
-            <strong><%= link_to 'あなたの投稿', post_path(notification.post), class: "text-info", data: { notification_id: notification.id } %></strong>
+            <strong><%= link_to 'あなたの投稿', post_path(notification.post), class: "text-info notification", data: { notification_id: notification.id } %></strong>
             にいいねしました
           <% when 'comment' then %>
-            <strong><%= link_to 'あなたの投稿', post_path(notification.post), class: "text-info", data: { notification_id: notification.id } %></strong>
+            <strong><%= link_to 'あなたの投稿', post_path(notification.post), class: "text-info notification", data: { notification_id: notification.id } %></strong>
             にコメントしました
             <p class="text-muted mb-0">
               <%= PostComment.find_by(id: notification.post_comment_id).comment %>
             </p>
           <% when 'group_chat' then %>
-            <strong><%= link_to notification.group.name, group_message_path(notification.group.id), class: "text-info", data: { notification_id: notification.id } %></strong>
+            <strong><%= link_to notification.group.name, group_message_path(notification.group.id), class: "text-info notification", data: { notification_id: notification.id } %></strong>
             のグループにコメントしました。
             <p class="text-muted mb-0">
               <%= notification.group_message.message %>
