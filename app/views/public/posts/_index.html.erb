@@ -22,7 +22,7 @@
           </div>
         </div>
         <div>
-          <h4 class="font-weight-bold"><%= link_to post.title, post_path(post), class: "text-white text-shadow" %></h5>
+          <h4 class="font-weight-bold"><%= link_to post.title.truncate(20), post_path(post), class: "text-white text-shadow" %></h5>
         </div>
         <div class="information">
           <small class="text-white text-shadow" id="liked_count_<%= post.id %>"><%= render 'public/posts/liked_post_count', post: post %></small><br>

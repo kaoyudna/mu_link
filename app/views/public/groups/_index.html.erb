@@ -9,7 +9,7 @@
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h3 class="mb-0"><%= link_to group.name, group_path(group), class: "text-dark" %></h3>
+          <h3 class="mb-0"><%= link_to group.name.truncate(18), group_path(group), class: "text-dark" %></h3>
           <p class="mb-1">Owner : <%= link_to User.find(group.owner_id).name, user_path(group.owner_id), class: "text-dark" %></p>
           <p class="mb-0">
             <small class="text-muted">Genre :
