@@ -1,1 +1,2 @@
 $("#artist_favorite_<%= @artist.id %>").html("<%= j(render 'public/artist_favorites/artist_favorite_btn', artist: @artist) %>");
+$("#artist_favorited_users").html("<%= j(render 'public/users/index', users: @users) %>");

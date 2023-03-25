@@ -8,12 +8,13 @@ class Public::ArtistFavoritesController < ApplicationController
     favorite = current_user.artist_favorites.new(artist_id: params[:artist_id])
     favorite.save
     @artist = RSpotify::Artist.find(favorite.artist_id)
-    @users = User.all
+    @users = User.where(id: ArtistFavorite.where(artist_id: @artist.id).pluck(:user_id))
   end
 
   def destroy
     favorite = current_user.artist_favorites.find_by(artist_id: params[:artist_id])
     favorite.destroy
     @artist = RSpotify::Artist.find(favorite.artist_id)
+    @users = User.where(id: ArtistFavorite.where(artist_id: @artist.id).pluck(:user_id))
   end
 end

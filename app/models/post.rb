@@ -11,8 +11,16 @@ class Post < ApplicationRecord
   has_one_attached :post_image
 
   validates :title, presence: true, length: {maximum: 30}
-  validates :body, presence: true, length: {maximum: 40}
+  #改行を含めない文字数制限のバリデーション
+  validate :body_length
   validate :image_post_content_type, if: :was_post_image_attached?
+
+  def body_length
+    #改行の文字列を除いた文字数を変数に代入(本文が入力されていなければ0が代入される)
+    text_length = body&.count("^\r\n") || 0
+    errors.add(:body, "は40文字以内で入力してください") if text_length > 40
+    errors.add(:body, "を入力してください") if text_length == 0
+  end
 
   def image_post_content_type
     extension = ['image/png', 'image/jpg', 'image/jpeg']

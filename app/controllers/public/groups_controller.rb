@@ -11,7 +11,7 @@ class Public::GroupsController < ApplicationController
     @genre_ids = params[:group][:genre_ids].reject(&:blank?).map(&:to_i)
     if @group.save
       @group.users << current_user
-      @group.save_genre(@genre_ids)
+      @group.save_genres(@genre_ids)
       redirect_to group_path(@group), notice: "グループを作成しました"
     else
       render 'new'
