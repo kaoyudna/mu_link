@@ -12,9 +12,7 @@ $(document).on('turbolinks:load', function () {
     });
   });
 
-  window.onpageshow = function(event) {
-  	if (event.persisted) {
-  		 window.location.reload();
-  	}
-  };
+  window.addEventListener('pageshow',()=>{
+	  if(window.performance.navigation.type==2) location.reload();
+  });
 });
