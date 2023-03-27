@@ -2,10 +2,11 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    if params[:word]
-      @users = User.search_for(params[:word])
+    @users = case
+    when params[:word]
+      User.search_for(params[:word])
     else
-      @users = User.all.order(is_deleted: :asc).order(created_at: :desc)
+      User.all.order(is_deleted: :asc).order(created_at: :desc)
     end
     @users = Kaminari.paginate_array(@users).page(params[:page]).per(20)
   end

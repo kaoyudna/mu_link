@@ -1,5 +1,6 @@
 class Group < ApplicationRecord
 
+  default_scope -> {order(created_at: :desc)}
   has_many :group_genres, dependent: :destroy
   has_many :genres, through: :group_genres
   has_many :group_messages, dependent: :destroy
@@ -11,6 +12,7 @@ class Group < ApplicationRecord
 
   validates :name, presence: true, length:{maximum: 20}
   validate :introduction_length
+  #グループイメージがある場合にバリデーションチェックを行う
   validate :image_group_content_type, if: :was_group_image_attached?
 
   def introduction_length
@@ -20,7 +22,9 @@ class Group < ApplicationRecord
   end
 
   def image_group_content_type
+    #ハッシュに利用可能な拡張子を格納
     extension = ['image/png', 'image/jpg', 'image/jpeg']
+    #グループイメージの拡張子が上記以外の場合はエラーメッセージを表示
     errors.add(:group_image, 'の拡張子が対応していません') unless group_image.content_type.in?(extension)
   end
 
@@ -37,6 +41,7 @@ class Group < ApplicationRecord
   end
 
   def save_genres(genre_ids)
+    #重複を防ぐために現在の保有しているジャンルを削除する(投稿編集機能は実装していないので将来用)
     self.group_genres.destroy_all
     genre_ids.each do |genre_id|
       self.group_genres.create(genre_id: genre_id)

@@ -21,22 +21,24 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    #投稿テーブルとユーザーテーブルを結合して、会員ステータスが有効のな投稿だけを表示
-    @posts = Post.get_active_posts.page(params[:page]).per(12)
-    @user_posts =  current_user.posts
     @genres = Genre.all
-    if params[:genre_id]
-      @genre = Genre.find(params[:genre_id])
-      @posts = @genre.posts.get_active_posts.page(params[:page]).per(12)
-    elsif params[:user_id]
-      @posts = current_user.posts.page(params[:page]).per(12)
-    elsif params[:followings_id]
-      @posts = current_user.followings_post.get_active_posts.page(params[:page]).per(12)
-    elsif params[:liked_post_id]
-      @posts = current_user.liked_post.get_active_posts.page(params[:page]).per(12)
-    elsif params[:word]
-       @posts = Post.search_for(params[:word]).get_active_posts.page(params[:page]).per(12)
+    @posts = case
+    when params[:genre_id]
+      genre = Genre.find(params[:genre_id])
+      genre.posts.get_active_posts
+    when params[:user_id]
+      current_user.posts
+    when params[:followings_id]
+      current_user.followings_post.get_active_posts
+    when params[:liked_post_id]
+      current_user.liked_post.get_active_posts
+    when params[:word]
+      Post.search_for(params[:word]).get_active_posts
+    else
+      #投稿テーブルとユーザーテーブルを結合して、会員ステータスが有効のな投稿だけを表示
+      @posts = Post.get_active_posts
     end
+    @posts = @posts.page(params[:page]).per(12)
   end
 
   def show

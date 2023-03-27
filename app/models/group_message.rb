@@ -7,6 +7,7 @@ class GroupMessage < ApplicationRecord
   validates :message, presence: true, length: {maximum: 20 }
 
   def create_notification_group_chat!(current_user, group_id)
+  #グループメッセージが作成されたグループに所属しているユーザーのidをまとめて取得
   temp_ids = GroupMessage.select(:user_id).where(group_id: group_id).where.not(user_id: current_user.id).distinct
     temp_ids.each do |temp_id|
       save_notification_group_chat!(current_user, group_id, temp_id['user_id'])

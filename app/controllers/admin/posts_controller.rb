@@ -2,13 +2,15 @@ class Admin::PostsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @posts = Post.all.order(created_at: :desc)
-    if params[:user_id]
-      @posts = Post.where(user_id: params[:user_id]).order(created_at: :desc)
-    elsif params[:word]
-      @posts = Post.search_for(params[:word])
+    @posts = case
+    when params[:user_id]
+      Post.where(user_id: params[:user_id]).order(created_at: :desc)
+    when params[:word]
+      Post.search_for(params[:word])
+    else
+      Post.all.order(created_at: :desc)
     end
-      @posts = @posts.page(params[:page]).per(20)
+    @posts = @posts.page(params[:page]).per(20)
   end
 
   def destroy
@@ -16,4 +18,5 @@ class Admin::PostsController < ApplicationController
     post.destroy
     redirect_to request.referer, notice: "投稿を削除しました"
   end
+
 end

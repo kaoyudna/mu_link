@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-
+  default_scope -> {order(created_at: :desc)}
   has_many :relationships, class_name: 'Relationship', foreign_key: "follower_id", dependent: :destroy
   has_many :followings, through: :relationships, source: :followed
   has_many :reverce_of_relationships, class_name: 'Relationship', foreign_key: "followed_id", dependent: :destroy
@@ -116,6 +116,7 @@ class User < ApplicationRecord
         self.user_genres.create(genre_id: genre_id)
       end
     else
+      #値が空の場合はジャンルを削除
       self.user_genres.destroy_all
     end
   end

@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
 
+  default_scope -> {order(created_at: :desc)}
   belongs_to :user
   has_many :post_genres, dependent: :destroy
   has_many :genres, through: :post_genres
@@ -13,6 +14,7 @@ class Post < ApplicationRecord
   validates :title, presence: true, length: {maximum: 30}
   #改行を含めない文字数制限のバリデーション
   validate :body_length
+  #投稿画像がある場合にバリデーションチェックを行う
   validate :image_post_content_type, if: :was_post_image_attached?
 
   def body_length
@@ -23,7 +25,9 @@ class Post < ApplicationRecord
   end
 
   def image_post_content_type
+    #ハッシュに利用可能な拡張子を格納
     extension = ['image/png', 'image/jpg', 'image/jpeg']
+    #投稿画像の拡張子が上記以外の場合にエラーメッセージを表示する
     errors.add(:post_image, 'の拡張子が対応していません') unless post_image.content_type.in?(extension)
   end
 
@@ -39,12 +43,13 @@ class Post < ApplicationRecord
     post_image.variant(resize_to_fill:[width,height])
   end
 
-  #ユーザーステータスが有効の投稿のみ表示
   def self.get_active_posts
-    self.joins(:user).where(users: { is_deleted: false }).order(created_at: :desc)
+    #ユーザーステータスが有効の投稿のみ表示
+    self.joins(:user).where(users: { is_deleted: false })
   end
 
   def save_genre(genre_ids)
+    #重複を防ぐために保有しているジャンルを全て削除する
     self.post_genres.destroy_all
     genre_ids.each do |genre_id|
       self.post_genres.create(genre_id: genre_id)
