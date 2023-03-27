@@ -1,20 +1,20 @@
 <div class="col-1 p-0 text-center">
 </div>
-<div class="col-1 p-0 text-center">
+<div class="col-1 p-0 text-center head">
   <%= link_to "Log_out", destroy_admin_session_path, method: :delete, class: "text-white" %>
 </div>
 <div class="col-4 p-0 mx-auto">
   <%= render 'admin/search' %>
 </div>
-<div class="col-1 p-0 text-center">
+<div class="col-1 p-0 text-center head">
   <%= link_to "Genres", admin_genres_path, class: "text-white" %>
 </div>
-<div class="col-1 p-0 text-center">
+<div class="col-1 p-0 text-center head">
   <%= link_to "Posts", admin_posts_path, class: "text-white" %>
 </div>
-<div class="col-1 p-0 text-center">
+<div class="col-1 p-0 text-center head">
   <%= link_to "Users", admin_users_path, class: "text-white" %>
 </div>
-<div class="col-1 p-0 text-center">
+<div class="col-1 p-0 text-center head">
   <%= link_to "Comments", admin_post_comments_path, class: "text-white" %>
 </div>

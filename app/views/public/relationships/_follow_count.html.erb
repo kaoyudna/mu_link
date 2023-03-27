@@ -1,1 +1,1 @@
-<%= link_to user.followings.count, user_user_following_path(user), class: "text-secondary"%>
+<%= link_to user.followings.where(is_deleted: false).count, user_user_following_path(user), class: "text-secondary"%>

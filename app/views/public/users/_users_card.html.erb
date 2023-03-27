@@ -4,32 +4,32 @@
   <% end %>
 </div>
 <div class="overflow-auto" style="height: 200px">
-<div class="mr-4 ml-4">
-  <% if user.following?(current_user) %>
-    <small class="text-info">あなたをフォローしています</small>
-  <% end %>
-  <%= tag :br %>
-  <small class="text-muted">Genre<br>
-    <% unless user.genres == [] %>
-      <% user.genres.each do |genre| %>
-        <%= link_to genre.name, users_path(genre_id: genre.id), class: "btn btn-outline-info btn-tag", style: "padding: 0; font-size: 11px" %>
-      <% end %>
-    <% else %>
-      None
+  <div class="mr-4 ml-4">
+    <% if user.following?(current_user) %>
+      <small class="text-info">あなたをフォローしています</small>
     <% end %>
-  </small><br>
-</div>
-<table class="table table-borderless table-sm text-center mb-0">
-  <tr>
-    <th scope="col">Follow</th>
-    <th scope="col">Follower</th>
-  </tr>
-  <tr>
-    <td id="follow_count_<%= user.id %>"><%= render "public/relationships/follow_count", user: user %></td>
-    <td id="follower_count_<%= user.id %>"><%= render "public/relationships/follower_count", user: user %></td>
-  </tr>
-</table>
-<div class="text-center mb-3" id="follow_<%= user.id %>">
-  <%= render 'public/relationships/follow_btn', user: user %>
-</div>
+    <%= tag :br %>
+    <small class="text-muted">Genre<br>
+      <% unless user.genres == [] %>
+        <% user.genres.each do |genre| %>
+          <%= link_to genre.name, users_path(genre_id: genre.id), class: "btn btn-outline-info btn-tag", style: "padding: 0; font-size: 11px" %>
+        <% end %>
+      <% else %>
+        None
+      <% end %>
+    </small><br>
+  </div>
+  <table class="table table-borderless table-sm text-center mb-0">
+    <tr>
+      <th scope="col">Follow</th>
+      <th scope="col">Follower</th>
+    </tr>
+    <tr>
+      <td id="follow_count_<%= user.id %>"><%= render "public/relationships/follow_count", user: user %></td>
+      <td id="follower_count_<%= user.id %>"><%= render "public/relationships/follower_count", user: user %></td>
+    </tr>
+  </table>
+  <div class="text-center mb-3" id="follow_<%= user.id %>">
+    <%= render 'public/relationships/follow_btn', user: user %>
+  </div>
 </div>

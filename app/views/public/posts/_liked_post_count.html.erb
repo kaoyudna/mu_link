@@ -1,1 +1,1 @@
-<%= post.post_favorites.count %> favorites, <%= post.post_comments.count %> comments
+<%= post.favorite_users.where(is_deleted: false).count %> favorites, <%= post.post_comments.count %> comments

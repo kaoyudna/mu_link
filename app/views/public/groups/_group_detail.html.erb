@@ -5,8 +5,12 @@
 <div class="col-sm-8 border-top p-2 mt-2 mx-auto">
   <h5 class="mb-0">Genre</h5>
   <p class="mb-0">
-    <% group.genres.each do |genre| %>
-      <%= genre.name %>
+    <% unless group.genres.empty? %>
+      <% group.genres.each do |genre| %>
+        <%= link_to genre.name, groups_path(genre_id: genre.id), class: "btn btn-outline-info p-0" %>
+      <% end %>
+    <% else %>
+      None
     <% end %>
   </p>
 </div>

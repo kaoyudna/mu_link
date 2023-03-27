@@ -6,4 +6,6 @@ class Genre < ApplicationRecord
    has_many :posts, through: :post_genres
    has_many :group_genres, dependent: :destroy
    has_many :groups, through: :group_genres
+
+   validates :name, presence: true
 end

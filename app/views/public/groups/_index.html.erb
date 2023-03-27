@@ -15,7 +15,7 @@
             <small class="text-muted">Genre :
               <% unless group.genres == [] %>
                 <% group.genres.each do |genre| %>
-                  <%= link_to genre.name, groups_path(genre_id: genre.id), class: "text-muted" %>
+                  <%= link_to genre.name, groups_path(genre_id: genre.id), class: "btn btn-outline-info btn-tag" %>
                 <% end %>
               <% else %>
                 None

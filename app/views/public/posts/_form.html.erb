@@ -10,12 +10,18 @@
     <%= f.text_area :body, placeholder: "40文字以下で入力してください", class: "form-control", rows: "10" %>
   </div>
 
-  <div class="form-group text-center">
-    <div>
-    <%= f.label :genre_id, "タグ" %><br>
-    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name %>
+  <div class="form-group">
+    <%= f.label :genre_id, "ジャンルを追加" %>
+    <div class="d-flex flex-row flex-wrap">
+    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name do |b| %>
+      <div class="mx-1">
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <% end %>
     </div>
   </div>
+
   <div class="form-group d-flex flex-column align-items-center">
     <div>
       <% if obj.post_image.nil? %>

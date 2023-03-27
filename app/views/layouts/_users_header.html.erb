@@ -1,4 +1,4 @@
-<div class="col-1 p-0 text-center position-relative" style="border-left: 1px solid #a9a9a9">
+<div class="col-1 p-0 text-center position-relative">
   <%= link_to user_path(current_user) do %>
     <%= image_tag current_user.get_profile_image(30,30), class: "rounded-circle" %>
   <% end %>
@@ -6,8 +6,8 @@
     <%= render "layouts/check_icon" %>
   </div>
 </div>
-<div class="col-1 p-0 text-center" style="border-left: 1px solid #a9a9a9; border-right: 1px solid #a9a9a9">
-  <%= link_to "Log_out", destroy_user_session_path, method: :delete, class: "text-light font-weight-bold" %>
+<div class="col-1 p-0 text-center head">
+  <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "text-light font-weight-bold" %>
 </div>
 <div class="col-4 p-0 mx-auto">
   <% if current_page?(posts_path) %>
@@ -20,15 +20,15 @@
     <%= render 'public/artists/search_artist' %>
   <% end %>
 </div>
-<div class="col-1 p-0 text-center" style="border-left: 1px solid #a9a9a9">
+<div class="col-1 p-0 text-center head">
   <%= link_to "Artists", artists_path, class: "text-light font-weight-bold" %>
 </div>
-<div class="col-1 p-0 text-center" style="border-left: 1px solid #a9a9a9">
+<div class="col-1 p-0 text-center head">
   <%= link_to "Posts", posts_path, class: "text-light font-weight-bold" %>
 </div>
-<div class="col-1 p-0 text-center" style="border-left: 1px solid #a9a9a9">
+<div class="col-1 p-0 text-center head">
   <%= link_to "Users", users_path, class: "text-light font-weight-bold" %>
 </div>
-<div class="col-1 p-0 text-center" style="border-left: 1px solid #a9a9a9">
+<div class="col-1 p-0 text-center head">
   <%= link_to "Groups", groups_path, class: "text-light font-weight-bold" %>
 </div>

@@ -8,6 +8,7 @@ class Admin::PostsController < ApplicationController
     elsif params[:word]
       @posts = Post.search_for(params[:word])
     end
+      @posts = @posts.page(params[:page]).per(20)
   end
 
   def destroy

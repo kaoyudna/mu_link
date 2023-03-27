@@ -18,8 +18,15 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :genre_id, "ジャンルを追加" %><br>
-        <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, checked: @user.genres.map(&:id), class: "dd",style: "width: 100px; height: 30px" %>
+        <%= f.label :genre_id, "ジャンルを追加" %>
+        <div class="d-flex flex-row flex-wrap">
+        <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, checked: @user.genres.map(&:id) do |b| %>
+          <div class="mx-1">
+            <%= b.check_box %>
+            <%= b.label %>
+          </div>
+        <% end %>
+        </div>
       </div>
     </div>
     <div class="col-sm-4">

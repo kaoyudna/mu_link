@@ -13,11 +13,17 @@ ja:
         message: コメント
       post_comment:
         comment: 文章
+      genre:
+        name: ジャンル名
+      inappropriate_comment:
+        comment: ワード
     models:
       post: 投稿
       group: グループ
       group_message: メッセージ
       post_comment: コメント
+      genre: ジャンル
+      inappropriate_comment: 不適切なワード
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

@@ -2,7 +2,6 @@ class Admin::PostCommentsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @post_comments = PostComment.all.order(is_deleted: :asc).order(created_at: :desc)
     @inappropriate_comments = InappropriateComment.all
     @inappropriate_comment = InappropriateComment.new
     if params[:post_id]
@@ -20,13 +19,16 @@ class Admin::PostCommentsController < ApplicationController
         @post_comments.uniq!(&:id)
     elsif params[:word]
       @post_comments = PostComment.search_for(params[:word])
+    else
+      @post_comments = PostComment.all.order(is_deleted: :asc).order(created_at: :desc)
     end
+    @post_comments = @post_comments.page(params[:page]).per(20)
   end
 
   def update
     post_comment = PostComment.find(params[:id])
     post_comment.update(is_deleted: true)
-    redirect_to request.referer, notice: "コメントを削除しました"
+    redirect_to admin_post_comments_path, notice: "コメントを削除しました"
   end
 
 end

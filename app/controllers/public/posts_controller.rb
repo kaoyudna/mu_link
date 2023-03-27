@@ -43,7 +43,7 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.user.is_deleted == false
       @user = @post.user
-      @users = @post.favorite_users
+      @users = @post.favorite_users.where(is_deleted: false)
       @comment = PostComment.new
       @comments = @post.post_comments
       if @user.artist_favorites.count > 0
