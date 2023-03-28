@@ -1,6 +1,6 @@
 <% comments.each do |comment| %>
   <% if comment.user_id == current_user.id %>
-  <div class="text-right pr-3">
+  <div class="ml-auto pr-3">
     <div class="d-flex  pt-1">
       <% if comment.is_deleted == false %>
         <p class="border mb-0 pl-2 pr-2 ml-auto rounded bg-white border border-secondary"><%= comment.comment %></p>
@@ -8,10 +8,12 @@
         <p class="border mb-0 pl-2 pr-2 ml-auto rounded bg-white border border-secondary text-muted">コメントは削除されました</p>
       <% end %>
     </div>
-    <small class="text-muted">
-      <%= link_to "Delete", post_post_comment_path(@post,comment), method: :delete, remote: true, class: "btn btn-outline-danger p-0" %>
-      <%= comment.created_at.to_s(:datetime_jp) %>
-    </small>
+    <div class="ml-auto text-right">
+      <small class="text-muted">
+        <%= link_to "Delete", post_post_comment_path(@post,comment), method: :delete, remote: true, class: "btn btn-outline-danger p-0" %>
+        <%= comment.created_at.to_s(:datetime_jp) %>
+      </small>
+    </div>
   </div>
   <% else %>
   <div class="text-left pl-3">
