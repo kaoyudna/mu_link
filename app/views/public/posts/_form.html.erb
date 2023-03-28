@@ -1,0 +1,43 @@
+<%= form_with model: obj, local:true do |f| %>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, placeholder: "30文字以下で入力してください", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body %>
+    <%= f.text_area :body, placeholder: "40文字以下で入力してください", class: "form-control", rows: "10" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :genre_id, "ジャンルを追加" %>
+    <div class="d-flex flex-row flex-wrap">
+    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name do |b| %>
+      <div class="mx-1">
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="form-group d-flex flex-column align-items-center">
+    <div>
+      <% if obj.post_image.nil? %>
+        <%= image_tag obj.get_post_image(300,300), onClick: "$('.post_img_field').click()", class: "ost_img_prevp rounded shadow" %>
+      <% else %>
+        <%= image_tag 'default.jpg', onClick: "$('.post_img_field').click()", class: "post_img_prev rounded shadow" %>
+      <% end %>
+    </div>
+    <div>
+      <%= f.label :post_image, "投稿画像", class: "text-info" %>
+      <%= f.file_field :post_image, accept: "image/*", class: "post_img_field", style: 'display:none;' %>
+    </div>
+  </div>
+
+  <div class="col-lg-6 text-center mx-auto mt-4">
+    <%= f.submit "Post", class: "btn btn-outline-success btn-block" %>
+  </div>
+
+<% end %>

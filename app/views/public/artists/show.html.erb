@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 d-flex flex-column align-items-center mb-3">
+      <%= render 'index', artist: @artist %>
+    </div>
+    <div class="col-lg-9">
+      <div class="text-light text-center font-weight-bold bg-dark rounded">
+        <p>Favorited users</p>
+      </div>
+      <div class="d-flex flex-wrap" id="artist_favorited_users">
+      <%= render 'public/users/index', users: @users %>
+      </div>
+    </div>
+    <div class="col-lg-6 mx-auto">
+      <%= link_to "Back", request.referer, class: "btn btn-info btn-block" %>
+    </div>
+  </div>
+</div>

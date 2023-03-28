@@ -1,0 +1,9 @@
+<% if current_user.favorited_music_by?(music) %>
+  <%= link_to music_favorite_path(music.id), method: :delete, remote: true do %>
+    <i class="fas fa-heart" aria-hidden="true" style="color: red; font-size: 20px"></i>
+  <% end %>
+<% else %>
+  <%= link_to music_favorites_path(music_id: music.id), method: :post, remote: true do %>
+    <i class="fas fa-heart" aria-hidden="true" style="color: gray; font-size: 20px"></i>
+  <% end %>
+<% end %>

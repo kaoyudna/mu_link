@@ -1,0 +1,116 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-lg-6 mb-3">
+      <div class="card" style="height: 600px">
+        <%= image_tag @user.get_background_image_url, class: "card-img", style: "height: 300px" %>
+        <div class="card-img-overlay text-center mt-4", style="height: 0px">
+          <%= image_tag @user.get_profile_image(200,200), class: "rounded-circle" %>
+        </div>
+        <div class="card-body">
+          <h3 class="mb-0">
+            <%= @user.name %>
+          </h3>
+          <% if @user.following?(current_user) %>
+            <small class="text-info">あなたをフォローしています</small>
+          <% end %>
+          <div class="d-flex align-items-center mt-2">
+            <div id="follow_<%= @user.id %>">
+              <%= render 'public/relationships/follow_btn', user: @user %>
+              <%= link_to "Users group", groups_path(user_id: @user.id), class: "btn btn-outline-success p-1" %>
+            </div>
+            <div class="ml-auto d-flex align-items-center" id="notifications_alert">
+              <% if @user == current_user %>
+                <%= render 'public/notifications/alert' %>
+              <% end %>
+            </div>
+          </div>
+        <p class="mt-4"><%= simple_format @user.introduction %></p>
+          <div class="information">
+            <small class="text-muted align-middle">Favorite Genre :
+              <% unless @user.genres == [] %>
+                <% @user.genres.each do |genre| %>
+                  <%= link_to genre.name, users_path(genre_id: genre.id), class: "btn btn-outline-info btn-tag" %>
+                <% end %>
+              <% else %>
+                None
+              <% end %>
+            </small><br>
+            <small class="text-muted">
+              Follow :
+            </small>
+            <small class="text-muted" id="follow_count_<%= @user.id %>">
+              <%= render "public/relationships/follow_count", user: @user %>
+            </small><br>
+            <small class="text-muted">
+              Follower :
+            </small>
+            <small class="text-muted" id="follower_count_<%= @user.id %>">
+              <%= render "public/relationships/follower_count", user: @user %>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% if @user == current_user %>
+    <div class="col-lg-6 mb-3">
+      <div class="col-lg-12 text-center bg-dark rounded">
+        <span class="text-center font-weight-bold text-light">Notifications</span>
+      </div>
+      <div class="overflow-auto" style="height: 571px">
+      <% notifications = @user.passive_notifications.where.not(visitor_id: current_user.id).page(params[:page]).per(20) %>
+      <% if notifications.exists? %>
+        <%= render notifications %>
+        <%= paginate notifications %>
+      <% else %>
+        <p class="text-muted text-center mt-5">通知はありません</p>
+      <% end %>
+      </div>
+    </div>
+    <% else %>
+    <div class="col-lg-3 mb-3">
+      <div class="card overflow-auto" style="height: 600px">
+        <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Artists</h5>
+        <%= render 'public/users/favorite_artists', artists: @artists %>
+      </div>
+    </div>
+    <div class="col-lg-3  mb-3">
+      <div class="card overflow-auto" style="height: 600px">
+        <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Musics</h5>
+        <%= render 'favorite_musics', musics: @musics %>
+      </div>
+    </div>
+    <% end %>
+    <% if @user == current_user %>
+    <div class="col-lg-6 mb-3">
+      <div class="card">
+        <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Artists</h5>
+        <div class="overflow-auto" style="height: 500px">
+          <%= render 'public/users/favorite_artists', artists: @artists %>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6  mb-3">
+      <div class="card">
+        <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Musics</h5>
+        <div class="overflow-auto" style="height: 500px">
+          <%= render 'favorite_musics', musics: @musics%>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <div class="col-lg-12">
+      <div class="border-bottom bg-dark text-center rounded">
+        <h4 class="text-white mb-0">
+          Recent posts
+        </h4>
+      </div>
+      <div class="tab d-flex flex-wrap">
+          <%= render 'public/posts/index', posts: @posts %>
+      </div>
+        <%= paginate @posts, class: "mx-auto" %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<table class="table table-sm table-borderless text-center">
+<% unless artists == nil %>
+  <% artists.each do |artist| %>
+  <tr class="border-bottom">
+    <td  class="align-middle" scope="col" style="width: 30%">
+      <% if artist.images.any? %>
+        <% image = artist.images[1] %>
+        <%= image_tag(image["url"], size: '50x50', class: 'rounded-circle')%>
+      <% else %>
+        <%= image_tag("default.jpg", size: '50x50', class: 'rounded-circle') %>
+      <% end %>
+    </td>
+    <th class="align-middle" scope="col" style="width:30%">
+      <%= link_to artist.name, artist_path(artist.id), class: "text-dark" %>
+    </th>
+    <td class="align-middle" scope="col" style="width: 30%" id="artist_favorite_<%= artist.id %>">
+      <%= render 'public/artist_favorites/artist_favorite_btn', artist: artist %>
+    </td>
+  </tr>
+  <% end %>
+<% else %>
+  <p class="text-muted text-center mt-5">アーティストが存在しません</p>
+<% end %>
+</table>

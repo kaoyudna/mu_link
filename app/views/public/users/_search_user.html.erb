@@ -1,0 +1,5 @@
+<%= form_with url: users_path, method: :get, local: true, id: 'search-form' do |f| %>
+<div class="d-flex">
+  <%= f.text_field :word, class: 'form-control', placeholder: "Search User" %>
+</div>
+<% end %>

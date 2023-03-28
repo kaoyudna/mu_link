@@ -1,0 +1,17 @@
+<div class="card shadow mb-3">
+  <div class="card-header font-weight-bold bg-dark text-white">
+    Genres
+  </div>
+  <% genres.each do |genre| %>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <% if current_page?(posts_path) %>
+        <%= link_to genre.name, posts_path(genre_id: genre.id),  class: "text-dark" %>
+      <% elsif current_page?(groups_path) %>
+        <%= link_to genre.name, groups_path(genre_id: genre.id), class: "text-dark" %>
+      <% elsif current_page?(users_path) %>
+        <%= link_to genre.name, groups_path(genre_id: genre.id), class: "text-dark" %>
+      <% end %>
+    </li>
+  <% end %>
+</div>

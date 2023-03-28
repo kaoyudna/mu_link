@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 d-flex justify-content-center">
+      <h2>ユーザー一覧</h2>
+    </div>
+    <div class="col-lg-10 mx-auto">
+      <table class="table table-sm text-center table-bordered table-striped">
+        <thead class="bg-secondary text-white">
+          <tr>
+            <th scope="col" style="width: auto"></th>
+            <th scope="col" style="width: auto">Name</th>
+            <th scope="col" style="width: auto">Posts</th>
+            <th scope="col" style="width: auto">Comments</th>
+            <th scope="col" style="width: auto">Inappropriate comments</th>
+            <th scope="col" style="width: auto">Status</th>
+            <th scope="col" style="width: auto">Registered Date</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |user| %>
+        <% if user.post_comments.where(is_deleted: true).count > 2 %>
+          <tr class="text-secondary" style="background-color: #ffbebe">
+        <% else %>
+          <tr class="text-secondary">
+        <% end %>
+            <td class="align-middle"><%= image_tag user.get_profile_image(30,30), class: "rounded-circle" %></td>
+            <td class="align-middle"><%= link_to user.name, admin_user_path(user), class: "text-secondary" %></td>
+            <td class="align-middle"><%= link_to user.posts.count, admin_posts_path(user_id: user.id), class: "text-secondary" %></td>
+            <td class="align-middle"><%= user.group_messages.count %></td>
+            <td class="align-middle"><%= user.post_comments.where(is_deleted: true).count %></td>
+            <td class="align-middle">
+              <% if user.is_deleted == false %>
+                <p class="text-info mb-0">有効</p>
+              <% else %>
+                <p class="text-danger mb-0">退会</p>
+              <% end %>
+            </td>
+            <td class="align-middle text-secondary"><%= user.created_at.to_s(:datetime_jp) %></td>
+          </tr>
+      <% end %>
+        </tbody>
+      </table>
+      <%= paginate @users, class: "mx-auto" %>
+    </div>
+  </div>
+</div>

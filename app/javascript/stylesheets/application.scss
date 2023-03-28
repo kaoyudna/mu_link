@@ -1,0 +1,526 @@
+@import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Kaushan+Script');
+
+body {
+    font-family: 'Quicksand', 'M PLUS Rounded 1c', sans-serif;
+}
+
+.kaushan {
+    font-family: 'Kaushan Script', cursive;
+}
+
+
+// カードにカーソルを合わせると浮き出るようなモーション
+.card_wrap{
+  transition-duration: 0.5s;
+}
+.card_wrap img{
+  cursor: pointer;
+}
+.card_wrap:hover{
+  box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+  transform: translateY(-10px);
+  transition-duration: 0.5s;
+}
+
+
+// カーソルを乗せるとイメージを拡大
+.card_zoom_wrap .card-img{
+  width: 100%;
+  transition-duration: 0.5s;
+}
+.card_zoom_wrap:hover .card-img{
+  transform: scale(1.05);
+  transition-duration: 0.5s;
+}
+
+.card_zoom_wrap .card-img-overlay{
+  width: 100%;
+  transition-duration: 0.5s;
+}
+
+.card_zoom_wrap:hover .card-img-overlay{
+  transform: scale(1.05);
+  transition-duration: 0.5s;
+}
+
+
+// カードにカーソルを合わせるとグレーアウト
+.gray_out{
+  overflow: hidden;
+  background: #000;
+}
+.gray_out img{
+  width: 100%;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.gray_out:hover img{
+  opacity: 0.6;
+  transition-duration: 0.3s;
+}
+
+
+// スクロールバーの非表示
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+// ハンバーガーメニュー
+#hm-icon {
+  z-index: 10;
+}
+.menu-trigger,
+.menu-trigger span {
+  display: inline-block;
+  transition: all .4s;
+  box-sizing: border-box;
+}
+.menu-trigger {
+  position: relative;
+  width: 50px;
+  height: 44px;
+}
+.menu-trigger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: white;
+  border-radius: 4px;
+}
+.menu-trigger span:nth-child(1) {
+  top: 0;
+}
+.menu-trigger span:nth-child(2) {
+  top: 20px;
+}
+.menu-trigger span:nth-child(3) {
+  bottom: 0;
+}
+.menu-trigger.active span:nth-child(1) {
+  -webkit-transform: translateY(20px) rotate(-45deg);
+  transform: translateY(20px) rotate(-45deg);
+  background-color: #fff;
+}
+.menu-trigger.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-trigger.active span:nth-child(3) {
+  -webkit-transform: translateY(-20px) rotate(45deg);
+  transform: translateY(-20px) rotate(45deg);
+  background-color: #fff;
+}
+
+#sp-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  color: #fff;
+  width: 100%;
+  min-height: 100%;
+  display: none;
+  z-index: 9;
+}
+
+#sp-menu h2 {
+  text-align: center;
+  font-size: 50px;
+  margin-top : 5px;
+}
+
+#sp-menu ul {
+  padding-left: 0px;
+  margin-top: 70px;
+}
+#sp-menu li {
+  text-align: center;
+  list-style: none;
+  margin-bottom: 70px;
+  font-size: 30px;
+}
+
+#sp-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+
+//投稿タブメニュー
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#tab-menu {
+  display: flex;
+  margin-bottom: 0;
+}
+
+#tab-menu li {
+  list-style-type: none;
+  width: 20%;
+}
+
+#tab-menu li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 20px;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+#tab-menu li form{
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 14pt;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+
+@media screen and  (max-width: 1024px) {
+  #tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 19px 0 18px 0;;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+@media screen and  (max-width: 425px) {
+  #tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 5pt;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+#tab-menu .active {
+  background: #fff;
+  color: #000;
+}
+
+#tab-contents {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#tab-contents .tab {
+  width: 100%;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #000;
+  border-top: none;
+}
+
+#tab-contents p {
+  color: #000;
+  line-height: 2.5;
+}
+
+
+// ユーザータブメニュー
+#users_tab-menu {
+  display: flex;
+  margin-bottom: 0;
+}
+
+#users_tab-menu li {
+  list-style-type: none;
+  width: 50%;
+}
+
+#users_tab-menu li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 20px;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+#users_tab-menu li form{
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 14pt;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+
+@media screen and  (max-width: 1024px) {
+  #users_tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 19px 0 18px 0;;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+@media screen and  (max-width: 425px) {
+  #users_tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 5pt;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+#users_tab-menu .active {
+  background: #fff;
+  color: #000;
+}
+
+#users_tab-contents {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#users_tab-contents .tab {
+  width: 100%;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #000;
+  border-top: none;
+}
+
+#users_tab-contents p {
+  color: #000;
+  line-height: 2.5;
+}
+
+
+// グループタブメニュー
+#groups_tab-menu {
+  display: flex;
+  margin-bottom: 0;
+}
+
+#groups_tab-menu li {
+  list-style-type: none;
+  width: 50%;
+}
+
+#groups_tab-menu li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 20px;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+#groups_tab-menu li form{
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 14pt;
+  text-align: center;
+  background: #343a40;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+
+@media screen and  (max-width: 1024px) {
+  #groups_tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 19px 0 18px 0;;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+@media screen and  (max-width: 425px) {
+  #groups_tab-menu li form {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 18px 0 19px 0;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+}
+
+#groups_tab-menu .active {
+  background: #fff;
+  color: #000;
+}
+
+#groups_tab-contents {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#groups_tab-contents .tab {
+  width: 100%;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #000;
+  border-top: none;
+}
+
+#groups_tab-contents p {
+  color: #000;
+  line-height: 2.5;
+}
+
+
+
+.information {
+  position: absolute;
+  bottom: 10px;
+}
+
+.text-shadow {
+  text-shadow: #000 0 0 10px;
+}
+
+.pagination {
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.profile_img_prev {
+  width: 300px;
+  height: 200px;
+}
+
+.background_img_prev {
+  width: 300px;
+  height: 200px;
+}
+
+.post_img_prev{
+  width: 300px;
+  height: 200px;
+}
+
+.group_img_prev{
+  width: 300px;
+  height: 200px;
+}
+
+.btn-tag {
+  padding: 0;
+  font-size: 11px;
+}
+
+.head a:hover {
+    text-decoration: none;
+}
+
+.head > a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background: #de9767;
+  visibility: hidden;
+  border-radius: 5px;
+  transform: scaleX(0);
+  transition: .25s linear;
+}
+.head > a:hover:before,
+.head > a:focus:before {
+  visibility: visible;
+  transform: scaleX(1);
+  text-decoration: none !important;
+}
+
+
+
+
+.glitch{
+  color: #000000;
+  font-size: 50px;
+  position: relative;
+}
+@keyframes noise-anim{
+  $steps:20;
+  @for $i from 0 through $steps{
+    #{percentage($i*(1/$steps))}{
+      clip:rect(random(100)+px,9999px,random(100)+px,0);
+    }
+  }
+}
+.glitch:after{
+  content: attr(data-text);
+  position: absolute;
+  left: 0px;
+  text-shadow: -3px 0 black;
+  top: 0;
+  color: white;
+  background: white;
+  overflow: hidden;
+  clip: rect(0, 900px, 0, 0);
+  animation: noise-anim 2s infinite cubic-bezier(0.72, -0.85, 0.21, 2) alternate-reverse;
+}
+
+@keyframes noise-anim-2{
+  $steps:20;
+  @for $i from 0 through $steps{
+    #{percentage($i*(1/$steps))}{
+      clip:rect(random(100)+px,9999px,random(100)+px,0);
+    }
+  }
+}
+.glitch:before{
+  content: attr(data-text);
+  position: absolute;
+  left: 0px;
+  text-shadow: 3px 0 black;
+  top: 0;
+  color: white;
+  background: white;
+  overflow: hidden;
+  clip: rect(0, 900px, 0, 0);
+  animation: noise-anim-2 3s infinite linear alternate-reverse;
+}

@@ -1,0 +1,20 @@
+<table class="table table-sm text-center table-bordered table-striped">
+  <thead class="text-white bg-secondary">
+    <tr>
+      <th scope="col" style="width: 40%">Name</th>
+      <th scope="col" style="width: 40%">Registered Date</th>
+      <th scope="col" style="width: 10%"></th>
+      <th scope="col" style="width: 10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% genres.each do |genre| %>
+    <tr class="text-secondary">
+      <td class="align-middle"><%= genre.name %></td>
+      <td class="align-middle"><%= genre.created_at.to_s(:datetime_jp) %></td>
+      <td class="align-middle"><%= link_to "Edit", edit_admin_genre_path(genre), class: "btn btn-outline-info p-0 pr-2 pl-2" %></td>
+      <td class="align-middle"><%= link_to "Delete", admin_genre_path(genre), method: :delete, class: "btn btn-outline-danger p-0 pr-1 pl-1" %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

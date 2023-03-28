@@ -1,0 +1,28 @@
+<%= render "public/shared/error_messages", resource: @genre %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h2>ジャンル編集</h2>
+    </div>
+    <div class="col-lg-3 offset-lg-1">
+      <div class="card">
+        <div class="card-header bg-secondary text-white text-center font-weight-bold">
+          Edit genre
+        </div>
+        <%= form_with model: @genre, url: admin_genre_path, method: :patch do |f| %>
+        <div class="form-group mt-5 mr-4 ml-4">
+            <%= f.label :genre %>
+            <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class="form-group text-center mb-5 mt-5">
+          <%= f.submit "更新", class: "btn btn-outline-success pl-5 pr-5" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-lg-7 text-center">
+      <%= render 'index', genres: @genres %>
+      <%= link_to "ジャンル作成画面へ戻る", admin_genres_path, class: "btn btn-info" %>
+    </div>
+  </div>
+</div>

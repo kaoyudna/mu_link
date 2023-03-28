@@ -1,0 +1,2 @@
+$("#post_index").html("<%= j(render 'public/posts/index', posts: @posts) %>");
+$("#posts_paginate").html("<%= j(paginate @posts, class: "mx-auto") %>");

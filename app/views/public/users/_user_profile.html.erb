@@ -1,0 +1,11 @@
+<% if current_page?(post_path) %>
+  <%= image_tag user.get_profile_image(120,120), class: 'rounded-circle shadow' %><br>
+<% else %>
+  <%= image_tag user.get_profile_image(200,200), class: 'rounded-circle shadow' %>
+  <h4><%= user.name %></h4>
+<% end %>
+<% if user.id == current_user.id %>
+  <%= link_to "Edit", edit_user_path(current_user), class: 'btn btn-outline-dark mt-2 pt-0 pb-0' %>
+<% else %>
+  <%= link_to "仮です", user_relationships_path(user), class: 'btn btn-outline-info mt-2 pt-0 pb-0' %>
+<% end %>

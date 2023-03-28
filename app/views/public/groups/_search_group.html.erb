@@ -1,0 +1,5 @@
+<%= form_with url: groups_path, method: :get, remote: true, id: 'search-form' do |f| %>
+<div class="d-flex">
+  <%= f.text_field :word, class: 'form-control', placeholder: "Search Groups" %>
+</div>
+<% end %>

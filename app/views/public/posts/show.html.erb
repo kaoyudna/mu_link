@@ -1,0 +1,77 @@
+<div class="container">
+  <div id="error">
+    <%= render 'public/shared/error_messages', resource: @comment %>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="col-lg-12 pb-2 pl-0 pr-0">
+        <div class="card  shadow" style="height: 350px">
+          <div class="card-header bg-dark p-1 text-center">
+            <p class="font-weight-bold link-white mb-0"><%= link_to @user.name, user_path(@user), class: "text-light" %></p>
+          </div>
+          <%= render 'public/users/users_card', user: @user %>
+        </div>
+      </div>
+      <div class="col-lg-12  pb-2 pl-0 pr-0">
+        <div class="card overflow-auto" style="height: 235px">
+          <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorite Artists</h5>
+          <%= render 'public/users/favorite_artists', artists: @artists %>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5 pb-2">
+      <div class="card shadow">
+        <%= image_tag @post.get_post_image(500,500), class: "card-img-top", style: "height: 350px;" %>
+        <div class="card-body overflow-auto" style="height: 240px;">
+          <div class="d-flex">
+            <h5>
+              <%= @post.title %>
+            </h5>
+            <div class="ml-auto" id="post_favorite_<%= @post.id %>">
+            <%= render 'public/post_favorites/post_favorite_btn', post: @post %>
+            </div>
+          </div>
+          <p><%= simple_format @post.body %></p>
+          <div class="d-flex flex-column information">
+            <small class="text-muted">Genre :
+              <% unless @post.genres == [] %>
+                <% @post.genres.each do |genre| %>
+                  <%= link_to genre.name, posts_path(genre_id: genre.id), class: "btn btn-outline-info btn-tag" %>
+                <% end %>
+              <% else %>
+                None
+              <% end %>
+            </small>
+            <small class="text-muted" id="liked_count_<%= @post.id %>" class="mb-0"><%= render 'public/posts/liked_post_count', post: @post %></small>
+            <small class="text-muted"><%= @post.created_at.to_s(:datetime_jp) %></small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="col-lg-12 pb-2 pl-0 pr-0">
+        <div class="card overflow-auto pl-4 pr-4" style="height: 250px">
+          <h5 class="font-weight-bold mx-auto border-bottom border-dark p-1">Favorited User</h5>
+          <div id="favorite_users">
+            <%= render "public/users/favorite_users", users: @users %>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 pl-0 pr-0">
+        <div class="card shadow" style="height: 335px">
+          <div class="card-header bg-dark p-1 text-center">
+            <p class="font-weight-bold text-white mb-0">Comments</p>
+          </div>
+          <div class="card-body overflow-auto" id="post_comment_index">
+            <%= render "public/post_comments/index", comments: @comments %>
+          </div>
+          <div class="form-group mb-0">
+          <%= form_with model: [@post,@comment], local: false do |f| %>
+            <%= f.text_field :comment, class: "form-control bg-white", placeholder: "Enter a comment" %>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

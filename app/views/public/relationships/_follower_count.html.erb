@@ -1,0 +1,1 @@
+<%= link_to user.followers.where(is_deleted: false).count, user_user_follower_path(user), class: "text-secondary" %>

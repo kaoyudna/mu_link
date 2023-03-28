@@ -1,0 +1,28 @@
+<h3 class="font-weight-bold border-bottom pb-2 mb-3">Group Detail</h3>
+<%= image_tag group.get_group_image(170,170), class: 'rounded-circle shadow' %>
+<h3 class="font-weight-bold mt-2"><%= group.name %></h3>
+<%= render 'public/groups/group_join_btn', group: group %>
+<div class="col-sm-8 border-top p-2 mt-2 mx-auto">
+  <h5 class="mb-0">Genre</h5>
+  <p class="mb-0">
+    <% unless group.genres.empty? %>
+      <% group.genres.each do |genre| %>
+        <%= link_to genre.name, groups_path(genre_id: genre.id), class: "btn btn-outline-info p-0" %>
+      <% end %>
+    <% else %>
+      None
+    <% end %>
+  </p>
+</div>
+<div class="col-sm-8 border-top p-2 mt-2 mx-auto">
+  <h5 class="mb-0">Introduction</h5>
+  <p class="mb-0"><%= simple_format group.introduction %></p>
+</div>
+<div class="col-sm-8 border-top p-2 mt-2 mx-auto">
+  <h5 class="mb-0">Owner</h5>
+  <p class="mb-0"><%= link_to User.find(group.owner_id).name, user_path(group.owner_id), class: "text-dark" %></p>
+</div>
+<div class="col-sm-8 border-top p-2 mt-2 mx-auto">
+  <h5 class="mb-0">Members</h5>
+  <p class="mb-0"><%= group.users.count %> people</p>
+</div>
