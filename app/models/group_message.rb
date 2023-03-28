@@ -4,7 +4,7 @@ class GroupMessage < ApplicationRecord
   belongs_to :group
   has_many :notifications, dependent: :destroy
 
-  validates :message, presence: true, length: {maximum: 20 }
+  validates :message, presence: true, length: {maximum: 30 }
 
   def create_notification_group_chat!(current_user, group_id)
   #グループメッセージが作成されたグループに所属しているユーザーのidをまとめて取得

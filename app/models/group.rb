@@ -18,7 +18,7 @@ class Group < ApplicationRecord
   def introduction_length
     #改行の文字列を除いた文字数を変数に代入(本文が入力されていなければ0が代入される)
     text_length = introduction&.count("^\r\n") || 0
-    errors.add(:introduction, "は20文字以内で入力してください") if text_length > 20
+    errors.add(:introduction, "は30文字以内で入力してください") if text_length > 30
   end
 
   def image_group_content_type
