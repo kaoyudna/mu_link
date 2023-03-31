@@ -24,11 +24,7 @@
 
   <div class="form-group d-flex flex-column align-items-center">
     <div>
-      <% if obj.post_image.nil? %>
-        <%= image_tag obj.get_post_image(300,300), onClick: "$('.post_img_field').click()", class: "ost_img_prevp rounded shadow" %>
-      <% else %>
-        <%= image_tag 'default.jpg', onClick: "$('.post_img_field').click()", class: "post_img_prev rounded shadow" %>
-      <% end %>
+      <%= image_tag 'default.jpg', onClick: "$('.post_img_field').click()", class: "post_img_prev rounded shadow" %>
     </div>
     <div>
       <%= f.label :post_image, "投稿画像", class: "text-info" %>
