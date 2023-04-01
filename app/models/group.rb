@@ -17,14 +17,14 @@ class Group < ApplicationRecord
   validate :image_group_content_type, if: :was_group_image_attached?
 
   def introduction_length
-    #与えられた'introduction'の文字数に応じてエラーメッセージを表示する
-    #もし'introduction'の文字数が30文字以上であれば文字数制限のメッセージを返す
+    #与えられたintroductionの文字数(改行のコードは除外)を数える
+    #introductionがnil(空)の場合はtext_lengthに0を代入
     text_length = introduction&.count("^\r\n") || 0
     errors.add(:introduction, "は30文字以内で入力してください") if text_length > 30
   end
 
   def image_group_content_type
-    #
+    #拡張子がpng,jpg,jpeg以外の場合はバリデーションエラーメッセージを表示する
     extension = ['image/png', 'image/jpg', 'image/jpeg']
     errors.add(:group_image, 'の拡張子が対応していません') unless group_image.content_type.in?(extension)
   end
@@ -34,6 +34,7 @@ class Group < ApplicationRecord
   end
 
   def get_group_image(width,height)
+    #group_imageが存在しない場合
     unless group_image.attached?
       file_path = Rails.root.join('app/assets/images/default.jpg')
       group_image.attach(io: File.open(file_path), filename: 'default.jpg', content_type: 'image/jpeg')
