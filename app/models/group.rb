@@ -11,20 +11,21 @@ class Group < ApplicationRecord
   has_one_attached :group_image
 
   validates :name, presence: true, length:{maximum: 20}
+  #紹介文は改行が可能なため、改行のコードを除いた文字数制限のバリデーション
   validate :introduction_length
-  #グループイメージがある場合にバリデーションチェックを行う
+  #意図しない拡張子のファイルアップロードを制限するバリデーション
   validate :image_group_content_type, if: :was_group_image_attached?
 
   def introduction_length
-    #改行の文字列を除いた文字数を変数に代入(本文が入力されていなければ0が代入される)
+    #与えられた'introduction'の文字数に応じてエラーメッセージを表示する
+    #もし'introduction'の文字数が30文字以上であれば文字数制限のメッセージを返す
     text_length = introduction&.count("^\r\n") || 0
     errors.add(:introduction, "は30文字以内で入力してください") if text_length > 30
   end
 
   def image_group_content_type
-    #ハッシュに利用可能な拡張子を格納
+    #
     extension = ['image/png', 'image/jpg', 'image/jpeg']
-    #グループイメージの拡張子が上記以外の場合はエラーメッセージを表示
     errors.add(:group_image, 'の拡張子が対応していません') unless group_image.content_type.in?(extension)
   end
 
