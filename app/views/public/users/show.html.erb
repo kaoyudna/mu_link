@@ -18,8 +18,9 @@
           <div class="d-flex align-items-center mt-2">
             <div id="follow_<%= @user.id %>">
               <%= render 'public/relationships/follow_btn', user: @user %>
-              <%= link_to "Users group", groups_path(user_id: @user.id), class: "btn btn-outline-success p-1" %>
             </div>
+              <%= link_to "Users group", groups_path(user_id: @user.id), class: "btn btn-outline-success p-1 ml-1" %>
+              <%= link_to "通報", new_user_report_path(@user), class: "btn btn-warning p-1 ml-1" %>
             <div class="ml-auto d-flex align-items-center" id="notifications_alert">
               <% if @user == current_user %>
                 <%= render 'public/notifications/alert' %>

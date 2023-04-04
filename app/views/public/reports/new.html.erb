@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <h2 class="text-center font-weight-bold">通報</h2>
+      <%= form_with model: [@user, @report] do |f| %>
+      <div class="form-group">
+        <%= f.label :reason %>
+        <%= f.text_area :reason, rows: '5', class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :url %>
+        <%= f.text_field :url, class: "form-control" %>
+      </div>
+      <div class="form-group text-center mt-5">
+        <%= f.submit "通報する", class: "btn btn-success pr-5 pl-5" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
