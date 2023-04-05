@@ -1,0 +1,47 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <h2 class="text-center">ユーザー詳細</h2>
+      <table class="table table-bordered">
+        <tr>
+          <th  scope="col" class="bg-secondary text-white" style="width: 30%">通報ID</th>
+          <td><%= @report.id %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">会員名</th>
+          <td><%= @report.reported.name %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">理由</th>
+          <td><%= @report.reason %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">URL</th>
+          <td><%= link_to @report.url %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">通報者</th>
+          <td><%= @report.reporter.name %></td>
+        </tr>
+        <tr>
+          <th class="bg-secondary text-white">対応ステータス</th>
+          <td>
+            <%= @report.status_i18n %>
+            <%= form_with model: @report, url:admin_report_path(@report), method: :patch, local: true do |f| %>
+              <%= f.select :status, Report.statuses.keys.map { |k| [t("enums.report.status.#{k}"), k] } %>
+              <%= f.submit '更新' %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3 mx-auto">
+      <%= link_to "通報一覧", admin_reports_path, class: "btn btn-info btn-block" %>
+    </div>
+  </div>
+
+</div>

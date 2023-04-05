@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     resources :post_comments, only:[:index, :update]
     resources :genres, only:[:new, :index, :create, :edit, :update, :destroy]
     resources :inappropriate_comments, only:[:new, :create, :destroy]
-    resources :reports, only:[:indes, :show, :update]
+    resources :reports, only:[:index, :show, :update]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
