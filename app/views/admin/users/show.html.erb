@@ -5,30 +5,30 @@
     </div>
     <div class="col-lg-3 offset-sm-1">
       <div class="card mb-2">
-        <div class="card-header bg-secondary text-white font-weight-bold">Profile image</div>
+        <div class="card-header bg-secondary text-white font-weight-bold">プロフィール画像</div>
         <%= image_tag @user.get_profile_image(300,200), class: "card-img" %>
       </div>
       <div class="card">
-        <div class="card-header bg-secondary text-white font-weight-bold">Background image</div>
+        <div class="card-header bg-secondary text-white font-weight-bold">背景画像</div>
         <%= image_tag url_for(@user.get_background_image_url), class: "card-img" %>
       </div>
     </div>
     <div class="col-lg-7">
       <table class="table table-bordered">
         <tr>
-          <th  scope="col" class="bg-secondary text-white" style="width: 30%">name</th>
+          <th  scope="col" class="bg-secondary text-white" style="width: 30%">名前</th>
           <td><%= @user.name %></td>
         </tr>
         <tr>
-          <th class="bg-secondary text-white">Email</th>
+          <th class="bg-secondary text-white">メールアドレス</th>
           <td><%= @user.email %></td>
         </tr>
         <tr>
-          <th class="bg-secondary text-white">Introduction</th>
+          <th class="bg-secondary text-white">紹介文</th>
           <td><%= @user.introduction %></td>
         </tr>
         <tr>
-          <th class="bg-secondary text-white">Genre</th>
+          <th class="bg-secondary text-white">ジャンル</th>
           <td>
             <% @user.genres.each do |genre| %>
               <%= genre.name %>.
@@ -36,27 +36,27 @@
           </td>
         </tr>
         <tr>
-          <th class="bg-secondary text-white">Follow:Follower</th>
+          <th class="bg-secondary text-white">フォロー：フォロワー</th>
           <td><%= @user.followings.count %>:<%= @user.followers.count %></td>
         </tr>
         <tr>
-          <th class="bg-secondary text-white">Posts</th>
+          <th class="bg-secondary text-white">投稿数</th>
           <td><%= @user.posts.count %></td>
         </tr>
         <tr>
-          <th class="bg-secondary text-white">Comments</th>
+          <th class="bg-secondary text-white">コメント数</th>
           <td><%= @user.post_comments.count %></td>
         </tr>
         <tr>
-          <th class="bg-secondary text-white">Registered Date</th>
+          <th class="bg-secondary text-white">登録日</th>
           <td><%= @user.created_at.to_s(:datetime_jp) %></td>
         </tr>
         <tr>
-          <th class="bg-secondary text-white">Status</th>
+          <th class="bg-secondary text-white">ステータス</th>
           <td>
             <%= form_with model: @user, url: admin_user_path(@user), method: :patch, local: true do |f| %>
               <%= f.select :is_deleted, options_for_select({"有効" => false, "退会" => true}, :selected => @user.is_deleted) %>
-              <%= f.submit "Update", class: "btn btn-outline-info p-0" %>
+              <%= f.submit "更新", class: "btn btn-outline-info p-0" %>
             <% end %>
           </td>
         </tr>

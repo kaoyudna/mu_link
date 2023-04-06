@@ -20,7 +20,9 @@
               <%= render 'public/relationships/follow_btn', user: @user %>
             </div>
               <%= link_to "Users group", groups_path(user_id: @user.id), class: "btn btn-outline-success p-1 ml-1" %>
-              <%= link_to "通報", new_user_report_path(@user), class: "btn btn-warning p-1 ml-1" %>
+              <% unless @user == current_user %>
+                <%= link_to "通報", new_user_report_path(@user), class: "btn btn-warning p-1 ml-1" %>
+              <% end %>
             <div class="ml-auto d-flex align-items-center" id="notifications_alert">
               <% if @user == current_user %>
                 <%= render 'public/notifications/alert' %>
