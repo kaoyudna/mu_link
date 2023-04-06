@@ -61,6 +61,8 @@ gem 'kaminari','~> 1.2.1'
 
 gem 'rspotify'
 
+gem "enum_help"
+
 gem 'dotenv-rails'
 
 group :production do
