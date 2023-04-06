@@ -4,16 +4,15 @@
       <h2>投稿一覧</h2>
     </div>
     <div class="col-lg-10 mx-auto">
-        <%= flash[:alert] %>
       <table class="table table-sm text-center table-bordered table-striped">
         <thead class="bg-secondary text-white">
           <tr>
             <th scope="col" style="width: auto"></th>
-            <th scope="col" style="width: 40%">Title</th>
-            <th scope="col" style="width: auto">User</th>
-            <th scope="col" style="width: auto">Comments</th>
-            <th scope="col" style="width: auto">Registered Date</th>
-            <th scope="col" style="width: auto">Delete</th>
+            <th scope="col" style="width: 40%">タイトル</th>
+            <th scope="col" style="width: auto">ユーザー</th>
+            <th scope="col" style="width: auto">コメント</th>
+            <th scope="col" style="width: auto">投稿日</th>
+            <th scope="col" style="width: auto"></th>
           </tr>
         </thead>
         <tbody>
@@ -21,8 +20,8 @@
           <tr class="text-secondary">
             <td class="align-middle"><%= image_tag post.get_post_image(30,30), class: "rounded-circle" %></td>
             <td class="align-middle"><%= post.title %></td>
-            <td class="align-middle"><%= link_to post.user.name, admin_user_path(post.user), class: "text-secondary" %></td>
-            <td class="align-middle"><%= link_to post.post_comments.count, admin_post_comments_path(post_id: post.id), class: "text-secondary" %></td>
+            <td class="align-middle"><%= link_to post.user.name, admin_user_path(post.user) %></td>
+            <td class="align-middle"><%= link_to post.post_comments.count, admin_post_comments_path(post_id: post.id) %></td>
             <td class="align-middle"><%= post.created_at.to_s(:datetime_jp) %></td>
             <td class="align-middle"><%= link_to "Delete", admin_post_path(post), method: :delete, class: "btn btn-outline-danger p-0 pr-1 pl-1" %></td>
           </tr>
