@@ -23,13 +23,9 @@ class Public::PostsController < ApplicationController
   def index
     @genres = Genre.all
     @posts = case
-    # when params[:genre_id]
-    #   genre = Genre.find(params[:genre_id])
-    #   genre.posts.get_active_posts
     when params[:genre_ids]
-      params[:genre_ids].each do |genre|
-        Genre.find(genre).posts
-      end
+      genre_ids = params[:genre_ids].reject(&:blank?)
+      Kaminari.paginate_array(genre_ids.map { |id| Genre.find(id).posts }.flatten.uniq(&:id))
     when params[:user_id]
       current_user.posts
     when params[:followings_id]
