@@ -8,9 +8,9 @@ class Public::UsersController < ApplicationController
   def index
     @genres = Genre.all
     @users = case
-    when params[:genre_id]
-      genre = Genre.find(params[:genre_id])
-      genre.users
+    when params[:genre_ids]
+      genre_ids = params[:genre_ids].reject(&:blank?)
+      Kaminari.paginate_array(genre_ids.map { |id| Genre.find(id).users }.flatten.uniq(&:id))
     when params[:word]
       User.search_for(params[:word])
     when params[:recommendation_id]
