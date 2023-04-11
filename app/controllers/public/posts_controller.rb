@@ -25,7 +25,7 @@ class Public::PostsController < ApplicationController
     @posts = case
     when params[:genre_ids]
       genre_ids = params[:genre_ids].reject(&:blank?)
-      Kaminari.paginate_array(genre_ids.map { |id| Genre.find(id).posts }.flatten.uniq(&:id))
+      Kaminari.paginate_array(genre_ids.map { |id| Genre.find(id).posts.get_active_posts }.flatten.uniq(&:id))
     when params[:user_id]
       current_user.posts
     when params[:followings_id]
@@ -35,7 +35,7 @@ class Public::PostsController < ApplicationController
     when params[:word]
       Post.search_for(params[:word]).get_active_posts
     else
-      #投稿テーブルとユーザーテーブルを結合して、会員ステータスが有効のな投稿だけを表示
+      #get_active_posts => 退会していないユーザーの投稿を表示する
       @posts = Post.get_active_posts
     end
     @posts = @posts.page(params[:page]).per(12)

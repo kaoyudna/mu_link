@@ -217,52 +217,9 @@ body {
   border-bottom: none;
 }
 
-#users_tab-menu li form{
-  color: #fff;
-  text-decoration: none;
-  display: block;
-  padding: 14pt;
-  text-align: center;
-  background: #343a40;
-  border: 1px solid #000;
-  border-bottom: none;
-}
-
-
-@media screen and  (max-width: 1024px) {
-  #users_tab-menu li form {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 19px 0 18px 0;;
-    text-align: center;
-    background: #343a40;
-    border: 1px solid #000;
-    border-bottom: none;
-  }
-}
-
-@media screen and  (max-width: 425px) {
-  #users_tab-menu li form {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 5pt;
-    text-align: center;
-    background: #343a40;
-    border: 1px solid #000;
-    border-bottom: none;
-  }
-}
-
 #users_tab-menu .active {
   background: #fff;
   color: #000;
-}
-
-#users_tab-contents {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 #users_tab-contents .tab {
@@ -271,11 +228,6 @@ body {
   background: #fff;
   border: 1px solid #000;
   border-top: none;
-}
-
-#users_tab-contents p {
-  color: #000;
-  line-height: 2.5;
 }
 
 
