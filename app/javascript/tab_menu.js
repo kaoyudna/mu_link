@@ -10,17 +10,7 @@ $(document).on('turbolinks:load', function () {
     $(this).addClass("active");
   });
 
-  $('#users_tab-menu form').on('submit', function(event) {
-    $("#users_tab-menu .active").removeClass("active");
-    $(this).addClass("active");
-  });
-
   $('#groups_tab-menu a').on('click', function(event) {
-    $("#groups_tab-menu .active").removeClass("active");
-    $(this).addClass("active");
-  });
-
-  $('#groups_tab-menu form').on('submit', function(event) {
     $("#groups_tab-menu .active").removeClass("active");
     $(this).addClass("active");
   });
