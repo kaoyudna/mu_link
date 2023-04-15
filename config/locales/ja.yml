@@ -17,6 +17,9 @@ ja:
         name: ジャンル名
       inappropriate_comment:
         comment: ワード
+      report:
+        reason: 通報理由
+        url: URL
     models:
       post: 投稿
       group: グループ
@@ -24,6 +27,7 @@ ja:
       post_comment: コメント
       genre: ジャンル
       inappropriate_comment: 不適切なワード
+      report: 通報内容
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
