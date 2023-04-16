@@ -167,7 +167,7 @@ body {
 
 #tab-menu li {
   list-style-type: none;
-  width: 20%;
+  width: 25%;
 }
 
 #tab-menu li a {
@@ -181,52 +181,9 @@ body {
   border-bottom: none;
 }
 
-#tab-menu li form{
-  color: #fff;
-  text-decoration: none;
-  display: block;
-  padding: 14pt;
-  text-align: center;
-  background: #343a40;
-  border: 1px solid #000;
-  border-bottom: none;
-}
-
-
-@media screen and  (max-width: 1024px) {
-  #tab-menu li form {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 19px 0 18px 0;;
-    text-align: center;
-    background: #343a40;
-    border: 1px solid #000;
-    border-bottom: none;
-  }
-}
-
-@media screen and  (max-width: 425px) {
-  #tab-menu li form {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 5pt;
-    text-align: center;
-    background: #343a40;
-    border: 1px solid #000;
-    border-bottom: none;
-  }
-}
-
 #tab-menu .active {
   background: #fff;
   color: #000;
-}
-
-#tab-contents {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 #tab-contents .tab {
@@ -235,11 +192,6 @@ body {
   background: #fff;
   border: 1px solid #000;
   border-top: none;
-}
-
-#tab-contents p {
-  color: #000;
-  line-height: 2.5;
 }
 
 
@@ -265,52 +217,9 @@ body {
   border-bottom: none;
 }
 
-#users_tab-menu li form{
-  color: #fff;
-  text-decoration: none;
-  display: block;
-  padding: 14pt;
-  text-align: center;
-  background: #343a40;
-  border: 1px solid #000;
-  border-bottom: none;
-}
-
-
-@media screen and  (max-width: 1024px) {
-  #users_tab-menu li form {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 19px 0 18px 0;;
-    text-align: center;
-    background: #343a40;
-    border: 1px solid #000;
-    border-bottom: none;
-  }
-}
-
-@media screen and  (max-width: 425px) {
-  #users_tab-menu li form {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 5pt;
-    text-align: center;
-    background: #343a40;
-    border: 1px solid #000;
-    border-bottom: none;
-  }
-}
-
 #users_tab-menu .active {
   background: #fff;
   color: #000;
-}
-
-#users_tab-contents {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 #users_tab-contents .tab {
@@ -319,11 +228,6 @@ body {
   background: #fff;
   border: 1px solid #000;
   border-top: none;
-}
-
-#users_tab-contents p {
-  color: #000;
-  line-height: 2.5;
 }
 
 
@@ -349,52 +253,9 @@ body {
   border-bottom: none;
 }
 
-#groups_tab-menu li form{
-  color: #fff;
-  text-decoration: none;
-  display: block;
-  padding: 14pt;
-  text-align: center;
-  background: #343a40;
-  border: 1px solid #000;
-  border-bottom: none;
-}
-
-
-@media screen and  (max-width: 1024px) {
-  #groups_tab-menu li form {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 19px 0 18px 0;;
-    text-align: center;
-    background: #343a40;
-    border: 1px solid #000;
-    border-bottom: none;
-  }
-}
-
-@media screen and  (max-width: 425px) {
-  #groups_tab-menu li form {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 18px 0 19px 0;
-    text-align: center;
-    background: #343a40;
-    border: 1px solid #000;
-    border-bottom: none;
-  }
-}
-
 #groups_tab-menu .active {
   background: #fff;
   color: #000;
-}
-
-#groups_tab-contents {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 #groups_tab-contents .tab {
@@ -405,13 +266,8 @@ body {
   border-top: none;
 }
 
-#groups_tab-contents p {
-  color: #000;
-  line-height: 2.5;
-}
 
-
-
+// 投稿一覧の詳細表示
 .information {
   position: absolute;
   bottom: 10px;
@@ -446,11 +302,13 @@ body {
   height: 200px;
 }
 
+// タグのCSS
 .btn-tag {
   padding: 0;
   font-size: 11px;
 }
 
+// ヘッダー部のリンク用
 .head a:hover {
     text-decoration: none;
 }
@@ -475,9 +333,7 @@ body {
   text-decoration: none !important;
 }
 
-
-
-
+// アーティスト一覧画面の見出し装飾
 .glitch{
   color: #000000;
   font-size: 50px;

@@ -21,9 +21,9 @@ class Public::GroupsController < ApplicationController
   def index
     @genres = Genre.all
     @groups = case
-    when params[:genre_id]
-      genre = Genre.find(params[:genre_id])
-      genre.groups
+    when params[:genre_ids]
+      genre_ids = params[:genre_ids].reject(&:blank?)
+      Kaminari.paginate_array(genre_ids.map { |id| Genre.find(id).groups }.flatten.uniq(&:id))
     when params[:user_id]
       user = User.find(params[:user_id])
       user.groups

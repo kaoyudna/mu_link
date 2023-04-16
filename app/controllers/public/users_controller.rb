@@ -8,11 +8,11 @@ class Public::UsersController < ApplicationController
   def index
     @genres = Genre.all
     @users = case
-    when params[:genre_id]
-      genre = Genre.find(params[:genre_id])
-      genre.users
+    when params[:genre_ids]
+      genre_ids = params[:genre_ids].reject(&:blank?)
+      Kaminari.paginate_array(genre_ids.map { |id| Genre.find(id).users.where.not(id: current_user.id) }.flatten.uniq(&:id))
     when params[:word]
-      User.search_for(params[:word])
+      User.search_for(params[:word]).where.not(id: current_user.id)
     when params[:recommendation_id]
       user = User.find(params[:recommendation_id])
       User.joins(:artist_favorites)
@@ -28,7 +28,7 @@ class Public::UsersController < ApplicationController
     else
       User.where(is_deleted: false).where.not(id: current_user.id).page(params[:page]).per(12)
     end
-    @users = @users.page(params[:page]).where.not(id: current_user.id).per(12)
+    @users = @users.page(params[:page]).per(12)
   end
 
   def show
