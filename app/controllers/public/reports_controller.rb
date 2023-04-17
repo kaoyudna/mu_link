@@ -8,6 +8,8 @@ class Public::ReportsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @report = Report.new(report_params)
+    # reporter = 報告したユーザー
+    # reported = 報告されたユーザー
     @report.reporter_id = current_user.id
     @report.reported_id = @user.id
     if @report.save
@@ -16,6 +18,7 @@ class Public::ReportsController < ApplicationController
       render "new"
     end
   end
+  
   
   private
   

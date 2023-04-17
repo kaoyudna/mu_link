@@ -7,6 +7,7 @@ class Admin::InappropriateCommentsController < ApplicationController
       redirect_to request.referer, notice: '不適切なワードを追加しました'
     else
       @inappropriate_comments = InappropriateComment.all
+      # sort_by_deleted = 未削除のコメントを上の行に配置するメソッド
       @post_comments = PostComment.sort_by_deleted.page(params[:page]).per(20)
       render 'admin/post_comments/index'
     end
@@ -17,6 +18,7 @@ class Admin::InappropriateCommentsController < ApplicationController
     inappropriate_comment.destroy
     redirect_to request.referer, notice: '不適切なワードを削除しました'
   end
+
 
   private
 

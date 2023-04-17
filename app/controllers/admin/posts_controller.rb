@@ -4,11 +4,13 @@ class Admin::PostsController < ApplicationController
   def index
     @posts = case
     when params[:user_id]
-      Post.where(user_id: params[:user_id]).order(created_at: :desc)
+      # 受け取ったユーザーIDの投稿を取得
+      Post.where(user_id: params[:user_id])
     when params[:word]
+      # 入力された文字に部分一致する投稿を取得
       Post.search_for(params[:word])
     else
-      Post.all.order(created_at: :desc)
+      Post.all
     end
     @posts = @posts.page(params[:page]).per(20)
   end

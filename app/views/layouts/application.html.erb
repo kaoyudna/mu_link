@@ -11,6 +11,7 @@
   </head>
 
   <body class="d-flex flex-column min-vh-100">
+
     <header class="sticky-top alegreya">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 pt-0 pb-0">
         <div class="col-2 p-0 text-center d-flex">
@@ -53,11 +54,11 @@
       </nav>
     </header>
 
-
     <main class="mb-3">
       <%= render 'shared/flash_message' %>
       <%= yield %>
     </main>
+
     <footer class="footer py-3 bg-dark mt-auto" style="height: 100px;">
       <div class="container h-100 align-middle">
         <div class="text-center">
@@ -72,5 +73,6 @@
         </div>
       </div>
     </footer>
+
   </body>
 </html>
