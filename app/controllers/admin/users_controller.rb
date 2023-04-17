@@ -4,9 +4,10 @@ class Admin::UsersController < ApplicationController
   def index
     @users = case
     when params[:word]
+      # 入力された文字に部分一致するユーザーを取得
       User.search_for(params[:word])
     else
-      User.all.order(is_deleted: :asc).order(created_at: :desc)
+      User.all
     end
     @users = Kaminari.paginate_array(@users).page(params[:page]).per(20)
   end

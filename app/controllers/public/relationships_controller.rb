@@ -1,8 +1,10 @@
 class Public::RelationshipsController < ApplicationController
+  before_action :authenticate_user!
 
   def create
     @user = User.find(params[:user_id])
     current_user.follow(@user.id)
+    # フォロー通知を作成し、フォローされたユーザーへ
     @user.create_notification_follow!(current_user)
   end
 

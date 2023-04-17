@@ -11,6 +11,7 @@ class Public::SessionsController < Devise::SessionsController
     user_path(resource)
   end
 
+
   protected
 
   def reject_user

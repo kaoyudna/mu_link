@@ -1,17 +1,31 @@
 <div class="container">
   <div class="row">
+    <div class="col-lg-11 mx-auto">
+      <div class="card mx-auto text-center mb-3">
+        <div class="card-header pt-0 pb-0 bg-dark text-light">
+          ジャンル検索
+        </div>
+        <div class="card-body">
+          <%= form_with url: posts_path, method: :get, local: true do |f| %>
+          <div class="d-flex flex-row flex-wrap">
+            <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name do |b| %>
+              <div class="mx-1 font-weight-bold">
+                <%= b.check_box %>
+                <%= b.label %>
+              </div>
+            <% end %>
+          </div>
+            <%= f.submit "Search", class: "btn btn-success pt-0 pb-0"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
     <div class="col-lg-12 wrap">
       <ul id="tab-menu">
         <li><%= link_to "All", posts_path, remote: true, class: "active" %></li>
         <li><%= link_to "Yours", posts_path(user_id: current_user.id), remote: true, class: "" %></li>
         <li><%= link_to "Follow", posts_path(followings_id: current_user.id), remote: true, class: "" %></li>
         <li><%= link_to "Like", posts_path(liked_post_id: current_user.id), remote: true, class: "" %></li>
-        <li>
-          <%= form_tag(posts_path, method: :get, remote: true, id: "genre-form",class: "d-flex justify-content-center align-items-center") do %>
-            <%= select_tag(:genre_id, options_from_collection_for_select(@genres, :id, :name, selected: params[:genre_id]), include_blank: false) %>
-            <%= submit_tag("Filter", class: "btn btn-outline-info p-0")%>
-          <% end %>
-        </li>
       </ul>
       <div id="tab-contents">
         <div id="post_index" class="tab d-flex flex-wrap">

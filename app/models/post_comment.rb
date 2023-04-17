@@ -2,6 +2,7 @@ class PostComment < ApplicationRecord
 
   belongs_to :user
   belongs_to :post
+  
   has_many :notifications, dependent: :destroy
 
   validates :comment, presence: true, length: {maximum: 20}
@@ -20,7 +21,7 @@ class PostComment < ApplicationRecord
     post_comments = []
     #不適切なコメントを配列から取り出す
     InappropriateComment.pluck(:comment).each do |comment|
-      #結果を@配列へ追加していく
+      #結果を配列へ追加していく
       post_comments.concat(where('comment LIKE ?', "%#{comment}%").order(created_at: :desc))
     end
     #上記の処理が完了した後に変数内の重複したidを除外

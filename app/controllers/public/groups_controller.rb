@@ -8,6 +8,7 @@ class Public::GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     @group.owner_id = current_user.id
+    # 空の要素を除外し複数、または単数のgenre_idを受け取る
     @genre_ids = params[:group][:genre_ids].reject(&:blank?).map(&:to_i)
     if @group.save
       @group.users << current_user
@@ -21,16 +22,17 @@ class Public::GroupsController < ApplicationController
   def index
     @genres = Genre.all
     @groups = case
-    when params[:genre_id]
-      genre = Genre.find(params[:genre_id])
-      genre.groups
+    when params[:genre_ids]
+      genre_ids = params[:genre_ids].reject(&:blank?)
+      # 受け取ったgenre_idsを順次配列から取り出し、genreに紐づくグループを取得(重複を禁止)
+      Kaminari.paginate_array(genre_ids.map { |id| Genre.find(id).groups }.flatten.uniq(&:id))
     when params[:user_id]
       user = User.find(params[:user_id])
       user.groups
     when params[:word]
       Group.search_for(params[:word])
     else
-      Group.all.order(created_at: :desc)
+      Group.all
     end
     @groups = @groups.page(params[:page]).per(10)
   end
@@ -74,9 +76,11 @@ class Public::GroupsController < ApplicationController
     redirect_to groups_path, notice: 'グループを退会しました'
   end
 
+
   private
 
   def group_params
     params.require(:group).permit(:name,:introduction,:owner_id,:group_image)
   end
+
 end
