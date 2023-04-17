@@ -2,6 +2,7 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit, :update]
 
+  # Spotify Web API へアクセス
   require 'rspotify'
   RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
 
@@ -10,21 +11,13 @@ class Public::UsersController < ApplicationController
     @users = case
     when params[:genre_ids]
       genre_ids = params[:genre_ids].reject(&:blank?)
+      # 受け取ったgenre_idsを順次配列から取り出し、genreに紐づくユーザーを取得(重複とログインしているユーザーの表示を禁止)
       Kaminari.paginate_array(genre_ids.map { |id| Genre.find(id).users.where.not(id: current_user.id) }.flatten.uniq(&:id))
     when params[:word]
       User.search_for(params[:word]).where.not(id: current_user.id)
-    when params[:recommendation_id]
-      user = User.find(params[:recommendation_id])
-      User.joins(:artist_favorites)
-            # 退会していないユーザーを取得
-             .where(users: { is_deleted: false })
-            # 同じアーティストにいいねをしているユーザーを取得
-             .where(artist_favorites: { artist_id: user.artist_favorites.pluck(:artist_id) })
-            # ログインしているユーザーを除外
-             .where.not(id: user.id)
-            # 重複を禁止
-             .distinct
-             .order(created_at: :desc)
+    when params[:user_id]
+      # @users = 同じアーティストをフォローしているユーザー一覧
+      @users = User.similar_users(params[:user_id])
     else
       User.where(is_deleted: false).where.not(id: current_user.id).page(params[:page]).per(12)
     end
@@ -33,13 +26,15 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    # ユーザーが退会していない場合
     if @user.is_deleted == false
+      #@notifications = 受け取った通知一覧
       @notifications = current_user.passive_notifications.page(params[:page]).per(20)
-      @posts = @user.posts.all.order(created_at: :desc).page(params[:page]).per(12)
+      @posts = @user.posts.all.page(params[:page]).per(12)
       if @user.artist_favorites.count > 0
-      #ユーザーがいいねしているアーティストのspotify_idを取得
+        # ユーザーがいいねしているアーティストのspotify_idを取得
         artists_id = ArtistFavorite.where(user_id: @user.id).pluck(:artist_id)
-      #spotify_idからアーティスト情報を取得
+        # spotify_idからアーティスト情報を取得
         @artists = RSpotify::Artist.find(artists_id)
       end
       if @user.music_favorites.count > 0
@@ -79,4 +74,5 @@ class Public::UsersController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
+  
 end

@@ -1,19 +1,19 @@
-  <div class="border-bottom border-info mb-3" style: "position: relative">
-    <%= link_to artist_path(artist.id), class: 'd-flex flex-column align-items-center text-dark' do %>
-      <% if artist.images.any? %>
-        <% image = artist.images[1] %>
-        <%= image_tag(image["url"], size: '200x200', class: 'rounded-circle shadow')%>
-      <% else %>
-        <%= image_tag("default.jpg", size: '200x200', class: 'rounded-circle shadow') %>
-      <% end %>
+<div class="border-bottom border-info mb-3" style: "position: relative">
+  <%= link_to artist_path(artist.id), class: 'd-flex flex-column align-items-center text-dark' do %>
+    <% if artist.images.any? %>
+      <% image = artist.images[1] %>
+      <%= image_tag(image["url"], size: '200x200', class: 'rounded-circle shadow')%>
+    <% else %>
+      <%= image_tag("default.jpg", size: '200x200', class: 'rounded-circle shadow') %>
     <% end %>
-      <div style="position: absolute; left: 213px; top: 180px;" id="artist_favorite_<%= artist.id %>">
-        <%= render 'public/artist_favorites/artist_favorite_btn', artist: artist %>
-      </div>
-    <div class="d-flex mt-2">
-      <h4 class="font-weight-bold mx-auto text-break text-nowrap"><%= link_to artist.name.truncate(20), artist_path(artist.id), class: "text-dark" %></h4>
+  <% end %>
+    <div style="position: absolute; left: 213px; top: 180px;" id="artist_favorite_<%= artist.id %>">
+      <%= render 'public/artist_favorites/artist_favorite_btn', artist: artist %>
     </div>
+  <div class="d-flex mt-2">
+    <h4 class="font-weight-bold mx-auto text-break text-nowrap"><%= link_to artist.name.truncate(20), artist_path(artist.id), class: "text-dark" %></h4>
   </div>
-  <div class="overflow-auto mt-2 mb-3", style="height: 300px;">
-    <%= render 'public/users/favorite_musics', musics: artist.top_tracks(:JP)%>
-  </div>
+</div>
+<div class="overflow-auto mt-2 mb-3", style="height: 300px;">
+  <%= render 'public/users/favorite_musics', musics: artist.top_tracks(:JP)%>
+</div>

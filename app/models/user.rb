@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   default_scope -> {order(created_at: :desc)}
+  
   has_many :relationships, class_name: 'Relationship', foreign_key: "follower_id", dependent: :destroy
   has_many :followings, through: :relationships, source: :followed
   has_many :reverce_of_relationships, class_name: 'Relationship', foreign_key: "followed_id", dependent: :destroy
@@ -33,9 +34,8 @@ class User < ApplicationRecord
   has_one_attached :background_image
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
+  # 改行のコードを除く紹介文の文字数制限
   validate :introduction_length
-  validate :image_profile_content_type, if: :was_profile_attached?
-  validate :image_background_content_type, if: :was_background_attached?
 
   def introduction_length
     #改行の文字列を除いた文字数を変数に代入(本文が入力されていなければ0が代入される)
@@ -43,29 +43,12 @@ class User < ApplicationRecord
     errors.add(:introduction, "は20文字以内で入力してください") if text_length > 30
   end
 
-  def image_profile_content_type
-    extension = ['image/png', 'image/jpg', 'image/jpeg']
-    errors.add(:profile_image, 'の拡張子が対応していません') unless profile_image.content_type.in?(extension)
-  end
-
-  def image_background_content_type
-    extension = ['image/png', 'image/jpg', 'image/jpeg']
-    errors.add(:background_image, 'の拡張子が対応していません') unless background_image.content_type.in?(extension)
-  end
-
-  def was_profile_attached?
-    self.profile_image.attached?
-  end
-
-  def was_background_attached?
-    self.background_image.attached?
-  end
-
   def active_for_authentication?
     super && (is_deleted == false)
   end
 
   def self.guest
+    # ゲストログイン用の記述
     find_or_create_by!(name: 'guestuser' ,email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "guestuser"
@@ -73,6 +56,7 @@ class User < ApplicationRecord
   end
 
   def get_profile_image(width,height)
+    # profile_imageが存在しない場合'default.jpg'を保存
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/default.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'default.jpg', content_type: 'image/jpeg')
@@ -81,6 +65,7 @@ class User < ApplicationRecord
   end
 
   def get_background_image_url()
+    # background_imageが存在しない場合'background_default.jpg'を保存
     unless background_image.attached?
       file_path = Rails.root.join('app/assets/images/background_default.jpg')
       background_image.attach(io: File.open(file_path), filename: 'background_default.jpg', content_type: 'image/jpeg')
@@ -128,6 +113,7 @@ class User < ApplicationRecord
   end
 
   def create_notification_follow!(current_user)
+    # すでにフォロー通知が存在しているかを確認
     temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ?",current_user.id, id ,'follow'])
     if temp.blank?
       notification = current_user.active_notifications.new(
@@ -135,6 +121,21 @@ class User < ApplicationRecord
         action: 'follow'
         )
         notification.save if notification.valid?
+    end
+  end
+  
+  # おすすめのユーザーを表示するメソッド
+  def similar_users
+    if user_id.present?
+      user = find(user_id)
+      joins(:artist_favorites)
+        .where(users: { is_deleted: false })
+        .where(artist_favorites: { artist_id: user.artist_favorites.pluck(:artist_id) })
+        .where.not(id: user.id)
+        .distinct
+        .order(created_at: :desc)
+    else
+      where(is_deleted: false).order(created_at: :desc)
     end
   end
 

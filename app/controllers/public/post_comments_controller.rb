@@ -7,6 +7,7 @@ class Public::PostCommentsController < ApplicationController
     @comment.post_id = @post.id
     @comments = @post.post_comments
     if @comment.save
+      # コメント通知を作成し、投稿者へ送信
       @post.create_notification_comment!(current_user, @comment.id, @post.user_id)
     else
       render 'error'
@@ -20,9 +21,11 @@ class Public::PostCommentsController < ApplicationController
     @comments = @post.post_comments
   end
 
+
   private
 
   def post_comment_params
     params.require(:post_comment).permit(:comment)
   end
+
 end

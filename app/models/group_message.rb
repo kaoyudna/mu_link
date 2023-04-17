@@ -2,6 +2,7 @@ class GroupMessage < ApplicationRecord
 
   belongs_to :user
   belongs_to :group
+  
   has_many :notifications, dependent: :destroy
 
   validates :message, presence: true, length: {maximum: 30 }
@@ -15,6 +16,7 @@ class GroupMessage < ApplicationRecord
   end
 
   def save_notification_group_chat!(current_user, group_id, visited_id)
+    # 自分からの通知を作成
     notification = current_user.active_notifications.new(
       group_message_id: id,
       group_id: group_id,
