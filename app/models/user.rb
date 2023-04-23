@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   default_scope -> {order(created_at: :desc)}
-  
+
   has_many :relationships, class_name: 'Relationship', foreign_key: "follower_id", dependent: :destroy
   has_many :followings, through: :relationships, source: :followed
   has_many :reverce_of_relationships, class_name: 'Relationship', foreign_key: "followed_id", dependent: :destroy
@@ -123,20 +123,16 @@ class User < ApplicationRecord
         notification.save if notification.valid?
     end
   end
-  
+
   # おすすめのユーザーを表示するメソッド
-  def similar_users
-    if user_id.present?
-      user = find(user_id)
-      joins(:artist_favorites)
-        .where(users: { is_deleted: false })
-        .where(artist_favorites: { artist_id: user.artist_favorites.pluck(:artist_id) })
-        .where.not(id: user.id)
-        .distinct
-        .order(created_at: :desc)
-    else
-      where(is_deleted: false).order(created_at: :desc)
-    end
+  def self.similar_users(user_id)
+    user = find(user_id)
+    joins(:artist_favorites)
+      .where(users: { is_deleted: false })
+      .where(artist_favorites: { artist_id: user.artist_favorites.pluck(:artist_id) })
+      .where.not(id: user.id)
+      .distinct
+      .order(created_at: :desc)
   end
 
 end
