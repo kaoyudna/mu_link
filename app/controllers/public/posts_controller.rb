@@ -11,12 +11,8 @@ class Public::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    # 空の要素を除外し複数、または単数のgenre_idを受け取る
-    @genre_ids = params[:post][:genre_ids].reject(&:blank?).map(&:to_i)
-    @post.user_id = current_user.id
+    @post = current_user.posts.new(post_params)
     if @post.save
-      @post.save_genre(@genre_ids)
       redirect_to posts_path, notice: "投稿に成功しました"
     else
       render 'new'
@@ -70,9 +66,7 @@ class Public::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    @genre_ids = params[:post][:genre_ids].reject(&:blank?).map(&:to_i)
     if @post.update(post_params)
-      @post.save_genre(@genre_ids)
       redirect_to @post
     else
       render 'edit'
@@ -89,7 +83,7 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title,:body,:post_image)
+    params.require(:post).permit(:title,:body,:post_image,genre_ids:[])
   end
 
   def ensure_correct_user

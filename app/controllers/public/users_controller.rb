@@ -52,9 +52,7 @@ class Public::UsersController < ApplicationController
 
   def update
   @user = User.find(params[:id])
-  @genre_ids = params[:user][:genre_ids].reject(&:blank?).map(&:to_i)
     if @user.update(user_params)
-      @user.save_genres(@genre_ids)
       redirect_to user_path(@user), notice: "プロフィールを編集しました"
     else
       render "edit"
@@ -65,7 +63,7 @@ class Public::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name,:introduction,:profile_image, :background_image)
+    params.require(:user).permit(:name,:introduction,:profile_image, :background_image, genre_ids:[])
   end
 
   def ensure_correct_user
@@ -74,5 +72,5 @@ class Public::UsersController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
-  
+
 end
