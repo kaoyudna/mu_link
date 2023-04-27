@@ -3,7 +3,7 @@
   <% if current_page?(root_path) || current_page?(posts_path) || current_page?(user_path) %>
     <div class="col-lg-4 p-0 card_zoom_wrap">
   <% else %>
-    <div class="col-lg-8 p-0 mx-auto">
+    <div class="col-lg-6 p-0 mx-auto">
   <% end %>
       <div class="card m-3">
         <%= image_tag post.get_post_image(300,300), class: "card-img" %>
