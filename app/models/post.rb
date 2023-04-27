@@ -1,15 +1,15 @@
 class Post < ApplicationRecord
 
   default_scope -> {order(created_at: :desc)}
-  
+
   belongs_to :user
-  
+
   has_many :post_genres, dependent: :destroy
   has_many :genres, through: :post_genres
-  
+
   has_many :post_favorites, dependent: :destroy
   has_many :favorite_users, through: :post_favorites, source: :user
-  
+
   has_many :post_comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
@@ -40,14 +40,6 @@ class Post < ApplicationRecord
   def self.get_active_posts
     # ユーザーステータスが有効の投稿のみ表示
     self.joins(:user).where(users: { is_deleted: false })
-  end
-
-  def save_genre(genre_ids)
-    # 重複を防ぐために保有しているジャンルを全て削除する
-    self.post_genres.destroy_all
-    genre_ids.each do |genre_id|
-      self.post_genres.create(genre_id: genre_id)
-    end
   end
 
   def favorited_post_by?(user)

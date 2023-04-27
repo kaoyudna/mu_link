@@ -10,7 +10,7 @@
     </div>
     <div class="ml-auto text-right">
       <small class="text-muted">
-        <%= link_to "Delete", post_post_comment_path(@post,comment), method: :delete, remote: true, class: "btn btn-outline-danger p-0" %>
+        <%= link_to "Delete", post_post_comment_path(@post,comment), method: :delete, remote: true, data: {confirm: 'コメントを削除しますか？'}, class: "btn btn-outline-danger p-0" %>
         <%= comment.created_at.to_s(:datetime_jp) %>
       </small>
     </div>

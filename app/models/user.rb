@@ -93,21 +93,6 @@ class User < ApplicationRecord
     music_favorites.where(music_id: music.id).exists?
   end
 
-  def save_genres(genre_ids)
-    if genre_ids.present?
-      #重複を防ぐために前回のジャンルを削除
-      self.user_genres.destroy_all
-      #受け取ったジャンルidを配列から取り出す
-      genre_ids.each do |genre_id|
-        # ユーザージャンルテーブルに受け取った値を保存していく
-        self.user_genres.create(genre_id: genre_id)
-      end
-    else
-      #値が空の場合はジャンルを削除
-      self.user_genres.destroy_all
-    end
-  end
-
   def self.search_for(word)
     User.where('name LIKE?',"%#{word}%").order(created_at: :desc)
   end

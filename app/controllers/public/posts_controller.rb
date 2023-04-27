@@ -1,5 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!
+  before_action :ensure_correct_user, only: [:edit, :update]
 
   # Spotify Web API へアクセス
   require 'rspotify'
@@ -10,12 +11,8 @@ class Public::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    # 空の要素を除外し複数、または単数のgenre_idを受け取る
-    @genre_ids = params[:post][:genre_ids].reject(&:blank?).map(&:to_i)
-    @post.user_id = current_user.id
+    @post = current_user.posts.new(post_params)
     if @post.save
-      @post.save_genre(@genre_ids)
       redirect_to posts_path, notice: "投稿に成功しました"
     else
       render 'new'
@@ -63,16 +60,38 @@ class Public::PostsController < ApplicationController
     end
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to @post
+    else
+      render 'edit'
+    end
+  end
+
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_to request.referer, notice: '投稿を削除しました'
+    redirect_to posts_path, notice: '投稿を削除しました'
   end
 
 
   private
 
   def post_params
-    params.require(:post).permit(:title,:body,:post_image)
+    params.require(:post).permit(:title,:body,:post_image,genre_ids:[])
   end
+
+  def ensure_correct_user
+    post = Post.find(params[:id])
+    user = post.user
+    unless user == current_user
+      redirect_to posts_path, alert: "他のユーザーの投稿は編集できません"
+    end
+  end
+
 end

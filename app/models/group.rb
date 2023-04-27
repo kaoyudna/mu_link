@@ -26,7 +26,7 @@ class Group < ApplicationRecord
     text_length = introduction&.count("^\r\n") || 0
     errors.add(:introduction, "は30文字以内で入力してください") if text_length > 30
   end
-  
+
   def get_group_image(width,height)
     # group_imageが存在しない場合'default.jpg'を保存
     unless group_image.attached?
@@ -34,14 +34,6 @@ class Group < ApplicationRecord
       group_image.attach(io: File.open(file_path), filename: 'default.jpg', content_type: 'image/jpeg')
     end
     group_image.variant(resize_to_fill:[width,height])
-  end
-
-  def save_genres(genre_ids)
-    #重複を防ぐために現在の保有しているジャンルを削除する
-    self.group_genres.destroy_all
-    genre_ids.each do |genre_id|
-      self.group_genres.create(genre_id: genre_id)
-    end
   end
 
   def user_join?(user)

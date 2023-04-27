@@ -1,5 +1,6 @@
 class Public::GroupsController < ApplicationController
   before_action :authenticate_user!
+  before_action :ensure_correct_user, only:[:edit, :update]
 
   def new
     @group = Group.new
@@ -9,10 +10,8 @@ class Public::GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.owner_id = current_user.id
     # 空の要素を除外し複数、または単数のgenre_idを受け取る
-    @genre_ids = params[:group][:genre_ids].reject(&:blank?).map(&:to_i)
     if @group.save
       @group.users << current_user
-      @group.save_genres(@genre_ids)
       redirect_to group_path(@group), notice: "グループを作成しました"
     else
       render 'new'
@@ -49,9 +48,7 @@ class Public::GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
-    @genre_ids = params[:group][:genre_ids].reject(&:blank?).map(&:to_i)
     if @group.update(group_params)
-      @group.save_genres(@genre_ids)
       redirect_to group_path(@group), notice: "グループ情報を変更しました"
     else
       render 'edit'
@@ -80,7 +77,14 @@ class Public::GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:name,:introduction,:owner_id,:group_image)
+    params.require(:group).permit(:name,:introduction,:owner_id,:group_image,genre_ids:[])
+  end
+
+  def ensure_correct_user
+    group = Group.find(params[:id])
+    unless group.owner_id == current_user.id
+      redirect_to groups_path, alert: 'グループの編集はオーナユーザーのみ可能です'
+    end
   end
 
 end

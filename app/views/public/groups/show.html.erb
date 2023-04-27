@@ -1,11 +1,11 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-4 text-center mb-3">
+    <div class="col-sm-3 text-center mb-3">
       <%= render 'group_detail', group: @group %>
     </div>
-    <div class="col-sm-5 mb-3">
+    <div class="col-sm-6 mb-3">
       <h3 class="font-weight-bold d-flex justify-content-center align-items-middle text-center">Group Users Posts</h3>
-      <div class="col-sm-12 overflow-auto border-top pb-3" style="height: 550px;">
+      <div class="col-sm-12 overflow-auto border-top pb-3 d-flex flex-wrap" style="height: 550px;">
         <%= render 'public/posts/index', posts: @posts %>
       </div>
     </div>
