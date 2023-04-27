@@ -35,9 +35,6 @@
               None
             <% end %>
           </small><br>
-          <% if post.user == current_user %>
-            <%= link_to "Delete", post_path(post), method: :delete, data: { confirm: "投稿を削除しますか？" }, class: "btn btn-danger pt-0 pb-0 pr-1 pl-1" %>
-          <% end %>
         </div>
       </div>
       </div>

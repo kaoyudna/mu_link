@@ -44,6 +44,12 @@
             </small>
             <small class="text-muted" id="liked_count_<%= @post.id %>" class="mb-0"><%= render 'public/posts/liked_post_count', post: @post %></small>
             <small class="text-muted"><%= @post.created_at.to_s(:datetime_jp) %></small>
+            <div>
+            <% if @post.user == current_user %>
+              <%= link_to "Edit", edit_post_path(@post), class: "btn btn-success btn-sm pt-0 pb-0" %>
+              <%= link_to "Delete", @post, method: :delete, data: { confirm: "投稿を削除しますか？" }, class: "btn btn-danger btn-sm pt-0 pb-0" %>
+            <% end %>
+            </div>
           </div>
         </div>
       </div>
