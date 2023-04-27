@@ -1,5 +1,6 @@
 class Public::GroupsController < ApplicationController
   before_action :authenticate_user!
+  before_action :ensure_correct_user, only:[:edit, :update]
 
   def new
     @group = Group.new
@@ -81,6 +82,13 @@ class Public::GroupsController < ApplicationController
 
   def group_params
     params.require(:group).permit(:name,:introduction,:owner_id,:group_image)
+  end
+
+  def ensure_correct_user
+    group = Group.find(params[:id])
+    unless group.owner_id == current_user.id
+      redirect_to groups_path, alert: 'グループの編集はオーナユーザーのみ可能です'
+    end
   end
 
 end
