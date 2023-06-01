@@ -17,7 +17,7 @@ class Public::UsersController < ApplicationController
       User.search_for(params[:word]).where.not(id: current_user.id)
     when params[:user_id]
       # @users = 同じアーティストをフォローしているユーザー一覧
-      @users = User.similar_users(params[:user_id])
+      User.similar_users(params[:user_id])
     else
       User.where(is_deleted: false).where.not(id: current_user.id).page(params[:page]).per(12)
     end

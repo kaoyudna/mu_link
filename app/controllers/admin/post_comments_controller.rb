@@ -4,7 +4,7 @@ class Admin::PostCommentsController < ApplicationController
   def index
     @inappropriate_comments = InappropriateComment.all
     @inappropriate_comment = InappropriateComment.new
-    @post_comments = case params[:type]
+    @post_comments = case
     when params[:post_id]
       # 受け取った投稿IDに紐づくコメントを取得
       PostComment.where(post_id: params[:post_id])

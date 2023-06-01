@@ -19,6 +19,7 @@ import 'preview.js'
 import 'notifications.js'
 import 'search.js'
 
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()

@@ -36,7 +36,7 @@ class Public::PostsController < ApplicationController
       Post.search_for(params[:word]).get_active_posts
     else
       #get_active_posts => 退会していないユーザーの投稿を表示する
-      @posts = Post.get_active_posts
+      Post.get_active_posts
     end
     @posts = @posts.page(params[:page]).per(12)
   end
